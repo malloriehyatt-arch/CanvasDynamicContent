@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Prompt Engineering Techniques Lab</title>
+  <style>
+    :root {
+      --primary: #109dc0;
+      --primary-dark: #0b7e9a;
+      --accent: #f4fbfd;
+      --text: #1f2933;
+      --muted: #5b6870;
+      --border: #d9e4ea;
+      --card: #ffffff;
+      --success-bg: #eaf8ef;
+      --success-text: #17663a;
+      --error-bg: #fdeeee;
+      --error-text: #9f2d2d;
+      --shadow: 0 8px 24px rgba(16, 157, 192, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f7fbfd 0%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 48px;
+    }
+
+    .top-rule,
+    .bottom-rule {
+      height: 8px;
+      background: var(--primary);
+      border: none;
+      border-radius: 999px;
+      margin: 0 0 24px;
+    }
+
+    .bottom-rule {
+      margin: 28px 0 0;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .hero img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 10px;
+    }
+
+    .source-link {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 8px 0 10px;
+      font-size: 2.3rem;
+      line-height: 1.2;
+    }
+
+    .lead {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .section-title {
+      margin: 34px 0 14px;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      max-width: 780px;
+      margin: 0 auto 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .tech-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(16, 157, 192, 0.12);
+    }
+
+    .tech-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .chip {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: 1px solid #cbeaf2;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin: 0;
+    }
+
+    .hidden-panel {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .tech-card.open .hidden-panel {
+      display: block;
+    }
+
+    .tech-card button.toggle-btn {
+      margin-top: 12px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .activity-wrap {
+      margin-top: 16px;
+    }
+
+    .scenario-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fcfe 100%);
+    }
+
+    .scenario-tag {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .scenario-question {
+      font-size: 1.1rem;
+      margin: 0 0 16px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .answer-btn,
+    .action-btn,
+    .nav-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 0.98rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .answer-btn:hover,
+    .action-btn:hover,
+    .nav-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .answer-btn.correct {
+      background: var(--success-bg);
+      color: var(--success-text);
+      border-color: #8ed7a9;
+    }
+
+    .answer-btn.incorrect {
+      background: var(--error-bg);
+      color: var(--error-text);
+      border-color: #efb3b3;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .feedback.incorrect {
+      background: var(--error-bg);
+      color: var(--error-text);
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .scorebar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .score-pill {
+      background: var(--accent);
+      border: 1px solid #cbeaf2;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn,
+    .nav-btn {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .action-btn.primary,
+    .nav-btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .builder {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .prompt-display {
+      min-height: 180px;
+      background: #fcfeff;
+      border: 1px dashed #9fd5e3;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 1rem;
+    }
+
+    .token-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .token {
+      border: 1px solid #bfe3ee;
+      background: #f2fbfe;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 9px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.92rem;
+    }
+
+    .token.used {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .builder-feedback {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .builder-feedback.show {
+      display: block;
+    }
+
+    .builder-feedback.good {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .builder-feedback.bad {
+      background: var(--error-bg);
+      color: var(--error-text);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 860px) {
+      .builder {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <hr class="top-rule" />
+
+    <section class="hero">
+      <img src="https://pickenscountyga.instructure.com/courses/12484/files/669277/preview" alt="Computer science education illustration" />
+      <div>
+        <a class="source-link" href="https://commons.wikimedia.org/wiki/File:Computer_science_education.png" target="_blank" rel="noopener">Image Source</a>
+      </div>
+      <h1>🚀 AI Prompt Engineering Techniques Lab</h1>
+      <p class="lead">
+        Explore major prompt engineering techniques, compare when to use them, and test your understanding through interactive challenges.
+        This activity is designed to help learners move beyond definitions and apply each technique to real prompting situations.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Explore the Techniques</h2>
+      <p class="section-subtitle">
+        Click each card to reveal a quick explanation, when the technique helps most, and a sample use case.
+      </p>
+
+      <div class="grid">
+        <div class="card tech-card" data-card>
+          <div class="chip">Reasoning</div>
+          <h3>Chain-of-thought prompting</h3>
+          <p class="mini">Breaks a complex task into logical steps so the model reasons through the problem.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Step-by-step reasoning and problem solving.</p>
+            <p><strong>Example:</strong> “Explain how a bill becomes a law in clear sequential steps.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Reasoning Paths</div>
+          <h3>Tree-of-thought prompting</h3>
+          <p class="mini">Explores multiple possible next steps and develops more than one reasoning path.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Complex questions with multiple valid directions.</p>
+            <p><strong>Example:</strong> “Analyze climate change by exploring environmental, economic, and social effects.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Explanation Check</div>
+          <h3>Maieutic prompting</h3>
+          <p class="mini">Builds and checks explanation trees, then removes inconsistent lines of reasoning.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Complex commonsense reasoning that needs explanation consistency.</p>
+            <p><strong>Example:</strong> “Explain why the sky is blue, then break down each part of the explanation.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Depth</div>
+          <h3>Complexity-based prompting</h3>
+          <p class="mini">Compares multiple chains of thought and favors longer, more developed reasoning paths.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Difficult problems where deeper reasoning may improve answer quality.</p>
+            <p><strong>Example:</strong> Using several multi-step math rollouts, then selecting the strongest shared conclusion.</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Facts First</div>
+          <h3>Generated knowledge prompting</h3>
+          <p class="mini">Prompts the model to generate relevant facts before producing the final response.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Essays, explanations, or tasks that benefit from background knowledge.</p>
+            <p><strong>Example:</strong> “List key facts about deforestation, then write a paragraph explaining its effects.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Sequencing</div>
+          <h3>Least-to-most prompting</h3>
+          <p class="mini">Lists smaller subproblems first, then solves them in order from simple to complex.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Tasks where later steps depend on earlier ones.</p>
+            <p><strong>Example:</strong> “List the steps needed to solve 2x + 3 = 11, then solve each step in sequence.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Revision</div>
+          <h3>Self-refine prompting</h3>
+          <p class="mini">Generates a response, critiques it, and revises it to improve the result.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Writing improvement, revision cycles, and response polishing.</p>
+            <p><strong>Example:</strong> “Write a short essay, critique it for missing examples, and revise it.”</p>
+          </div>
+        </div>
+
+        <div class="card tech-card" data-card>
+          <div class="chip">Guidance</div>
+          <h3>Directional-stimulus prompting</h3>
+          <p class="mini">Uses cues or keywords to steer the model toward the desired kind of response.</p>
+          <button class="toggle-btn" type="button">Show More</button>
+          <div class="hidden-panel">
+            <p><strong>Best for:</strong> Guiding tone, vocabulary, imagery, or focus.</p>
+            <p><strong>Example:</strong> “Write a love poem that includes the words ‘heart,’ ‘passion,’ and ‘eternal.’”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="activity-wrap">
+      <h2 class="section-title">Interactive Challenge: Which Technique Fits Best?</h2>
+      <p class="section-subtitle">
+        Read each scenario and choose the prompt engineering technique that best matches the task.
+      </p>
+
+      <div class="card scenario-card">
+        <div class="scorebar">
+          <div class="score-pill">Score: <span id="score">0</span> / <span id="totalQuestions">0</span></div>
+          <div class="score-pill">Question <span id="questionNumber">1</span></div>
+          <div class="controls">
+            <button class="action-btn" id="restartQuiz" type="button">Restart Quiz</button>
+          </div>
+        </div>
+
+        <div class="scenario-tag">Scenario Challenge</div>
+        <p class="scenario-question" id="scenarioText"></p>
+        <div class="answers" id="answersContainer"></div>
+        <div class="feedback" id="feedbackBox"></div>
+        <div class="controls" style="margin-top:16px; justify-content:flex-end;">
+          <button class="nav-btn primary" id="nextQuestion" type="button" disabled>Next Question</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="activity-wrap">
+      <h2 class="section-title">Build-a-Prompt Mini Lab</h2>
+      <p class="section-subtitle">
+        Click the prompt pieces to build a stronger example of <strong>directional-stimulus prompting</strong>. Your goal is to include the task, the topic, and the guiding keywords.
+      </p>
+
+      <div class="card">
+        <div class="builder">
+          <div>
+            <h3>Your Prompt</h3>
+            <div class="prompt-display" id="promptDisplay">Click pieces from the bank to build your prompt.</div>
+            <div class="controls" style="margin-top: 14px;">
+              <button class="action-btn primary" id="checkPrompt" type="button">Check Prompt</button>
+              <button class="action-btn" id="clearPrompt" type="button">Clear</button>
+            </div>
+            <div class="builder-feedback" id="builderFeedback"></div>
+          </div>
+
+          <div>
+            <h3>Prompt Piece Bank</h3>
+            <div class="token-bank" id="tokenBank">
+              <button class="token" type="button" data-token="Write a poem">Write a poem</button>
+              <button class="token" type="button" data-token="about love">about love</button>
+              <button class="token" type="button" data-token="that includes the words">that includes the words</button>
+              <button class="token" type="button" data-token="heart">heart</button>
+              <button class="token" type="button" data-token="passion">passion</button>
+              <button class="token" type="button" data-token="eternal">eternal</button>
+              <button class="token" type="button" data-token="in a table">in a table</button>
+              <button class="token" type="button" data-token="for a 5th grade student">for a 5th grade student</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Adapted from information on AI prompt engineering techniques. Best used as a GitHub Pages activity or embedded external resource.
+    </p>
+
+    <hr class="bottom-rule" />
+  </div>
+
+  <script>
+    // Expand / collapse cards
+    document.querySelectorAll('[data-card]').forEach(function(card) {
+      var btn = card.querySelector('.toggle-btn');
+      btn.addEventListener('click', function() {
+        var isOpen = card.classList.toggle('open');
+        btn.textContent = isOpen ? 'Show Less' : 'Show More';
+      });
+    });
+
+    // Quiz data
+    var questions = [
+      {
+        prompt: 'You want AI to solve a complicated algebra problem by listing smaller steps first and then solving them in order.',
+        answers: ['Chain-of-thought prompting', 'Least-to-most prompting', 'Generated knowledge prompting', 'Directional-stimulus prompting'],
+        correct: 'Least-to-most prompting',
+        explanation: 'Least-to-most prompting is designed to break a problem into subproblems and solve them in sequence.'
+      },
+      {
+        prompt: 'You want the model to generate several possible reasoning paths before exploring each one further.',
+        answers: ['Tree-of-thought prompting', 'Self-refine prompting', 'Generated knowledge prompting', 'Complexity-based prompting'],
+        correct: 'Tree-of-thought prompting',
+        explanation: 'Tree-of-thought prompting explores multiple possible next steps and develops them like branches.'
+      },
+      {
+        prompt: 'You want the model to list useful facts about deforestation before writing an explanatory paragraph.',
+        answers: ['Generated knowledge prompting', 'Chain-of-thought prompting', 'Self-refine prompting', 'Maieutic prompting'],
+        correct: 'Generated knowledge prompting',
+        explanation: 'Generated knowledge prompting asks for relevant facts first, then uses those facts to improve the final response.'
+      },
+      {
+        prompt: 'You want the model to write a response, critique its own work, and revise the answer based on that critique.',
+        answers: ['Directional-stimulus prompting', 'Self-refine prompting', 'Complexity-based prompting', 'Least-to-most prompting'],
+        correct: 'Self-refine prompting',
+        explanation: 'Self-refine prompting explicitly includes drafting, critiquing, and revising.'
+      },
+      {
+        prompt: 'You want to guide the model toward a certain style or content by requiring specific words such as “heart,” “passion,” and “eternal.”',
+        answers: ['Directional-stimulus prompting', 'Generated knowledge prompting', 'Chain-of-thought prompting', 'Maieutic prompting'],
+        correct: 'Directional-stimulus prompting',
+        explanation: 'Directional-stimulus prompting uses cues or keywords to steer the response in a desired direction.'
+      },
+      {
+        prompt: 'You want the model to explain an answer and then break down parts of that explanation to test consistency.',
+        answers: ['Maieutic prompting', 'Tree-of-thought prompting', 'Self-refine prompting', 'Least-to-most prompting'],
+        correct: 'Maieutic prompting',
+        explanation: 'Maieutic prompting expands and checks explanation trees, pruning inconsistent reasoning.'
+      }
+    ];
+
+    var currentQuestion = 0;
+    var score = 0;
+    var answered = false;
+
+    var scenarioText = document.getElementById('scenarioText');
+    var answersContainer = document.getElementById('answersContainer');
+    var feedbackBox = document.getElementById('feedbackBox');
+    var nextButton = document.getElementById('nextQuestion');
+    var scoreEl = document.getElementById('score');
+    var totalQuestionsEl = document.getElementById('totalQuestions');
+    var questionNumberEl = document.getElementById('questionNumber');
+    var restartQuizBtn = document.getElementById('restartQuiz');
+
+    totalQuestionsEl.textContent = questions.length;
+
+    function renderQuestion() {
+      var q = questions[currentQuestion];
+      answered = false;
+      scenarioText.textContent = q.prompt;
+      answersContainer.innerHTML = '';
+      feedbackBox.className = 'feedback';
+      feedbackBox.innerHTML = '';
+      nextButton.disabled = true;
+      questionNumberEl.textContent = (currentQuestion + 1) + ' of ' + questions.length;
+
+      q.answers.forEach(function(answer) {
+        var btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.type = 'button';
+        btn.textContent = answer;
+        btn.addEventListener('click', function() {
+          handleAnswer(btn, answer, q.correct, q.explanation);
+        });
+        answersContainer.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(btn, selected, correct, explanation) {
+      if (answered) return;
+      answered = true;
+
+      var buttons = answersContainer.querySelectorAll('.answer-btn');
+      buttons.forEach(function(b) {
+        b.disabled = true;
+        if (b.textContent === correct) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (selected === correct) {
+        score += 1;
+        scoreEl.textContent = score;
+        btn.classList.add('correct');
+        feedbackBox.className = 'feedback show correct';
+        feedbackBox.innerHTML = '<strong>Correct.</strong>' + explanation;
+      } else {
+        btn.classList.add('incorrect');
+        feedbackBox.className = 'feedback show incorrect';
+        feedbackBox.innerHTML = '<strong>Not quite.</strong>The best answer is <strong>' + correct + '.</strong> ' + explanation;
+      }
+
+      nextButton.disabled = false;
+    }
+
+    nextButton.addEventListener('click', function() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion += 1;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    restartQuizBtn.addEventListener('click', function() {
+      currentQuestion = 0;
+      score = 0;
+      scoreEl.textContent = score;
+      renderQuestion();
+    });
+
+    function showResults() {
+      scenarioText.textContent = 'You finished the challenge.';
+      answersContainer.innerHTML = '';
+      feedbackBox.className = 'feedback show ' + (score >= Math.ceil(questions.length * 0.7) ? 'correct' : 'incorrect');
+
+      var message = score >= questions.length
+        ? 'Excellent work. You matched every scenario to the best-fit technique.'
+        : score >= Math.ceil(questions.length * 0.7)
+          ? 'Nice job. You have a strong grasp of how these prompting techniques differ.'
+          : 'Good effort. Review the technique cards above, then try again to strengthen your understanding.';
+
+      feedbackBox.innerHTML = '<strong>Final Score: ' + score + ' / ' + questions.length + '</strong>' + message;
+      nextButton.disabled = true;
+    }
+
+    renderQuestion();
+
+    // Build-a-prompt activity
+    var tokenButtons = document.querySelectorAll('.token');
+    var promptDisplay = document.getElementById('promptDisplay');
+    var builderFeedback = document.getElementById('builderFeedback');
+    var checkPromptBtn = document.getElementById('checkPrompt');
+    var clearPromptBtn = document.getElementById('clearPrompt');
+    var promptTokens = [];
+
+    tokenButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.classList.contains('used')) return;
+        promptTokens.push(btn.getAttribute('data-token'));
+        btn.classList.add('used');
+        updatePromptDisplay();
+      });
+    });
+
+    function updatePromptDisplay() {
+      if (promptTokens.length === 0) {
+        promptDisplay.textContent = 'Click pieces from the bank to build your prompt.';
+      } else {
+        promptDisplay.textContent = promptTokens.join(' ') + '.';
+      }
+      builderFeedback.className = 'builder-feedback';
+      builderFeedback.textContent = '';
+    }
+
+    clearPromptBtn.addEventListener('click', function() {
+      promptTokens = [];
+      tokenButtons.forEach(function(btn) {
+        btn.classList.remove('used');
+      });
+      updatePromptDisplay();
+    });
+
+    checkPromptBtn.addEventListener('click', function() {
+      var hasTask = promptTokens.includes('Write a poem');
+      var hasTopic = promptTokens.includes('about love');
+      var hasCuePhrase = promptTokens.includes('that includes the words');
+      var keywordCount = ['heart', 'passion', 'eternal'].filter(function(word) {
+        return promptTokens.includes(word);
+      }).length;
+
+      if (hasTask && hasTopic && hasCuePhrase && keywordCount >= 2) {
+        builderFeedback.className = 'builder-feedback show good';
+        builderFeedback.innerHTML = '<strong>Strong prompt.</strong> You included the task, topic, and directional cues. That is what makes this a good example of directional-stimulus prompting.';
+      } else {
+        builderFeedback.className = 'builder-feedback show bad';
+        builderFeedback.innerHTML = '<strong>Needs revision.</strong> A strong answer should include the task, the topic, and guiding keywords. Try using “Write a poem,” “about love,” “that includes the words,” and at least two of the keyword tokens.';
+      }
+    });
+  </script>
+</body>
+</html>
