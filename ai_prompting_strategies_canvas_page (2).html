@@ -1,0 +1,92 @@
+<div style="font-family: Arial, sans-serif; max-width: 900px; margin: auto;">
+
+  <hr style="border-color: #109DC0; border-width: 8px;">
+
+  <h1 style="text-align: center;">🚀 Best Practices for AI Prompting</h1>
+  <p style="text-align: center; font-size: 14pt;">
+    Click each section to explore key strategies for writing effective AI prompts.
+  </p>
+
+  <hr style="border-color: #191919; border-width: 6px;">
+
+  <!-- CARD STYLE SECTIONS -->
+
+  <details style="margin: 20px 0; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+    <summary style="font-size: 18pt; font-weight: bold; cursor: pointer;">📌 Unambiguous Prompts</summary>
+    <p style="text-align: center;"><img src="https://pickenscountyga.instructure.com/courses/12484/files/669272/preview" width="300"></p>
+    <p style="font-size: 14pt;">Clearly define the desired response to avoid misinterpretation. Be specific about what you want (summary vs. analysis, etc.).</p>
+  </details>
+
+  <details style="margin: 20px 0; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+    <summary style="font-size: 18pt; font-weight: bold; cursor: pointer;">🧠 Adequate Context</summary>
+    <p style="text-align: center;"><img src="https://pickenscountyga.instructure.com/courses/12484/files/669276/preview" width="150"></p>
+    <p style="font-size: 14pt;">Include context and specify format. Example: "List 5 movies from the 1990s in a table."</p>
+  </details>
+
+  <details style="margin: 20px 0; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+    <summary style="font-size: 18pt; font-weight: bold; cursor: pointer;">⚖️ Balanced Prompts</summary>
+    <p style="text-align: center;"><img src="https://pickenscountyga.instructure.com/courses/12484/files/669275/preview" width="160"></p>
+    <p style="font-size: 14pt;">Avoid prompts that are too vague or too complex. Keep them clear and manageable.</p>
+  </details>
+
+  <details style="margin: 20px 0; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+    <summary style="font-size: 18pt; font-weight: bold; cursor: pointer;">🔁 Experiment & Refine</summary>
+    <p style="text-align: center;"><img src="https://pickenscountyga.instructure.com/courses/12484/files/669273/preview" width="140"></p>
+    <p style="font-size: 14pt;">Test and revise prompts. Iteration improves clarity and results.</p>
+  </details>
+
+  <hr style="border-color: #191919; border-width: 6px;">
+
+  <!-- MATCHING GAME -->
+  <h2 style="text-align: center;">🎮 Matching Game</h2>
+  <p style="text-align: center;">Match each strategy to its description.</p>
+
+  <div id="game" style="display: flex; gap: 20px; justify-content: space-between; flex-wrap: wrap;">
+
+    <div style="flex:1; min-width:250px;">
+      <h3>Strategies</h3>
+      <button onclick="selectItem('unambiguous')">Unambiguous</button><br><br>
+      <button onclick="selectItem('context')">Context</button><br><br>
+      <button onclick="selectItem('balance')">Balanced</button><br><br>
+      <button onclick="selectItem('refine')">Refine</button>
+    </div>
+
+    <div style="flex:1; min-width:250px;">
+      <h3>Descriptions</h3>
+      <button onclick="matchItem('balance')">Avoid too simple or complex prompts</button><br><br>
+      <button onclick="matchItem('context')">Include format + details</button><br><br>
+      <button onclick="matchItem('unambiguous')">Be clear and specific</button><br><br>
+      <button onclick="matchItem('refine')">Iterate and improve prompts</button>
+    </div>
+
+  </div>
+
+  <p id="feedback" style="font-weight: bold; text-align: center; margin-top: 15px;"></p>
+
+  <script>
+    let selected = null;
+
+    function selectItem(item) {
+      selected = item;
+      document.getElementById('feedback').innerText = 'Selected: ' + item;
+    }
+
+    function matchItem(match) {
+      if (!selected) {
+        document.getElementById('feedback').innerText = 'Select a strategy first!';
+        return;
+      }
+
+      if (selected === match) {
+        document.getElementById('feedback').innerText = '✅ Correct!';
+      } else {
+        document.getElementById('feedback').innerText = '❌ Try again!';
+      }
+
+      selected = null;
+    }
+  </script>
+
+  <hr style="border-color: #109DC0; border-width: 8px;">
+
+</div>
