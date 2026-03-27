@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Privacy Matching Activity</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+.container { display: flex; gap: 40px; }
+.column { width: 45%; }
+.item, .dropzone {
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+.item { cursor: grab; }
+.dropzone { min-height: 40px; }
+.correct { background-color: #d4edda; }
+.incorrect { background-color: #f8d7da; }
+button { margin-top: 20px; padding: 10px 15px; }
+</style>
+</head>
+<body>
+
+<h2>Student Privacy Laws Matching Activity</h2>
+<p>Drag each definition to the correct term. Click "Check Answers" when finished.</p>
+
+<div class="container">
+  <div class="column">
+    <h3>Terms</h3>
+    <div class="dropzone" data-answer="FERPA">FERPA</div>
+    <div class="dropzone" data-answer="PPRA">PPRA</div>
+    <div class="dropzone" data-answer="COPPA">COPPA</div>
+    <div class="dropzone" data-answer="Education Records">Education Records</div>
+    <div class="dropzone" data-answer="Directory Information">Directory Information</div>
+    <div class="dropzone" data-answer="Parental Consent">Parental Consent</div>
+    <div class="dropzone" data-answer="Sensitive Information">Sensitive Information</div>
+    <div class="dropzone" data-answer="Data Minimization">Data Minimization</div>
+    <div class="dropzone" data-answer="Third-Party Vendor">Third-Party Vendor</div>
+    <div class="dropzone" data-answer="Online Data Collection">Online Data Collection</div>
+  </div>
+
+  <div class="column">
+    <h3>Definitions</h3>
+    <div class="item" draggable="true" data-match="FERPA">Protects student education records and parent rights</div>
+    <div class="item" draggable="true" data-match="PPRA">Protects against sensitive student surveys</div>
+    <div class="item" draggable="true" data-match="COPPA">Protects children under 13 online</div>
+    <div class="item" draggable="true" data-match="Education Records">Grades, transcripts, and discipline files</div>
+    <div class="item" draggable="true" data-match="Directory Information">Basic info like name and address</div>
+    <div class="item" draggable="true" data-match="Parental Consent">Permission from parents</div>
+    <div class="item" draggable="true" data-match="Sensitive Information">Religion, income, beliefs</div>
+    <div class="item" draggable="true" data-match="Data Minimization">Collect only necessary data</div>
+    <div class="item" draggable="true" data-match="Third-Party Vendor">Company handling school data</div>
+    <div class="item" draggable="true" data-match="Online Data Collection">Data gathered through apps/websites</div>
+  </div>
+</div>
+
+<button onclick="checkAnswers()">Check Answers</button>
+
+<script>
+const items = document.querySelectorAll('.item');
+const dropzones = document.querySelectorAll('.dropzone');
+
+items.forEach(item => {
+  item.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', item.dataset.match);
+    e.dataTransfer.setData('text/id', item.innerText);
+  });
+});
+
+dropzones.forEach(zone => {
+  zone.addEventListener('dragover', e => e.preventDefault());
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    const match = e.dataTransfer.getData('text/plain');
+    const text = e.dataTransfer.getData('text/id');
+    zone.innerText = text;
+    zone.dataset.user = match;
+  });
+});
+
+function checkAnswers() {
+  dropzones.forEach(zone => {
+    if (zone.dataset.user === zone.dataset.answer) {
+      zone.classList.add('correct');
+      zone.classList.remove('incorrect');
+    } else {
+      zone.classList.add('incorrect');
+      zone.classList.remove('correct');
+    }
+  });
+}
+</script>
+
+</body>
+</html>
