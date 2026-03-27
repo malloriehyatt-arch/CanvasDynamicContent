@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Risk Oversight Sorting Activity</title>
+
+<style>
+body {font-family: Arial; background:#f4f6f8; margin:0; padding:20px;}
+.wrapper {max-width:1200px; margin:auto;}
+h1 {text-align:center;}
+.bank, .zone {background:white; border-radius:10px; padding:15px; margin-bottom:20px;}
+.bank-items {display:flex; flex-wrap:wrap; gap:10px;}
+.card {border:1px solid #ccc; padding:10px; border-radius:8px; cursor:grab;}
+.zone {min-height:300px; border:2px dashed #ccc;}
+.low {background:#eef6fc;}
+.medium {background:#fff8e8;}
+.high {background:#fff1f1;}
+.correct {border:2px solid green;}
+.incorrect {border:2px solid red;}
+</style>
+
+</head>
+
+<body>
+<div class="wrapper">
+
+<h1>Risk Oversight Sorting Activity</h1>
+
+<div class="bank">
+<h2>Scenario Bank</h2>
+<div class="bank-items" id="bank">
+
+<div class="card" draggable="true" data-answer="high">Predicting student performance on state exams based on past grade data.</div>
+<div class="card" draggable="true" data-answer="low">Generating creative writing prompts for a 5th-grade English class.</div>
+<div class="card" draggable="true" data-answer="high">Creating an IEP goal using student data.</div>
+<div class="card" draggable="true" data-answer="medium">Drafting an email to a parent about a missed assignment.</div>
+<div class="card" draggable="true" data-answer="low">Formatting lesson plans into a template.</div>
+<div class="card" draggable="true" data-answer="high">Analyzing writing to diagnose learning disabilities.</div>
+<div class="card" draggable="true" data-answer="medium">Generating math problems.</div>
+<div class="card" draggable="true" data-answer="low">Brainstorming icebreakers.</div>
+<div class="card" draggable="true" data-answer="medium">Creating a grading rubric.</div>
+<div class="card" draggable="true" data-answer="high">Writing a recommendation letter.</div>
+<div class="card" draggable="true" data-answer="medium">Translating a permission slip.</div>
+<div class="card" draggable="true" data-answer="low">Creating a synonym list.</div>
+<div class="card" draggable="true" data-answer="high">Developing a BIP plan.</div>
+<div class="card" draggable="true" data-answer="medium">Creating quiz questions.</div>
+<div class="card" draggable="true" data-answer="low">Summarizing a news article.</div>
+<div class="card" draggable="true" data-answer="high">Determining discipline consequences.</div>
+<div class="card" draggable="true" data-answer="low">Drafting a newsletter header.</div>
+<div class="card" draggable="true" data-answer="medium">Explaining photosynthesis.</div>
+<div class="card" draggable="true" data-answer="low">Creating a science demo recipe.</div>
+<div class="card" draggable="true" data-answer="medium">Suggesting classroom management strategies.</div>
+
+</div>
+</div>
+
+<div style="display:flex; gap:10px;">
+<div class="zone low" data-zone="low"><h3>Low</h3></div>
+<div class="zone medium" data-zone="medium"><h3>Medium</h3></div>
+<div class="zone high" data-zone="high"><h3>High</h3></div>
+</div>
+
+<br>
+
+<button onclick="checkAnswers()">Check Answers</button>
+<button onclick="resetActivity()">Reset</button>
+
+<p id="feedback"></p>
+
+</div>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const zones = document.querySelectorAll('.zone');
+const bank = document.getElementById('bank');
+let dragged;
+
+cards.forEach(c=>{
+ c.addEventListener('dragstart',()=>dragged=c);
+});
+
+[bank,...zones].forEach(z=>{
+ z.addEventListener('dragover',e=>e.preventDefault());
+ z.addEventListener('drop',()=>{
+  if(dragged){z.appendChild(dragged);}
+ });
+});
+
+function checkAnswers(){
+ let correct=0;
+ cards.forEach(c=>{
+  c.classList.remove('correct','incorrect');
+  let zone=c.parentElement.dataset.zone;
+  if(zone){
+   if(zone===c.dataset.answer){
+    correct++; c.classList.add('correct');
+   } else {c.classList.add('incorrect');}
+  }
+ });
+ document.getElementById('feedback').innerText=
+ "Correct: "+correct+" / "+cards.length;
+}
+
+function resetActivity(){
+ cards.forEach(c=>bank.appendChild(c));
+ document.getElementById('feedback').innerText="";
+}
+</script>
+
+</body>
+</html>
