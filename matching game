@@ -1,0 +1,53 @@
+  <!-- MATCHING GAME -->
+  <h2 style="text-align: center;">Matching Game</h2>
+  <p style="text-align: center;">Match each strategy to its description.</p>
+
+  <div id="game" style="display: flex; gap: 20px; justify-content: space-between; flex-wrap: wrap;">
+
+    <div style="flex:1; min-width:250px;">
+      <h3>Strategies</h3>
+      <button onclick="selectItem('unambiguous')">Unambiguous</button><br><br>
+      <button onclick="selectItem('context')">Context</button><br><br>
+      <button onclick="selectItem('balance')">Balanced</button><br><br>
+      <button onclick="selectItem('refine')">Refine</button>
+    </div>
+
+    <div style="flex:1; min-width:250px;">
+      <h3>Descriptions</h3>
+      <button onclick="matchItem('balance')">Avoid too simple or complex prompts</button><br><br>
+      <button onclick="matchItem('context')">Include format + details</button><br><br>
+      <button onclick="matchItem('unambiguous')">Be clear and specific</button><br><br>
+      <button onclick="matchItem('refine')">Iterate and improve prompts</button>
+    </div>
+
+  </div>
+
+  <p id="feedback" style="font-weight: bold; text-align: center; margin-top: 15px;"></p>
+
+  <script>
+    let selected = null;
+
+    function selectItem(item) {
+      selected = item;
+      document.getElementById('feedback').innerText = 'Selected: ' + item;
+    }
+
+    function matchItem(match) {
+      if (!selected) {
+        document.getElementById('feedback').innerText = 'Select a strategy first!';
+        return;
+      }
+
+      if (selected === match) {
+        document.getElementById('feedback').innerText = '✅ Correct!';
+      } else {
+        document.getElementById('feedback').innerText = '❌ Try again!';
+      }
+
+      selected = null;
+    }
+  </script>
+
+  <hr style="border-color: #109DC0; border-width: 8px;">
+
+</div>
