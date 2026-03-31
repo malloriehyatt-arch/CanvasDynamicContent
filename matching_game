@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Privacy Matching Activity</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+.container { display: flex; gap: 40px; }
+.column { width: 45%; }
+.item, .dropzone {
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
   <!-- MATCHING GAME -->
   <h2 style="text-align: center;">Matching Game</h2>
   <p style="text-align: center;">Match each strategy to its description.</p>
@@ -46,8 +62,14 @@
 
       selected = null;
     }
-  </script>
 
-  <hr style="border-color: #109DC0; border-width: 8px;">
 
 </div>
+
+
+</script>
+
+</body>
+</html>
+
+
