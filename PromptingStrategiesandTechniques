@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Prompting Strategies Lab</title>
+  <style>
+    :root {
+      --teal: #109dc0;
+      --teal-light: #eef8fb;
+      --teal-border: #cbeaf2;
+      --gold-light: #fff8e8;
+      --gold-border: #f7d98a;
+      --text: #1f2d3d;
+      --muted: #5f6b76;
+      --bg: #f7fbfc;
+      --white: #ffffff;
+      --success: #1a7f37;
+      --error: #b42318;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    #top {
+      position: absolute;
+      top: 0;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #f9fdfe 0%, #eef8fb 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 18px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      margin: 0 0 8px 0;
+      font-size: 11pt;
+      color: var(--teal);
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px 0;
+      font-size: 28px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 850px;
+      text-align: center;
+      font-size: 13pt;
+    }
+
+    .nav-box {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .nav-box a {
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--teal-border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 11pt;
+      transition: 0.2s ease;
+    }
+
+    .nav-box a:hover {
+      background: var(--teal-light);
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #d9e4ea;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 24px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    .card .intro {
+      text-align: center;
+      font-size: 12pt;
+      color: var(--muted);
+      max-width: 850px;
+      margin: 0 auto 18px;
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .strategy-card {
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      background: #f9fcfd;
+      overflow: hidden;
+    }
+
+    .strategy-btn {
+      width: 100%;
+      border: none;
+      background: transparent;
+      text-align: left;
+      padding: 16px;
+      cursor: pointer;
+      font-size: 12pt;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .strategy-btn:hover {
+      background: var(--teal-light);
+    }
+
+    .strategy-content {
+      display: none;
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--teal-border);
+      background: var(--white);
+    }
+
+    .strategy-content p {
+      margin: 10px 0 0 0;
+      font-size: 11pt;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--teal-light);
+      border: 1px solid var(--teal-border);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 10pt;
+      margin-top: 10px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .panel {
+      background: #f9fafb;
+      border: 1px solid #d9e4ea;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .choice-btn, .match-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #cfe2f3;
+      background: #eef6fc;
+      cursor: pointer;
+      font-size: 11pt;
+      transition: 0.2s ease;
+    }
+
+    .match-btn {
+      border: 1px solid var(--gold-border);
+      background: var(--gold-light);
+    }
+
+    .choice-btn:hover, .match-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .feedback {
+      background-color: #eef6fc;
+      border: 1px solid #cfe2f3;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: bold;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quiz-box {
+      margin-top: 14px;
+      background: #f9fcfd;
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 11pt;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .scenario {
+      font-size: 12pt;
+      margin-bottom: 14px;
+    }
+
+    .quiz-option {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #d9e4ea;
+      border-radius: 10px;
+      background: var(--white);
+      cursor: pointer;
+      text-align: left;
+      font-size: 11pt;
+    }
+
+    .quiz-option:hover {
+      background: #f5fbfd;
+      border-color: var(--teal);
+    }
+
+    .quiz-feedback {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+      font-size: 11pt;
+    }
+
+    .quiz-feedback.success {
+      background: #ecfdf3;
+      border: 1px solid #abefc6;
+      color: var(--success);
+      display: block;
+    }
+
+    .quiz-feedback.error {
+      background: #fef3f2;
+      border: 1px solid #fecdca;
+      color: var(--error);
+      display: block;
+    }
+
+    .quiz-controls {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      background: var(--teal);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 11pt;
+    }
+
+    .action-btn.secondary {
+      background: #6b7280;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .builder-output {
+      min-height: 130px;
+      background: #fff;
+      border: 1px dashed #9acfe0;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 11.5pt;
+    }
+
+    .piece-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .piece {
+      border: 1px solid #cfe2f3;
+      background: #eef6fc;
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 10.5pt;
+    }
+
+    .piece:hover {
+      background: #dff1f8;
+    }
+
+    .piece.used {
+      background: #d1fadf;
+      border-color: #a6f4c5;
+      color: #05603a;
+    }
+
+    .checklist {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 11pt;
+    }
+
+    .summary-box {
+      background-color: #f3fbfd;
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .summary-box h2 {
+      margin: 0;
+      font-size: 18pt;
+    }
+
+    .summary-box p {
+      margin: 8px 0 0 0;
+      font-size: 13pt;
+    }
+
+    .footer-top {
+      text-align: right;
+      margin-top: 14px;
+    }
+
+    .footer-top a {
+      font-size: 11pt;
+      text-decoration: none;
+      color: var(--teal);
+      font-weight: bold;
+    }
+
+    hr.section-divider {
+      border: 0;
+      height: 8px;
+      background-color: var(--teal);
+      border-radius: 4px;
+      margin: 28px 0;
+    }
+
+    @media (max-width: 860px) {
+      .two-col,
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+
+  <div class="page">
+    <section class="hero">
+      <p class="section-label">AI Prompting • Combined Concept + Activity</p>
+      <h1>AI Prompting Strategies Lab</h1>
+      <p>
+        Learn the most useful prompt engineering strategies, see when each one works best,
+        and practice applying them through interactive activities. This page combines the
+        core ideas from your two existing resources into one concise student-friendly lesson.
+      </p>
+
+      <div class="nav-box">
+        <a href="#strategies">Explore Strategies</a>
+        <a href="#matching-game">Matching Game</a>
+        <a href="#scenario-quiz">Scenario Quiz</a>
+        <a href="#build-lab">Build-a-Prompt Lab</a>
+      </div>
+    </section>
+
+    <section id="strategies" class="card">
+      <p class="section-label">Section 1</p>
+      <h2>Explore the Strategies</h2>
+      <p class="intro">
+        These six strategies combine overlapping ideas from the original pages into a shorter,
+        more useful toolkit for students.
+      </p>
+
+      <div class="strategy-grid">
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">1. Set Role, Audience, and Format</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Tells the AI who to be, who the response is for, and what kind of output you want.</p>
+            <p><strong>Best for:</strong> Memos, lesson plans, explanations, emails, and classroom resources.</p>
+            <p><strong>Example:</strong> “Act as a veteran science teacher. Explain Newton’s laws to a 9th grade student in a short table.”</p>
+            <span class="tag">Combines RAFT + persona prompting</span>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">2. Be Clear and Specific</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Reduces vague wording so the AI knows exactly what to do.</p>
+            <p><strong>Best for:</strong> Better first drafts and fewer off-target responses.</p>
+            <p><strong>Example:</strong> “Summarize this article in 3 sentences using simple language for 5th graders.”</p>
+            <span class="tag">Clarity improves output quality</span>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">3. Use Examples When Needed</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Shows the AI what a good answer looks like before asking for a new one.</p>
+            <p><strong>Best for:</strong> Tone matching, style imitation, and consistent formatting.</p>
+            <p><strong>Example:</strong> “Here are two strong summaries. Write a third summary in the same style.”</p>
+            <span class="tag">Zero-shot vs. few-shot prompting</span>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">4. Break Complex Tasks Into Steps</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Guides the AI through reasoning one step at a time instead of all at once.</p>
+            <p><strong>Best for:</strong> Problem solving, math, analysis, and multistep tasks.</p>
+            <p><strong>Example:</strong> “List the steps needed to solve 2x + 3 = 11, then solve each step in order.”</p>
+            <span class="tag">Combines chain-of-thought + least-to-most</span>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">5. Add Constraints and Context</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Adds useful limits and background so the response is manageable and relevant.</p>
+            <p><strong>Best for:</strong> Grade-level writing, length limits, structured outputs, and reducing overload.</p>
+            <p><strong>Example:</strong> “Create a 5E lesson plan on fractions for 5th grade with objectives, activities, and assessment.”</p>
+            <span class="tag">Combines cognitive load + deliberate constraints</span>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <button class="strategy-btn" onclick="toggleCard(this)">6. Revise and Refine</button>
+          <div class="strategy-content">
+            <p><strong>What it does:</strong> Treats prompting as a process: ask, review, question, improve, and try again.</p>
+            <p><strong>Best for:</strong> Writing improvement, feedback cycles, and stronger final outputs.</p>
+            <p><strong>Example:</strong> “Write a paragraph, identify one weakness, and revise it with stronger evidence.”</p>
+            <span class="tag">Combines Socratic questioning + self-refine + meta prompting</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section id="matching-game" class="card">
+      <p class="section-label">Section 2</p>
+      <h2>Matching Game</h2>
+      <p class="intro">
+        Match each strategy to the best description.
+      </p>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>Strategies</h3>
+          <button class="choice-btn" onclick="selectMatch('role')">Set role, audience, and format</button>
+          <button class="choice-btn" onclick="selectMatch('specific')">Be clear and specific</button>
+          <button class="choice-btn" onclick="selectMatch('examples')">Use examples when needed</button>
+          <button class="choice-btn" onclick="selectMatch('steps')">Break complex tasks into steps</button>
+          <button class="choice-btn" onclick="selectMatch('constraints')">Add constraints and context</button>
+          <button class="choice-btn" onclick="selectMatch('revise')">Revise and refine</button>
+        </div>
+
+        <div class="panel">
+          <h3>Descriptions</h3>
+          <button class="match-btn" onclick="checkMatch('steps')">Guide the AI through a process one step at a time</button>
+          <button class="match-btn" onclick="checkMatch('examples')">Show the model a pattern before asking for a new response</button>
+          <button class="match-btn" onclick="checkMatch('specific')">Reduce vague wording and tell the AI exactly what to do</button>
+          <button class="match-btn" onclick="checkMatch('role')">Tell the AI who it is, who the response is for, and the output type</button>
+          <button class="match-btn" onclick="checkMatch('revise')">Improve the answer by reviewing, questioning, and rewriting</button>
+          <button class="match-btn" onclick="checkMatch('constraints')">Add useful limits like length, grade level, format, or topic details</button>
+        </div>
+      </div>
+
+      <div class="feedback" id="matchFeedback">Select a strategy, then choose its matching description.</div>
+
+      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section id="scenario-quiz" class="card">
+      <p class="section-label">Section 3</p>
+      <h2>Scenario Quiz</h2>
+      <p class="intro">
+        Read each scenario and choose the strategy that fits best.
+      </p>
+
+      <div class="quiz-box">
+        <div class="quiz-meta">
+          <div id="quizProgress">Question 1 of 5</div>
+          <div id="quizScore">Score: 0 / 0</div>
+        </div>
+
+        <div class="scenario" id="scenarioText"></div>
+
+        <div id="quizOptions"></div>
+
+        <div id="quizFeedback" class="quiz-feedback"></div>
+
+        <div class="quiz-controls">
+          <button class="action-btn" onclick="nextQuestion()">Next Question</button>
+          <button class="action-btn secondary" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+      </div>
+
+      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section id="build-lab" class="card">
+      <p class="section-label">Section 4</p>
+      <h2>Build-a-Prompt Mini Lab</h2>
+      <p class="intro">
+        Build a strong prompt by combining the key parts: role, task, audience, format, and constraints.
+      </p>
+
+      <div class="lab-grid">
+        <div class="panel">
+          <h3>Your Prompt</h3>
+          <div class="builder-output" id="promptOutput">Click pieces from the bank to build your prompt.</div>
+
+          <div class="quiz-controls">
+            <button class="action-btn" onclick="checkPrompt()">Check Prompt</button>
+            <button class="action-btn secondary" onclick="clearPrompt()">Clear</button>
+          </div>
+
+          <div class="feedback" id="promptFeedback">Your goal is to include a role, task, audience, format, and at least one useful constraint.</div>
+        </div>
+
+        <div class="panel">
+          <h3>Prompt Piece Bank</h3>
+          <div class="piece-bank" id="pieceBank">
+            <button class="piece" data-type="role" onclick="addPiece(this)">Act as a science teacher</button>
+            <button class="piece" data-type="task" onclick="addPiece(this)">Explain the water cycle</button>
+            <button class="piece" data-type="audience" onclick="addPiece(this)">for 5th grade students</button>
+            <button class="piece" data-type="format" onclick="addPiece(this)">in a table</button>
+            <button class="piece" data-type="constraint" onclick="addPiece(this)">using simple language</button>
+            <button class="piece" data-type="constraint" onclick="addPiece(this)">with 3 key vocabulary words</button>
+            <button class="piece" data-type="constraint" onclick="addPiece(this)">and one real-world example</button>
+          </div>
+
+          <h3 style="margin-top:18px;">Success Checklist</h3>
+          <ul class="checklist">
+            <li>Includes a clear role</li>
+            <li>States the task</li>
+            <li>Names the audience</li>
+            <li>Specifies a format</li>
+            <li>Adds one or more useful constraints</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+    </section>
+
+    <div class="summary-box">
+      <h2><strong>✅ Before You Move On</strong></h2>
+      <p>
+        Strong prompts are usually specific, structured, and revised over time.
+        Use the strategy that best fits the task instead of trying to use every technique at once.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function toggleCard(button) {
+      const content = button.nextElementSibling;
+      const isOpen = content.style.display === "block";
+
+      document.querySelectorAll(".strategy-content").forEach(el => {
+        el.style.display = "none";
+      });
+
+      if (!isOpen) {
+        content.style.display = "block";
+      }
+    }
+
+    let selectedMatch = null;
+
+    function selectMatch(key) {
+      selectedMatch = key;
+      document.getElementById("matchFeedback").innerText = "Selected: " + key.replace(/^\w/, c => c.toUpperCase());
+    }
+
+    function checkMatch(answer) {
+      const feedback = document.getElementById("matchFeedback");
+
+      if (!selectedMatch) {
+        feedback.innerText = "Select a strategy first.";
+        return;
+      }
+
+      if (selectedMatch === answer) {
+        feedback.innerText = "✅ Correct!";
+      } else {
+        feedback.innerText = "❌ Not quite. Try again.";
+      }
+
+      selectedMatch = null;
+    }
+
+    const quizQuestions = [
+      {
+        scenario: "You want AI to write a memo as a principal for teachers in a professional tone and bullet format.",
+        options: [
+          "Set role, audience, and format",
+          "Use examples when needed",
+          "Break complex tasks into steps",
+          "Revise and refine"
+        ],
+        answer: "Set role, audience, and format",
+        explanation: "This task depends on clearly defining who the AI should be, who the response is for, and the output format."
+      },
+      {
+        scenario: "You want the AI to match the style of two sample student-friendly summaries before writing a new one.",
+        options: [
+          "Be clear and specific",
+          "Use examples when needed",
+          "Add constraints and context",
+          "Revise and refine"
+        ],
+        answer: "Use examples when needed",
+        explanation: "Examples help the AI imitate tone, structure, and style."
+      },
+      {
+        scenario: "You want the model to solve a multistep algebra problem by first listing the steps, then solving each one.",
+        options: [
+          "Break complex tasks into steps",
+          "Revise and refine",
+          "Be clear and specific",
+          "Set role, audience, and format"
+        ],
+        answer: "Break complex tasks into steps",
+        explanation: "This is the best fit for structured reasoning and multistep problem solving."
+      },
+      {
+        scenario: "You need a short explanation written for 5th graders in exactly 3 bullet points with simple vocabulary.",
+        options: [
+          "Use examples when needed",
+          "Add constraints and context",
+          "Revise and refine",
+          "Break complex tasks into steps"
+        ],
+        answer: "Add constraints and context",
+        explanation: "The grade level, length, and output structure are all useful constraints."
+      },
+      {
+        scenario: "Your first AI response is too broad, so you ask it to identify weaknesses and rewrite the answer.",
+        options: [
+          "Set role, audience, and format",
+          "Use examples when needed",
+          "Revise and refine",
+          "Be clear and specific"
+        ],
+        answer: "Revise and refine",
+        explanation: "This strategy treats prompting as an iterative improvement process."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let scoreCorrect = 0;
+    let scoreTotal = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      const q = quizQuestions[currentQuestion];
+      document.getElementById("quizProgress").innerText = "Question " + (currentQuestion + 1) + " of " + quizQuestions.length;
+      document.getElementById("quizScore").innerText = "Score: " + scoreCorrect + " / " + scoreTotal;
+      document.getElementById("scenarioText").innerText = q.scenario;
+
+      const optionsWrap = document.getElementById("quizOptions");
+      optionsWrap.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-option";
+        btn.innerText = option;
+        btn.onclick = () => chooseAnswer(option);
+        optionsWrap.appendChild(btn);
+      });
+
+      const feedback = document.getElementById("quizFeedback");
+      feedback.className = "quiz-feedback";
+      feedback.style.display = "none";
+      feedback.innerText = "";
+      answered = false;
+    }
+
+    function chooseAnswer(option) {
+      if (answered) return;
+
+      answered = true;
+      scoreTotal++;
+
+      const q = quizQuestions[currentQuestion];
+      const feedback = document.getElementById("quizFeedback");
+
+      if (option === q.answer) {
+        scoreCorrect++;
+        feedback.className = "quiz-feedback success";
+        feedback.innerHTML = "✅ Correct! " + q.explanation;
+      } else {
+        feedback.className = "quiz-feedback error";
+        feedback.innerHTML = "❌ Not quite. The best answer is <strong>" + q.answer + "</strong>. " + q.explanation;
+      }
+
+      feedback.style.display = "block";
+      document.getElementById("quizScore").innerText = "Score: " + scoreCorrect + " / " + scoreTotal;
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion >= quizQuestions.length) {
+        currentQuestion = 0;
+      }
+      renderQuestion();
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      scoreCorrect = 0;
+      scoreTotal = 0;
+      renderQuestion();
+    }
+
+    const selectedPieces = [];
+
+    function addPiece(button) {
+      if (button.classList.contains("used")) return;
+
+      selectedPieces.push({
+        text: button.innerText,
+        type: button.dataset.type
+      });
+
+      button.classList.add("used");
+      updatePromptOutput();
+    }
+
+    function updatePromptOutput() {
+      const output = document.getElementById("promptOutput");
+      if (selectedPieces.length === 0) {
+        output.innerText = "Click pieces from the bank to build your prompt.";
+        return;
+      }
+
+      output.innerText = selectedPieces.map(piece => piece.text).join(" ");
+    }
+
+    function clearPrompt() {
+      selectedPieces.length = 0;
+      document.querySelectorAll(".piece").forEach(piece => piece.classList.remove("used"));
+      updatePromptOutput();
+      document.getElementById("promptFeedback").innerText =
+        "Your goal is to include a role, task, audience, format, and at least one useful constraint.";
+    }
+
+    function checkPrompt() {
+      const types = selectedPieces.map(p => p.type);
+      const hasRole = types.includes("role");
+      const hasTask = types.includes("task");
+      const hasAudience = types.includes("audience");
+      const hasFormat = types.includes("format");
+      const hasConstraint = types.includes("constraint");
+
+      const feedback = document.getElementById("promptFeedback");
+
+      if (hasRole && hasTask && hasAudience && hasFormat && hasConstraint) {
+        feedback.innerText = "✅ Strong prompt! You included the key parts that make an AI prompt clear and usable.";
+      } else {
+        const missing = [];
+        if (!hasRole) missing.push("role");
+        if (!hasTask) missing.push("task");
+        if (!hasAudience) missing.push("audience");
+        if (!hasFormat) missing.push("format");
+        if (!hasConstraint) missing.push("constraint");
+
+        feedback.innerText = "❌ Add: " + missing.join(", ") + ".";
+      }
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
