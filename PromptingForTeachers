@@ -6,47 +6,37 @@
   <title>AI Prompt Writing for Educators</title>
   <style>
     :root {
-      --primary: #109dc0;
-      --primary-light: #eef8fb;
-      --primary-border: #cbeaf2;
-      --secondary: #fff8e8;
-      --secondary-border: #f7d98a;
+      --teal: #109dc0;
+      --teal-dark: #0d88a6;
+      --teal-light: #eef6fc;
+      --teal-border: #cfe2f3;
+      --gold-light: #fff8e8;
+      --gold-border: #f7d98a;
+      --text: #1f2d3d;
+      --muted: #5f6b76;
+      --bg: #f7fbfc;
+      --white: #ffffff;
       --success-bg: #ecfdf3;
       --success-border: #abefc6;
       --success-text: #067647;
-      --warning-bg: #fff4e5;
-      --warning-border: #f7d98a;
-      --danger-bg: #fef3f2;
-      --danger-border: #fecdca;
-      --danger-text: #b42318;
-      --text: #1f2937;
-      --muted: #5f6b76;
-      --page: #f7fbfc;
-      --white: #ffffff;
-      --shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      --error-bg: #fef3f2;
+      --error-border: #fecdca;
+      --error-text: #b42318;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
       --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: var(--page);
       color: var(--text);
+      background: var(--bg);
       line-height: 1.6;
       padding: 20px;
-    }
-
-    #top {
-      position: absolute;
-      top: 0;
     }
 
     .page {
@@ -55,251 +45,228 @@
     }
 
     .hero {
-      background: linear-gradient(180deg, #fafdfe 0%, #eef8fb 100%);
-      border: 1px solid var(--primary-border);
-      border-radius: 18px;
-      padding: 28px 24px;
+      background: #ffffff;
+      border: 1px solid #d9e4ea;
+      border-radius: 14px;
+      padding: 24px;
+      margin: 24px 0;
       box-shadow: var(--shadow);
-      margin-bottom: 24px;
-      text-align: center;
     }
 
     .section-label {
-      margin: 0 0 8px 0;
+      margin: 0 0 10px 0;
       font-size: 11pt;
-      color: var(--primary);
+      color: var(--teal);
       font-weight: bold;
-      letter-spacing: 0.4px;
       text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1,
+    .card h2 {
+      text-align: center;
+      margin: 0 0 8px 0;
     }
 
     .hero h1 {
-      margin: 0 0 12px 0;
-      font-size: 29px;
-      line-height: 1.2;
+      font-size: 24pt;
     }
 
-    .hero p {
-      max-width: 850px;
-      margin: 0 auto;
+    .hero p.lead,
+    .card p.intro {
+      text-align: center;
       font-size: 13pt;
+      margin: 0 auto;
+      max-width: 900px;
+      color: var(--text);
     }
 
     .nav-box {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
       margin-top: 18px;
     }
 
     .nav-box a {
-      text-decoration: none;
-      color: var(--text);
-      background: var(--white);
-      border: 1px solid var(--primary-border);
-      border-radius: 999px;
+      display: inline-block;
       padding: 10px 14px;
+      border: 1px solid var(--teal-border);
+      background: var(--teal-light);
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 999px;
       font-size: 11pt;
-      transition: 0.2s ease;
-    }
-
-    .nav-box a:hover {
-      background: var(--primary-light);
     }
 
     .card {
-      background: var(--white);
+      background-color: #ffffff;
       border: 1px solid #d9e4ea;
-      border-radius: var(--radius);
-      padding: 22px;
+      border-radius: 14px;
+      padding: 20px;
       margin: 24px 0;
       box-shadow: var(--shadow);
     }
 
-    .card h2 {
-      margin: 0 0 8px 0;
-      text-align: center;
-      font-size: 22px;
-    }
-
-    .intro {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12pt;
-      max-width: 860px;
-      margin: 0 auto 18px auto;
-    }
-
-    .three-grid,
-    .strategy-grid,
-    .quiz-grid {
+    .grid-3,
+    .grid-2 {
       display: grid;
       gap: 16px;
-    }
-
-    .three-grid {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .strategy-grid {
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      margin-top: 16px;
-    }
-
-    .mini-card {
-      background: #f9fcfd;
-      border: 1px solid var(--primary-border);
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .mini-card h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    .mini-card p {
-      margin-bottom: 0;
-      font-size: 11pt;
-    }
-
-    .accordion {
-      border: 1px solid var(--primary-border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #f9fcfd;
-    }
-
-    .accordion button {
-      width: 100%;
-      border: none;
-      background: transparent;
-      padding: 16px;
-      text-align: left;
-      font-size: 12pt;
-      font-weight: bold;
-      cursor: pointer;
-      color: var(--text);
-    }
-
-    .accordion button:hover {
-      background: var(--primary-light);
-    }
-
-    .accordion-content {
-      display: none;
-      background: var(--white);
-      border-top: 1px solid var(--primary-border);
-      padding: 16px;
-    }
-
-    .accordion-content p {
-      margin: 8px 0;
-      font-size: 11pt;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 10pt;
-      background: var(--primary-light);
-      border: 1px solid var(--primary-border);
-    }
-
-    .callout {
-      border-radius: 12px;
-      padding: 16px;
       margin-top: 18px;
     }
 
-    .callout-warning {
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .callout-info {
-      background: var(--primary-light);
-      border: 1px solid var(--primary-border);
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
     }
 
-    .callout h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 17px;
-    }
-
-    .callout ul {
-      margin: 8px 0 0 20px;
-      padding: 0;
-    }
-
-    .callout li {
-      margin-bottom: 8px;
-      font-size: 11pt;
-    }
-
-    .activity-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 16px;
-    }
-
-    .panel {
+    .info-box {
       background: #f9fafb;
       border: 1px solid #d9e4ea;
       border-radius: 12px;
       padding: 16px;
     }
 
-    .panel h3 {
+    .info-box h3 {
       margin-top: 0;
-      text-align: center;
+      margin-bottom: 8px;
+      font-size: 14pt;
     }
 
-    .prompt-box {
-      background: var(--white);
-      border: 1px dashed #9acfe0;
+    .strategy-card {
+      background: #f9fafb;
+      border: 1px solid #d9e4ea;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .strategy-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 13pt;
+      color: var(--teal-dark);
+    }
+
+    .strategy-card p {
+      margin: 8px 0 0 0;
+      font-size: 11pt;
+    }
+
+    .example-box {
+      background: var(--teal-light);
+      border: 1px solid var(--teal-border);
       border-radius: 12px;
       padding: 14px;
-      min-height: 110px;
+      margin-top: 12px;
       font-size: 11pt;
-      white-space: pre-wrap;
     }
 
-    .choice-list button,
-    .option-btn,
-    .piece {
-      width: 100%;
-      text-align: left;
+    .caution-box {
+      background: #f3fbfd;
+      border: 1px solid #cbeaf2;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .caution-box h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 16pt;
+    }
+
+    .caution-box ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    .activity-wrap {
+      margin-top: 18px;
+    }
+
+    .prompt-card {
+      background: #f9fafb;
+      border: 1px solid #d9e4ea;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .prompt-card h3 {
+      margin-top: 0;
+      font-size: 13pt;
+    }
+
+    .weak-prompt {
+      background: #fff8e8;
+      border: 1px solid #f7d98a;
+      border-radius: 10px;
       padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      cursor: pointer;
+      margin: 10px 0 14px 0;
       font-size: 11pt;
-      transition: 0.2s ease;
     }
 
-    .choice-list button,
-    .piece {
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice-btn {
       border: 1px solid #cfe2f3;
       background: #eef6fc;
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 10.5pt;
     }
 
-    .option-btn {
-      border: 1px solid var(--secondary-border);
-      background: var(--secondary);
+    .choice-btn:hover {
+      background: #dff1f8;
     }
 
-    .choice-list button:hover,
-    .option-btn:hover,
-    .piece:hover,
-    .action-btn:hover {
-      transform: translateY(-1px);
+    .feedback {
+      margin-top: 12px;
+      border-radius: 10px;
+      padding: 12px;
+      display: none;
+      font-size: 11pt;
+    }
+
+    .feedback.success {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .feedback.error {
+      display: block;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    .builder-box {
+      background: #f9fcfd;
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .builder-output {
+      min-height: 110px;
+      border: 1px dashed #9acfe0;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 11.5pt;
+      margin-bottom: 14px;
     }
 
     .piece-bank {
@@ -309,10 +276,12 @@
     }
 
     .piece {
-      width: auto;
+      border: 1px solid #cfe2f3;
+      background: #eef6fc;
       border-radius: 999px;
-      margin: 0;
       padding: 10px 12px;
+      cursor: pointer;
+      font-size: 10.5pt;
     }
 
     .piece.used {
@@ -321,63 +290,30 @@
       color: #05603a;
     }
 
-    .feedback {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: bold;
-      min-height: 56px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--primary-light);
-      border: 1px solid var(--primary-border);
-    }
-
-    .feedback.success {
-      background: var(--success-bg);
-      border-color: var(--success-border);
-      color: var(--success-text);
-    }
-
-    .feedback.error {
-      background: var(--danger-bg);
-      border-color: var(--danger-border);
-      color: var(--danger-text);
-    }
-
     .action-row {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
-      margin-top: 14px;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .action-btn {
       border: none;
-      background: var(--primary);
-      color: var(--white);
+      background: var(--teal);
+      color: #ffffff;
       border-radius: 8px;
       padding: 10px 14px;
       cursor: pointer;
       font-size: 11pt;
-      transition: 0.2s ease;
     }
 
     .action-btn.secondary {
       background: #6b7280;
     }
 
-    .checklist {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 11pt;
-    }
-
     .summary-box {
-      background: #f3fbfd;
-      border: 1px solid var(--primary-border);
+      background-color: #f3fbfd;
+      border: 1px solid #cbeaf2;
       border-radius: 12px;
       padding: 18px;
       margin: 28px 0;
@@ -395,16 +331,12 @@
     }
 
     .reference-box {
-      background: #fafafa;
-      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      border: 1px solid #d9e4ea;
       border-radius: 12px;
-      padding: 18px;
-      margin-top: 20px;
+      padding: 16px;
+      margin: 24px 0;
       font-size: 11pt;
-    }
-
-    .reference-box h3 {
-      margin-top: 0;
     }
 
     .footer-top {
@@ -413,27 +345,28 @@
     }
 
     .footer-top a {
-      color: var(--primary);
-      text-decoration: none;
       font-size: 11pt;
+      color: var(--teal);
+      text-decoration: none;
       font-weight: bold;
     }
 
     hr.section-divider {
       border: 0;
       height: 8px;
-      background-color: var(--primary);
+      background-color: #109DC0;
       border-radius: 4px;
       margin: 28px 0;
     }
 
     @media (max-width: 900px) {
-      .activity-wrap {
+      .grid-3,
+      .grid-2 {
         grid-template-columns: 1fr;
       }
 
       .hero h1 {
-        font-size: 25px;
+        font-size: 20pt;
       }
     }
   </style>
@@ -443,39 +376,34 @@
 
   <div class="page">
     <section class="hero">
-      <p class="section-label">AI Prompt Writing for Educators</p>
-      <h1>Writing Better AI Prompts</h1>
-      <p>
-        Learn what prompts are, how educators can use AI tools productively,
-        and how to improve a weak prompt by adding clarity, context, structure,
-        and revision.
+      <p class="section-label">AI Prompting for Educators</p>
+      <h1>AI Prompt Writing for Educators</h1>
+      <p class="lead">
+        Learn how to write stronger prompts for classroom use, resource creation, and instructional problem-solving.
+        This page introduces practical prompt-writing moves and gives you a short activity to apply them.
       </p>
 
       <div class="nav-box">
-        <a href="#what-is-a-prompt">What Is a Prompt?</a>
-        <a href="#uses">How Educators Use AI</a>
-        <a href="#moves">Prompt-Writing Moves</a>
+        <a href="#what-prompts-are">What Are Prompts?</a>
+        <a href="#what-ai-can-do">What AI Can Help With</a>
+        <a href="#prompt-moves">Prompt-Writing Moves</a>
         <a href="#activity">Prompt Revision Activity</a>
-        <a href="#reference">Reference</a>
+        <a href="#cautions">Use AI Carefully</a>
       </div>
     </section>
 
-    <section id="what-is-a-prompt" class="card">
+    <section id="what-prompts-are" class="card">
       <p class="section-label">Section 1</p>
-      <h2>What Is a Prompt?</h2>
+      <h2>What Are Prompts?</h2>
       <p class="intro">
-        A prompt is the question or instruction you type into an AI tool.
-        In general, the clearer and more detailed your prompt is, the more useful
-        the response will be.
+        Prompts are the questions or instructions we type into AI tools. In general, clearer and more detailed prompts
+        lead to more useful outputs. AI tools can help educators get a strong first draft, generate ideas, and save time,
+        but the results still need professional judgment. :contentReference[oaicite:1]{index=1}
       </p>
 
-      <div class="callout callout-info">
-        <h3>Key idea</h3>
-        <p style="margin:0;">
-          Think of prompt writing like giving directions to a teaching assistant:
-          the more clearly you explain the goal, audience, format, and context,
-          the better the result.
-        </p>
+      <div class="example-box">
+        <strong>Key idea:</strong> Think of prompting like giving directions to a teaching assistant. The more clearly you explain
+        the goal, audience, and task, the better the result. :contentReference[oaicite:2]{index=2}
       </div>
 
       <p class="footer-top"><a href="#top">↑ Back to top</a></p>
@@ -483,45 +411,33 @@
 
     <hr class="section-divider" />
 
-    <section id="uses" class="card">
+    <section id="what-ai-can-do" class="card">
       <p class="section-label">Section 2</p>
-      <h2>How Educators Can Use AI</h2>
+      <h2>What Can AI Help Educators Do?</h2>
       <p class="intro">
-        AI tools can support teachers in a few practical ways.
+        The article highlights three especially useful classroom applications for AI tools. :contentReference[oaicite:3]{index=3}
       </p>
 
-      <div class="three-grid">
-        <div class="mini-card">
-          <h3>1. Answer teaching or content questions</h3>
-          <p>
-            Ask for explanations, examples, demonstrations, or ideas for how to teach
-            a topic more clearly.
-          </p>
+      <div class="grid-3">
+        <div class="info-box">
+          <h3>1. Answer Questions</h3>
+          <p>Ask for explanations of content, teaching ideas, demonstrations, or ways to check student understanding.</p>
         </div>
 
-        <div class="mini-card">
-          <h3>2. Develop educational resources</h3>
-          <p>
-            Generate lesson plans, quizzes, reflection questions, parent letters,
-            reading passages, or simple explanations of complex ideas.
-          </p>
+        <div class="info-box">
+          <h3>2. Develop Resources</h3>
+          <p>Create lesson plans, quizzes, homework, reading materials, parent letters, reflection questions, and more.</p>
         </div>
 
-        <div class="mini-card">
-          <h3>3. Troubleshoot classroom challenges</h3>
-          <p>
-            Ask for ideas to support student engagement, adapt instruction,
-            or solve teaching and learning problems in context.
-          </p>
+        <div class="info-box">
+          <h3>3. Troubleshoot Challenges</h3>
+          <p>Describe a classroom problem and ask for suggestions, adaptations, or alternative strategies.</p>
         </div>
       </div>
 
-      <div class="callout callout-warning">
-        <h3>Important reminder</h3>
-        <p style="margin:0;">
-          AI is usually stronger with language and idea generation than with precise,
-          definitive answers. Always review outputs with professional judgment.
-        </p>
+      <div class="example-box">
+        <strong>Important:</strong> The guide notes that language models are usually stronger with words than with precise calculations,
+        and that educators should sense-check outputs instead of accepting them automatically. 
       </div>
 
       <p class="footer-top"><a href="#top">↑ Back to top</a></p>
@@ -529,77 +445,49 @@
 
     <hr class="section-divider" />
 
-    <section id="moves" class="card">
+    <section id="prompt-moves" class="card">
       <p class="section-label">Section 3</p>
       <h2>6 Prompt-Writing Moves</h2>
       <p class="intro">
-        These moves condense the article into a smaller, practical toolkit you can use right away.
+        These moves organize the article’s tactics into a shorter, repeatable toolkit for educators. 
       </p>
 
-      <div class="strategy-grid">
-        <div class="accordion">
-          <button onclick="toggleCard(this)">1. Be clear</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> Use simple language and say exactly what you want.</p>
-            <p><strong>Example:</strong> “Explain the water cycle in simple language for 4th graders.”</p>
-            <span class="tag">Start with clarity</span>
-          </div>
+      <div class="grid-2">
+        <div class="strategy-card">
+          <h3>1. Be Clear</h3>
+          <p>Use simple language and say exactly what you want the AI to do.</p>
         </div>
 
-        <div class="accordion">
-          <button onclick="toggleCard(this)">2. Add details</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> Include subject, grade level, age, topic, context, and available resources.</p>
-            <p><strong>Example:</strong> “Write a Grade 3 science lesson for a low-resource classroom using paper and pencils only.”</p>
-            <span class="tag">Context improves relevance</span>
-          </div>
+        <div class="strategy-card">
+          <h3>2. Add Details</h3>
+          <p>Include the grade level, topic, classroom context, available resources, and goal.</p>
         </div>
 
-        <div class="accordion">
-          <button onclick="toggleCard(this)">3. Set a role</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> Tell the AI who to act like.</p>
-            <p><strong>Example:</strong> “Act like an experienced primary teacher creating a reading check.”</p>
-            <span class="tag">Persona shapes tone</span>
-          </div>
+        <div class="strategy-card">
+          <h3>3. Set a Role</h3>
+          <p>Tell the AI who to act like, such as a primary teacher, instructional coach, or assessment designer.</p>
         </div>
 
-        <div class="accordion">
-          <button onclick="toggleCard(this)">4. Use structure and constraints</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> Specify the format, headings, length, or number of questions you want.</p>
-            <p><strong>Example:</strong> “Write 4 reflection questions, each no more than 10 words.”</p>
-            <span class="tag">Format drives output</span>
-          </div>
+        <div class="strategy-card">
+          <h3>4. Use Constraints</h3>
+          <p>Specify the output type, number of questions, length, headings, or format you want.</p>
         </div>
 
-        <div class="accordion">
-          <button onclick="toggleCard(this)">5. Break tasks into steps</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> For more complex tasks, ask the AI to complete the work step by step.</p>
-            <p><strong>Example:</strong> “First list the steps you will use to make the quiz. Then create the quiz.”</p>
-            <span class="tag">Helpful for complex tasks</span>
-          </div>
+        <div class="strategy-card">
+          <h3>5. Break Tasks Into Steps</h3>
+          <p>For complex tasks, ask the AI to complete the work step by step.</p>
         </div>
 
-        <div class="accordion">
-          <button onclick="toggleCard(this)">6. Revise with follow-up prompts</button>
-          <div class="accordion-content">
-            <p><strong>What it means:</strong> Prompting is iterative. Ask the AI to simplify, adapt, shorten, or revise its first answer.</p>
-            <p><strong>Example:</strong> “This lesson is too hard for 5–6-year-olds. Simplify it and remove the hardest parts.”</p>
-            <span class="tag">Improve through revision</span>
-          </div>
+        <div class="strategy-card">
+          <h3>6. Revise with Follow-Up Prompts</h3>
+          <p>If the first result is not right, ask the AI to simplify, adapt, shorten, or rewrite it.</p>
         </div>
       </div>
 
-      <div class="callout callout-warning">
-        <h3>Use AI carefully</h3>
-        <ul>
-          <li>Check answers instead of assuming they are correct.</li>
-          <li>Add your curriculum, local context, and classroom realities.</li>
-          <li>Do not share confidential personal information.</li>
-          <li>Remember that some models may not know recent events or current information.</li>
-        </ul>
+      <div class="example-box">
+        <strong>Sample stronger prompt:</strong><br>
+        Act as an elementary science teacher. Create a Grade 4 lesson plan on the water cycle for a classroom with only paper,
+        pencils, and chart paper. Include one hands-on activity, three discussion questions, and a 3-question exit ticket.
       </div>
 
       <p class="footer-top"><a href="#top">↑ Back to top</a></p>
@@ -611,197 +499,177 @@
       <p class="section-label">Section 4</p>
       <h2>Prompt Revision Activity</h2>
       <p class="intro">
-        Choose a weak prompt, identify what is missing, and build a stronger version.
+        Read each weak prompt and choose the improvement it needs most.
       </p>
 
       <div class="activity-wrap">
-        <div class="panel">
-          <h3>Step 1: Choose a weak prompt</h3>
-          <div class="choice-list">
-            <button onclick="loadScenario(0)">“Help me teach fractions.”</button>
-            <button onclick="loadScenario(1)">“Write a quiz about verbs.”</button>
-            <button onclick="loadScenario(2)">“Make a parent letter.”</button>
+        <div class="prompt-card">
+          <h3>Prompt 1</h3>
+          <div class="weak-prompt">“Help me teach math.”</div>
+          <div class="choice-row">
+            <button class="choice-btn" onclick="checkAnswer(1, 'details')">Add details</button>
+            <button class="choice-btn" onclick="checkAnswer(1, 'punctuation')">Fix punctuation</button>
+            <button class="choice-btn" onclick="checkAnswer(1, 'shorten')">Make it shorter</button>
           </div>
-
-          <div class="callout callout-info" style="margin-top:16px;">
-            <h3 style="margin-bottom:6px;">Selected prompt</h3>
-            <p id="selectedPrompt" style="margin:0;">Choose one of the weak prompts above.</p>
-          </div>
-
-          <h3 style="margin-top:18px;">Step 2: What is missing?</h3>
-          <div id="missingOptions"></div>
-
-          <div id="missingFeedback" class="feedback">
-            Select a prompt first, then choose the missing elements.
-          </div>
+          <div id="feedback1" class="feedback"></div>
         </div>
 
-        <div class="panel">
-          <h3>Step 3: Build a stronger prompt</h3>
-          <div id="promptOutput" class="prompt-box">Select pieces from the prompt bank to build your revised prompt.</div>
-
-          <div class="action-row">
-            <button class="action-btn" onclick="checkPrompt()">Check Prompt</button>
-            <button class="action-btn secondary" onclick="clearPrompt()">Clear</button>
+        <div class="prompt-card">
+          <h3>Prompt 2</h3>
+          <div class="weak-prompt">“Write something about fractions for students.”</div>
+          <div class="choice-row">
+            <button class="choice-btn" onclick="checkAnswer(2, 'details')">Add details and constraints</button>
+            <button class="choice-btn" onclick="checkAnswer(2, 'none')">No change needed</button>
+            <button class="choice-btn" onclick="checkAnswer(2, 'roleonly')">Only add a role</button>
           </div>
+          <div id="feedback2" class="feedback"></div>
+        </div>
 
-          <div id="promptFeedback" class="feedback">
-            Include a role, task, audience, format, and at least one useful constraint.
+        <div class="prompt-card">
+          <h3>Prompt 3</h3>
+          <div class="weak-prompt">“Make a quiz.”</div>
+          <div class="choice-row">
+            <button class="choice-btn" onclick="checkAnswer(3, 'details')">Add topic, grade level, and format</button>
+            <button class="choice-btn" onclick="checkAnswer(3, 'delete')">Delete the prompt</button>
+            <button class="choice-btn" onclick="checkAnswer(3, 'emoji')">Add emojis</button>
           </div>
+          <div id="feedback3" class="feedback"></div>
+        </div>
+      </div>
 
-          <h3 style="margin-top:20px;">Prompt bank</h3>
-          <div id="pieceBank" class="piece-bank">
-            <button class="piece" data-type="role" onclick="addPiece(this)">Act as an experienced elementary teacher.</button>
-            <button class="piece" data-type="task" onclick="addPiece(this)">Create a lesson on fractions.</button>
-            <button class="piece" data-type="task" onclick="addPiece(this)">Write a short quiz on verbs.</button>
-            <button class="piece" data-type="task" onclick="addPiece(this)">Draft a parent letter.</button>
-            <button class="piece" data-type="audience" onclick="addPiece(this)">For Grade 3 students.</button>
-            <button class="piece" data-type="audience" onclick="addPiece(this)">For families of Grade 2 students.</button>
-            <button class="piece" data-type="format" onclick="addPiece(this)">Use bullet points.</button>
-            <button class="piece" data-type="format" onclick="addPiece(this)">Format it as a table.</button>
-            <button class="piece" data-type="format" onclick="addPiece(this)">Use a formal letter format.</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">Use simple, clear language.</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">Limit the response to 5 questions.</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">Only use low-cost classroom materials.</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">Keep it appropriate for beginners.</button>
-          </div>
+      <div class="builder-box">
+        <h3 style="margin-top:0;">Build a Better Prompt</h3>
+        <p style="font-size:11pt; margin-top:0;">
+          Click the pieces below to build a stronger prompt.
+        </p>
 
-          <h3 style="margin-top:18px;">Success checklist</h3>
-          <ul class="checklist">
-            <li>Clear task</li>
-            <li>Useful details</li>
-            <li>Specific audience</li>
-            <li>Requested format</li>
-            <li>At least one constraint</li>
-          </ul>
+        <div id="promptOutput" class="builder-output">Click pieces to build your prompt.</div>
+
+        <div class="piece-bank">
+          <button class="piece" data-type="role" onclick="addPiece(this)">Act as a Grade 3 teacher</button>
+          <button class="piece" data-type="task" onclick="addPiece(this)">create a short quiz on fractions</button>
+          <button class="piece" data-type="audience" onclick="addPiece(this)">for elementary students</button>
+          <button class="piece" data-type="format" onclick="addPiece(this)">with 5 multiple-choice questions</button>
+          <button class="piece" data-type="constraint" onclick="addPiece(this)">using simple language</button>
+          <button class="piece" data-type="constraint" onclick="addPiece(this)">and one answer key</button>
+        </div>
+
+        <div class="action-row">
+          <button class="action-btn" onclick="checkPrompt()">Check Prompt</button>
+          <button class="action-btn secondary" onclick="clearPrompt()">Clear</button>
+        </div>
+
+        <div id="promptFeedback" class="feedback" style="display:block; background:#eef6fc; border:1px solid #cfe2f3; color:#1f2d3d;">
+          Include a role, task, audience, format, and at least one useful constraint.
         </div>
       </div>
 
       <p class="footer-top"><a href="#top">↑ Back to top</a></p>
     </section>
 
+    <hr class="section-divider" />
+
+    <section id="cautions" class="card">
+      <p class="section-label">Section 5</p>
+      <h2>Use AI Carefully</h2>
+      <p class="intro">
+        AI tools can be helpful, but they have limits. The article emphasizes the importance of checking outputs carefully
+        and protecting privacy. :contentReference[oaicite:6]{index=6}
+      </p>
+
+      <div class="caution-box">
+        <h3>Before You Use an AI Response</h3>
+        <ul>
+          <li>Check the answer instead of assuming it is correct.</li>
+          <li>Give local context, grade level, and curriculum details when needed.</li>
+          <li>Remember that some tools may not have current or local information.</li>
+          <li>Ask the AI to simplify language if the output is too complex.</li>
+          <li>Do not share confidential or personal student information.</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <strong>Best practice:</strong> Use AI for drafting, brainstorming, and adapting materials, then review the output with your own professional judgment. :contentReference[oaicite:7]{index=7}
+      </div>
+
+      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
+    </section>
+
     <div class="summary-box">
-      <h2>✅ Before You Move On</h2>
+      <h2><strong>✅ Before You Move On</strong></h2>
       <p>
-        Strong prompts are usually specific, structured, and revised over time.
-        Better prompts lead to more useful first drafts, but human judgment still matters.
+        Strong prompts are usually clear, specific, structured, and revised over time.
+        Start with a good first prompt, then improve the response through follow-up questions.
       </p>
     </div>
 
-    <section id="reference" class="reference-box">
-      <h3>Reference</h3>
-      <p style="margin-bottom:0;">
-        AI-for-Education.org. <em>AI Prompt Writing Guide for Educators.</em>
+    <section class="reference-box">
+      <p class="section-label">Reference</p>
+      <p style="margin:0;">
+        AI for Education. <em>AI Prompt Writing Guide for Educators</em>. Course reference article used to develop this page’s concepts,
+        examples, and activity. :contentReference[oaicite:8]{index=8}
       </p>
     </section>
   </div>
 
   <script>
-    function toggleCard(button) {
-      const content = button.nextElementSibling;
-      const open = content.style.display === "block";
+    function setFeedback(id, correct, message) {
+      const box = document.getElementById(id);
+      box.className = correct ? "feedback success" : "feedback error";
+      box.innerHTML = message;
+    }
 
-      document.querySelectorAll(".accordion-content").forEach(item => {
-        item.style.display = "none";
-      });
+    function checkAnswer(questionNumber, answer) {
+      if (questionNumber === 1) {
+        if (answer === "details") {
+          setFeedback(
+            "feedback1",
+            true,
+            "✅ Correct! This prompt is too broad. It needs details such as grade level, math topic, output type, and context."
+          );
+        } else {
+          setFeedback(
+            "feedback1",
+            false,
+            "❌ Not quite. The biggest issue is that the prompt is too vague and needs more details."
+          );
+        }
+      }
 
-      if (!open) {
-        content.style.display = "block";
+      if (questionNumber === 2) {
+        if (answer === "details") {
+          setFeedback(
+            "feedback2",
+            true,
+            "✅ Correct! This prompt needs details like topic focus, grade level, format, and limits on the response."
+          );
+        } else {
+          setFeedback(
+            "feedback2",
+            false,
+            "❌ Not quite. The main need here is more detail and clearer constraints."
+          );
+        }
+      }
+
+      if (questionNumber === 3) {
+        if (answer === "details") {
+          setFeedback(
+            "feedback3",
+            true,
+            "✅ Correct! A stronger version would specify the subject, grade level, number of questions, and quiz format."
+          );
+        } else {
+          setFeedback(
+            "feedback3",
+            false,
+            "❌ Not quite. The prompt needs more information, not decoration or deletion."
+          );
+        }
       }
     }
 
-    const scenarios = [
-      {
-        prompt: "Help me teach fractions.",
-        answers: ["details", "audience", "format", "constraint"],
-        options: [
-          { id: "details", text: "More details or context" },
-          { id: "audience", text: "Audience or grade level" },
-          { id: "format", text: "Requested format" },
-          { id: "constraint", text: "Useful constraints" },
-          { id: "none", text: "Nothing is missing" }
-        ]
-      },
-      {
-        prompt: "Write a quiz about verbs.",
-        answers: ["audience", "format", "constraint", "details"],
-        options: [
-          { id: "audience", text: "Audience or grade level" },
-          { id: "format", text: "Structure of the quiz" },
-          { id: "constraint", text: "Number of questions or limits" },
-          { id: "details", text: "Topic details" },
-          { id: "tone", text: "A funny tone" }
-        ]
-      },
-      {
-        prompt: "Make a parent letter.",
-        answers: ["details", "format", "audience"],
-        options: [
-          { id: "details", text: "Purpose of the letter" },
-          { id: "format", text: "Requested structure or tone" },
-          { id: "audience", text: "Who the letter is for" },
-          { id: "color", text: "A color choice" },
-          { id: "none", text: "Nothing is missing" }
-        ]
-      }
-    ];
-
-    let currentScenario = null;
-    let selectedPieces = [];
-
-    function loadScenario(index) {
-      currentScenario = scenarios[index];
-      document.getElementById("selectedPrompt").innerText = currentScenario.prompt;
-
-      const container = document.getElementById("missingOptions");
-      container.innerHTML = "";
-
-      currentScenario.options.forEach(option => {
-        const label = document.createElement("label");
-        label.style.display = "block";
-        label.style.marginBottom = "8px";
-        label.style.fontSize = "11pt";
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = option.id;
-        checkbox.style.marginRight = "8px";
-
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(option.text));
-        container.appendChild(label);
-      });
-
-      const checkBtn = document.createElement("button");
-      checkBtn.className = "action-btn";
-      checkBtn.style.marginTop = "10px";
-      checkBtn.innerText = "Check Missing Elements";
-      checkBtn.onclick = checkMissing;
-      container.appendChild(checkBtn);
-
-      const feedback = document.getElementById("missingFeedback");
-      feedback.className = "feedback";
-      feedback.innerText = "Select the parts this prompt is missing.";
-    }
-
-    function checkMissing() {
-      if (!currentScenario) return;
-
-      const selected = Array.from(document.querySelectorAll("#missingOptions input:checked"))
-        .map(input => input.value)
-        .sort();
-
-      const correct = [...currentScenario.answers].sort();
-      const feedback = document.getElementById("missingFeedback");
-
-      if (JSON.stringify(selected) === JSON.stringify(correct)) {
-        feedback.className = "feedback success";
-        feedback.innerText = "✅ Correct. This prompt needs more specificity and structure.";
-      } else {
-        feedback.className = "feedback error";
-        feedback.innerText = "❌ Not quite. Try again and think about what would make the prompt more precise and usable.";
-      }
-    }
+    const selectedPieces = [];
 
     function addPiece(button) {
       if (button.classList.contains("used")) return;
@@ -812,27 +680,29 @@
       });
 
       button.classList.add("used");
-      renderPrompt();
+      updatePromptOutput();
     }
 
-    function renderPrompt() {
+    function updatePromptOutput() {
       const output = document.getElementById("promptOutput");
-
       if (selectedPieces.length === 0) {
-        output.innerText = "Select pieces from the prompt bank to build your revised prompt.";
+        output.innerText = "Click pieces to build your prompt.";
         return;
       }
-
       output.innerText = selectedPieces.map(piece => piece.text).join(" ");
     }
 
     function clearPrompt() {
-      selectedPieces = [];
+      selectedPieces.length = 0;
       document.querySelectorAll(".piece").forEach(piece => piece.classList.remove("used"));
-      renderPrompt();
+      updatePromptOutput();
 
       const feedback = document.getElementById("promptFeedback");
       feedback.className = "feedback";
+      feedback.style.display = "block";
+      feedback.style.background = "#eef6fc";
+      feedback.style.border = "1px solid #cfe2f3";
+      feedback.style.color = "#1f2d3d";
       feedback.innerText = "Include a role, task, audience, format, and at least one useful constraint.";
     }
 
@@ -848,7 +718,7 @@
 
       if (hasRole && hasTask && hasAudience && hasFormat && hasConstraint) {
         feedback.className = "feedback success";
-        feedback.innerText = "✅ Strong revision. Your prompt now includes the parts that make AI outputs more useful.";
+        feedback.innerText = "✅ Strong prompt! You included the key parts that make the task clear and usable.";
       } else {
         const missing = [];
         if (!hasRole) missing.push("role");
