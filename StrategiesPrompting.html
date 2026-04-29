@@ -721,64 +721,6 @@
       scoreTotal = 0;
       renderQuestion();
     }
-
-    const selectedPieces = [];
-
-    function addPiece(button) {
-      if (button.classList.contains("used")) return;
-
-      selectedPieces.push({
-        text: button.innerText,
-        type: button.dataset.type
-      });
-
-      button.classList.add("used");
-      updatePromptOutput();
-    }
-
-    function updatePromptOutput() {
-      const output = document.getElementById("promptOutput");
-      if (selectedPieces.length === 0) {
-        output.innerText = "Click pieces from the bank to build your prompt.";
-        return;
-      }
-
-      output.innerText = selectedPieces.map(piece => piece.text).join(" ");
-    }
-
-    function clearPrompt() {
-      selectedPieces.length = 0;
-      document.querySelectorAll(".piece").forEach(piece => piece.classList.remove("used"));
-      updatePromptOutput();
-      document.getElementById("promptFeedback").innerText =
-        "Your goal is to include a role, task, audience, format, and at least one useful constraint.";
-    }
-
-    function checkPrompt() {
-      const types = selectedPieces.map(p => p.type);
-      const hasRole = types.includes("role");
-      const hasTask = types.includes("task");
-      const hasAudience = types.includes("audience");
-      const hasFormat = types.includes("format");
-      const hasConstraint = types.includes("constraint");
-
-      const feedback = document.getElementById("promptFeedback");
-
-      if (hasRole && hasTask && hasAudience && hasFormat && hasConstraint) {
-        feedback.innerText = "✅ Strong prompt! You included the key parts that make an AI prompt clear and usable.";
-      } else {
-        const missing = [];
-        if (!hasRole) missing.push("role");
-        if (!hasTask) missing.push("task");
-        if (!hasAudience) missing.push("audience");
-        if (!hasFormat) missing.push("format");
-        if (!hasConstraint) missing.push("constraint");
-
-        feedback.innerText = "❌ Add: " + missing.join(", ") + ".";
-      }
-    }
-
-    renderQuestion();
   </script>
 </body>
 </html>
