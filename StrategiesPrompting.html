@@ -444,9 +444,7 @@
 
       <div class="nav-box">
         <a href="#strategies">Explore Strategies</a>
-        <a href="#matching-game">Matching Game</a>
         <a href="#scenario-quiz">Scenario Quiz</a>
-        <a href="#build-lab">Build-a-Prompt Lab</a>
       </div>
     </section>
 
@@ -523,44 +521,6 @@
       <p class="footer-top"><a href="#top">↑ Back to top</a></p>
     </section>
 
-    <hr class="section-divider" />
-
-    <section id="matching-game" class="card">
-      <p class="section-label">Section 2</p>
-      <h2>Matching Game</h2>
-      <p class="intro">
-        Match each strategy to the best description.
-      </p>
-
-      <div class="two-col">
-        <div class="panel">
-          <h3>Strategies</h3>
-          <button class="choice-btn" onclick="selectMatch('role')">Set role, audience, and format</button>
-          <button class="choice-btn" onclick="selectMatch('specific')">Be clear and specific</button>
-          <button class="choice-btn" onclick="selectMatch('examples')">Use examples when needed</button>
-          <button class="choice-btn" onclick="selectMatch('steps')">Break complex tasks into steps</button>
-          <button class="choice-btn" onclick="selectMatch('constraints')">Add constraints and context</button>
-          <button class="choice-btn" onclick="selectMatch('revise')">Revise and refine</button>
-        </div>
-
-        <div class="panel">
-          <h3>Descriptions</h3>
-          <button class="match-btn" onclick="checkMatch('steps')">Guide the AI through a process one step at a time</button>
-          <button class="match-btn" onclick="checkMatch('examples')">Show the model a pattern before asking for a new response</button>
-          <button class="match-btn" onclick="checkMatch('specific')">Reduce vague wording and tell the AI exactly what to do</button>
-          <button class="match-btn" onclick="checkMatch('role')">Tell the AI who it is, who the response is for, and the output type</button>
-          <button class="match-btn" onclick="checkMatch('revise')">Improve the answer by reviewing, questioning, and rewriting</button>
-          <button class="match-btn" onclick="checkMatch('constraints')">Add useful limits like length, grade level, format, or topic details</button>
-        </div>
-      </div>
-
-      <div class="feedback" id="matchFeedback">Select a strategy, then choose its matching description.</div>
-
-      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
-    </section>
-
-    <hr class="section-divider" />
-
     <section id="scenario-quiz" class="card">
       <p class="section-label">Section 3</p>
       <h2>Scenario Quiz</h2>
@@ -590,52 +550,6 @@
     </section>
 
     <hr class="section-divider" />
-
-    <section id="build-lab" class="card">
-      <p class="section-label">Section 4</p>
-      <h2>Build-a-Prompt Mini Lab</h2>
-      <p class="intro">
-        Build a strong prompt by combining the key parts: role, task, audience, format, and constraints.
-      </p>
-
-      <div class="lab-grid">
-        <div class="panel">
-          <h3>Your Prompt</h3>
-          <div class="builder-output" id="promptOutput">Click pieces from the bank to build your prompt.</div>
-
-          <div class="quiz-controls">
-            <button class="action-btn" onclick="checkPrompt()">Check Prompt</button>
-            <button class="action-btn secondary" onclick="clearPrompt()">Clear</button>
-          </div>
-
-          <div class="feedback" id="promptFeedback">Your goal is to include a role, task, audience, format, and at least one useful constraint.</div>
-        </div>
-
-        <div class="panel">
-          <h3>Prompt Piece Bank</h3>
-          <div class="piece-bank" id="pieceBank">
-            <button class="piece" data-type="role" onclick="addPiece(this)">Act as a science teacher</button>
-            <button class="piece" data-type="task" onclick="addPiece(this)">Explain the water cycle</button>
-            <button class="piece" data-type="audience" onclick="addPiece(this)">for 5th grade students</button>
-            <button class="piece" data-type="format" onclick="addPiece(this)">in a table</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">using simple language</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">with 3 key vocabulary words</button>
-            <button class="piece" data-type="constraint" onclick="addPiece(this)">and one real-world example</button>
-          </div>
-
-          <h3 style="margin-top:18px;">Success Checklist</h3>
-          <ul class="checklist">
-            <li>Includes a clear role</li>
-            <li>States the task</li>
-            <li>Names the audience</li>
-            <li>Specifies a format</li>
-            <li>Adds one or more useful constraints</li>
-          </ul>
-        </div>
-      </div>
-
-      <p class="footer-top"><a href="#top">↑ Back to top</a></p>
-    </section>
 
     <div class="summary-box">
       <h2><strong>✅ Before You Move On</strong></h2>
