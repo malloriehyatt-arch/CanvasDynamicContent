@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- MathJax for rendering standard LaTeX equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -34,27 +37,36 @@
         }
     </script>
     <style>
-        .highlightable {
+        /* Base clickable target - blends naturally into text */
+        .audit-target {
             transition: all 0.2s ease;
             cursor: pointer;
-            border-bottom: 2px dashed #fbcdd6;
             padding: 2px 4px;
             border-radius: 4px;
+            position: relative;
         }
-        .highlightable:hover {
+        .audit-target:hover {
+            background-color: #fce7f3;
+            color: #832135;
+        }
+        
+        /* Guided Mode Toggle Style */
+        body.guided-mode .audit-target.has-flaw {
+            border-bottom: 2px dashed #e56b82;
             background-color: #fff1f3;
-            border-bottom-color: #e56b82;
         }
+
+        /* States after audit selection */
         .flaw-found {
             background-color: #fecaca !important;
             border-bottom: 2px solid #dc2626 !important;
             color: #991b1b !important;
             font-weight: 600;
         }
-        .flaw-corrected {
-            background-color: #dcfce7 !important;
-            border-bottom: 2px solid #166534 !important;
-            color: #14532d !important;
+        .accurate-selected {
+            background-color: #dbeafe !important;
+            border-bottom: 2px solid #2563eb !important;
+            color: #1e40af !important;
         }
         .accordion-content {
             max-height: 0;
@@ -73,15 +85,15 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white text-pcsd-rose rounded-lg font-black text-2xl flex items-center justify-center shadow-md">
-                    PCSD
+                    P
                 </div>
                 <div>
-                    <h1 class="text-lg md:text-xl font-bold tracking-tight">Spot the Hallucination</h1>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight">Module 1 Activity</h1>
                 </div>
             </div>
             <div class="flex items-center gap-2 bg-pcsd-darkRose/80 px-4 py-2 rounded-full border border-pcsd-accent/40">
                 <i class="fa-solid fa-magnifying-glass text-rose-200"></i>
-                <span class="text-xs font-semibold uppercase tracking-wider text-rose-100">Page 1.2: Teacher Review Practice Studio</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-rose-100">Page 1.2: Teacher Practice</span>
             </div>
         </div>
     </header>
@@ -89,60 +101,69 @@
     <!-- Main Container -->
     <main class="max-w-6xl mx-auto px-4 mt-6 space-y-6">
 
-        <!-- Introductory Banner & Step-by-Step Instructions -->
+        <!-- Introductory Banner & Mode Toggle -->
         <div class="bg-white rounded-2xl shadow-sm border border-pcsd-borderRose p-6 space-y-6">
             <div class="flex flex-col lg:flex-row gap-6 items-start justify-between border-b border-pcsd-borderRose/60 pb-5">
                 <div class="space-y-2 flex-1">
-                    <p class="margin-0 text-xs font-bold uppercase tracking-wider text-pcsd-rose">MODULE 1 PRACTICE</p>
-                    <h2 class="text-2xl font-bold text-slate-900 mt-0">You Are the Expert in the Classroom</h2>
+                    <p class="margin-0 text-xs font-bold uppercase tracking-wider text-pcsd-rose">MODULE 1 PRACTICE STUDIO</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-0">Apply Your Professional Educator Lens</h2>
                     <p class="text-sm text-slate-600 leading-relaxed">
-                        AI tools are helpful writing partners, but they don't know your students, grade-level reading expectations, or safety rules like you do. In this activity, you'll put on your teacher lens to review raw AI content, spot mistakes, and polish materials before they reach your students.
+                        Generative AI tools write with remarkable confidence, but they lack pedagogical context, student developmental awareness, and lab safety knowledge. In this studio, read raw AI outputs just as a teacher would before printing or posting to Canvas. Click sentences to inspect them for subtle mistakes.
                     </p>
                 </div>
-                <!-- Mini Stepper -->
-                <div class="bg-pcsd-lightRose border border-pcsd-borderRose rounded-xl p-4 w-full lg:w-80 shrink-0">
-                    <span class="text-xs font-bold text-pcsd-rose uppercase tracking-wider block mb-2">The Teacher-in-the-Loop Workflow</span>
-                    <div class="grid grid-cols-4 gap-1 text-center text-xs">
-                        <div class="p-2 rounded bg-white text-slate-600 font-semibold border border-pcsd-borderRose/50">1. Prompt</div>
-                        <div class="p-2 rounded bg-white text-slate-600 font-semibold border border-pcsd-borderRose/50">2. Draft</div>
-                        <div class="p-2 rounded bg-pcsd-rose text-white font-bold shadow-sm ring-2 ring-rose-300">3. Review</div>
-                        <div class="p-2 rounded bg-emerald-600 text-white font-bold shadow-sm">4. Polish</div>
+
+                <!-- Guided Mode Toggle Controls -->
+                <div class="bg-pcsd-lightRose border border-pcsd-borderRose rounded-xl p-4 w-full lg:w-80 shrink-0 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-pcsd-rose uppercase tracking-wider">Audit Difficulty Mode</span>
+                        <span id="mode-badge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-pcsd-rose text-white">Realistic</span>
                     </div>
+                    
+                    <label class="flex items-center justify-between cursor-pointer p-2 bg-white rounded-lg border border-pcsd-borderRose">
+                        <span class="text-xs text-slate-700 font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-pcsd-accent"></i> Show Guided Clues
+                        </span>
+                        <input type="checkbox" id="toggle-guided" class="sr-only peer" onchange="toggleGuidedMode(this)">
+                        <div class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pcsd-rose"></div>
+                    </label>
+                    <p class="text-[11px] text-slate-500 leading-snug">
+                        <em>Realistic Mode</em> renders clean text without answer highlights. Toggle on <em>Guided Clues</em> if you want subtle dashed indicators.
+                    </p>
                 </div>
             </div>
 
             <!-- Task Callout Banner -->
             <div class="bg-pcsd-lightRose border-l-6 border-pcsd-accent border border-pcsd-borderRose rounded-xl p-5 space-y-3">
                 <h3 class="text-sm font-bold text-pcsd-rose uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-clipboard-list text-pcsd-rose"></i> Easy 4-Step Practice Guide
+                    <i class="fa-solid fa-clipboard-list text-pcsd-rose"></i> 4-Step Teacher Audit Workflow
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
                     <div class="bg-white p-3.5 rounded-xl border border-pcsd-borderRose shadow-sm space-y-1">
                         <span class="font-bold text-pcsd-rose flex items-center gap-1.5">
                             <span class="w-5 h-5 rounded-full bg-pcsd-rose text-white flex items-center justify-center text-[10px]">1</span> Select Level
                         </span>
-                        <p class="text-slate-600 leading-relaxed">Pick either the <strong>Elementary</strong> or <strong>High School</strong> lesson tab below.</p>
+                        <p class="text-slate-600 leading-relaxed">Choose either the <strong>Elementary Reading</strong> or <strong>High School Chemistry</strong> tab below.</p>
                     </div>
 
                     <div class="bg-white p-3.5 rounded-xl border border-pcsd-borderRose shadow-sm space-y-1">
                         <span class="font-bold text-pcsd-rose flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-pcsd-rose text-white flex items-center justify-center text-[10px]">2</span> Spot Issues
+                            <span class="w-5 h-5 rounded-full bg-pcsd-rose text-white flex items-center justify-center text-[10px]">2</span> Audit Passages
                         </span>
-                        <p class="text-slate-600 leading-relaxed">Click on the underlined text to find factual errors, tricky vocabulary, or safety slips.</p>
+                        <p class="text-slate-600 leading-relaxed">Click any sentence to evaluate it. Identify subtle hallucinations, vocabulary mismatches, or safety gaps.</p>
                     </div>
 
                     <div class="bg-white p-3.5 rounded-xl border border-pcsd-borderRose shadow-sm space-y-1">
                         <span class="font-bold text-pcsd-rose flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-pcsd-rose text-white flex items-center justify-center text-[10px]">3</span> See Teacher Notes
+                            <span class="w-5 h-5 rounded-full bg-pcsd-rose text-white flex items-center justify-center text-[10px]">3</span> Review Analysis
                         </span>
-                        <p class="text-slate-600 leading-relaxed">Read the feedback on the right to see why the AI content needs your quick touch-up.</p>
+                        <p class="text-slate-600 leading-relaxed">Examine the pedagogical feedback card to understand <em>why</em> the AI generated the error.</p>
                     </div>
 
                     <div class="bg-white p-3.5 rounded-xl border border-pcsd-borderRose shadow-sm space-y-1">
                         <span class="font-bold text-emerald-800 flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">4</span> Make It Ready
+                            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">4</span> Polish Draft
                         </span>
-                        <p class="text-slate-600 leading-relaxed">Once you catch all the issues, click <strong>"Apply Teacher Touch"</strong> to reveal student-ready materials.</p>
+                        <p class="text-slate-600 leading-relaxed">When all errors are audited, click <strong>"Apply Teacher Touch"</strong> to view student-ready materials.</p>
                     </div>
                 </div>
             </div>
@@ -156,7 +177,7 @@
                 </div>
                 <div>
                     <div class="text-xs text-rose-200 font-medium uppercase">Practice Progress</div>
-                    <div class="text-sm font-bold" id="progress-text">0 of 5 AI Mistakes Spotted</div>
+                    <div class="text-sm font-bold" id="progress-text">0 of 5 Critical AI Hallucinations Caught</div>
                 </div>
             </div>
             <div class="w-full sm:w-48 bg-rose-950 rounded-full h-3 overflow-hidden border border-rose-800">
@@ -167,10 +188,10 @@
         <!-- Grade-Band Navigation Tabs -->
         <div class="flex border-b border-pcsd-borderRose gap-2">
             <button id="tab-elem" onclick="switchTab('elem')" class="px-5 py-3 font-semibold text-sm rounded-t-xl transition-all flex items-center gap-2 bg-white text-pcsd-rose border-t-2 border-x border-pcsd-rose shadow-sm">
-                <i class="fa-solid fa-child text-pcsd-accent"></i> Elementary Example (2nd Grade)
+                <i class="fa-solid fa-child text-pcsd-accent"></i> Elementary Passage (2nd Grade)
             </button>
             <button id="tab-sec" onclick="switchTab('sec')" class="px-5 py-3 font-semibold text-sm rounded-t-xl transition-all flex items-center gap-2 bg-rose-50/60 text-slate-600 hover:bg-rose-100/50 border-b border-pcsd-borderRose">
-                <i class="fa-solid fa-flask text-pcsd-rose"></i> High School Example (Chemistry Lab)
+                <i class="fa-solid fa-flask text-pcsd-rose"></i> High School Science Rubric (Chemistry)
             </button>
             <button id="tab-takeaway" onclick="switchTab('takeaway')" class="px-5 py-3 font-semibold text-sm rounded-t-xl transition-all flex items-center gap-2 bg-rose-50/60 text-slate-600 hover:bg-rose-100/50 border-b border-pcsd-borderRose">
                 <i class="fa-solid fa-lightbulb text-amber-600"></i> Teacher Superpowers Guide
@@ -180,66 +201,67 @@
         <!-- CASE STUDY 1: ELEMENTARY -->
         <div id="content-elem" class="space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Left: Interactive Passage -->
+                <!-- Left: Interactive Unhinted Passage -->
                 <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-pcsd-borderRose space-y-4">
                     <div class="flex items-center justify-between border-b pb-3 border-pcsd-borderRose/60">
                         <div>
-                            <p class="text-xs font-bold text-pcsd-rose uppercase tracking-wider mb-0">Raw AI Draft • 2nd Grade Target</p>
+                            <p class="text-xs font-bold text-pcsd-rose uppercase tracking-wider mb-0">Raw AI Generation • Prompted for "2nd Grade Reading Passage"</p>
                             <h3 class="text-lg font-bold text-slate-900 mt-0">Reading Passage: "Leaders in American History"</h3>
                         </div>
                         <span class="px-2.5 py-1 bg-rose-100 text-pcsd-rose rounded-full text-xs font-semibold flex items-center gap-1 border border-rose-200">
-                            <i class="fa-solid fa-bug"></i> 3 Mistakes Inside
+                            <i class="fa-solid fa-bug"></i> 3 Flaws Hidden Inside
                         </span>
                     </div>
 
-                    <!-- Banner Instructions for Case 1 -->
-                    <div class="bg-pcsd-lightRose border border-pcsd-borderRose rounded-xl p-3.5 text-xs text-rose-950 space-y-1">
-                        <div class="font-bold flex items-center gap-2 text-pcsd-rose">
-                            <i class="fa-solid fa-hand-pointer text-pcsd-accent"></i> What to do:
-                        </div>
+                    <!-- Article Body with Realistic Clickable Spans -->
+                    <div class="prose max-w-none text-slate-800 text-base leading-relaxed p-5 bg-slate-50 border border-pcsd-borderRose/60 rounded-xl font-serif space-y-4">
                         <p>
-                            Click on the <strong>3 underlined phrases</strong> in the text below. Look out for <strong>tech mix-ups</strong> (things that didn't exist in 1776) and <strong>tricky vocabulary words</strong> that are too hard for 2nd graders.
+                            <span class="audit-target" id="target-elem-valid1" onclick="auditSentence('elem', 'valid1', false)">
+                                Long ago, George Washington served as the first President of the United States. He worked hard to help our young nation grow and led soldiers during the American Revolution.
+                            </span>
                         </p>
-                    </div>
+                        
+                        <p>
+                            <span class="audit-target has-flaw" id="target-elem-flaw1" onclick="auditSentence('elem', 1, true)">
+                                In 1776, Washington frequently sent urgent telegraph messages across Virginia to Thomas Jefferson to coordinate troop movements.
+                            </span>
+                            <span class="audit-target" id="target-elem-valid2" onclick="auditSentence('elem', 'valid2', false)">
+                                His brave leadership was recognized by citizens throughout all thirteen colonies.
+                            </span>
+                        </p>
 
-                    <!-- Article Body with Clickable Spans -->
-                    <div class="prose max-w-none text-slate-700 text-base leading-relaxed p-4 bg-slate-50 border border-pcsd-borderRose/60 rounded-xl font-serif">
-                        <p class="mb-4">
-                            Long ago, George Washington became the first President of the United States. He worked hard to help our young country grow and served as a brave general during the American Revolution.
-                        </p>
-                        <p class="mb-4">
-                            In 1776, 
-                            <span class="highlightable" id="flaw-elem-1" onclick="auditFlaw('elem', 1, 'Historical Mix-up')">George Washington invented the smartphone to send text messages to Thomas Jefferson</span> 
-                            to coordinate troops across Virginia. His leadership was famous throughout the colonies.
-                        </p>
-                        <p class="mb-4">
-                            Historians often describe Washington's presidency as a 
-                            <span class="highlightable" id="flaw-elem-2" onclick="auditFlaw('elem', 2, 'Words Too Hard for 2nd Grade')">quintessential metamorphosis demonstrating fastidious pedagogical oversight</span>. 
-                            He wanted all citizens to understand how laws were created.
-                        </p>
                         <p>
-                            Later in his life, 
-                            <span class="highlightable" id="flaw-elem-3" onclick="auditFlaw('elem', 3, 'Historical Timeline Error')">Washington traveled to Washington D.C. in 1998 to sign the U.S. Constitution on his iPad</span> 
-                            before retiring to his home at Mount Vernon.
+                            <span class="audit-target has-flaw" id="target-elem-flaw2" onclick="auditSentence('elem', 2, true)">
+                                Historians evaluate Washington's presidency as a quintessential manifestation of fastidious administrative efficacy.
+                            </span>
+                            <span class="audit-target" id="target-elem-valid3" onclick="auditSentence('elem', 'valid3', false)">
+                                He wanted all citizens to understand how democratic laws were discussed and voted on.
+                            </span>
+                        </p>
+
+                        <p>
+                            <span class="audit-target has-flaw" id="target-elem-flaw3" onclick="auditSentence('elem', 3, true)">
+                                In 1787, Washington traveled to Washington, D.C. to sign the U.S. Constitution inside the White House before retiring to Mount Vernon.
+                            </span>
                         </p>
                     </div>
 
                     <!-- Status Banner for Case 1 -->
                     <div id="elem-status" class="p-3.5 rounded-xl bg-pcsd-lightRose border border-pcsd-borderRose text-xs text-slate-600 flex items-center justify-between">
-                        <span>Status: Click underlined phrases to complete your teacher review.</span>
-                        <span class="font-bold text-pcsd-rose" id="elem-counter">0/3 Mistakes Found</span>
+                        <span>Click any sentence to audit its accuracy and age-appropriateness.</span>
+                        <span class="font-bold text-pcsd-rose" id="elem-counter">0/3 Flaws Caught</span>
                     </div>
                 </div>
 
-                <!-- Right: Audit Feedback & Polish Box -->
+                <!-- Right: Audit Analysis & Polish Box -->
                 <div class="lg:col-span-5 space-y-4">
                     <!-- Feedback Card -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-pcsd-borderRose">
                         <h4 class="text-sm font-bold text-pcsd-rose uppercase tracking-wider mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-clipboard-check text-pcsd-accent"></i> Teacher Notes on AI Mistakes
+                            <i class="fa-solid fa-clipboard-check text-pcsd-accent"></i> Teacher Audit Analysis
                         </h4>
-                        <div id="audit-feedback-elem" class="text-xs text-slate-500 space-y-3 min-h-[160px] flex items-center justify-center border-2 border-dashed border-pcsd-borderRose/70 rounded-xl p-4 text-center">
-                            Click a highlighted phrase in the passage to inspect what went wrong and how to fix it.
+                        <div id="audit-feedback-elem" class="text-xs text-slate-500 space-y-3 min-h-[180px] flex items-center justify-center border-2 border-dashed border-pcsd-borderRose/70 rounded-xl p-4 text-center">
+                            Select any sentence from the passage on the left to run an educator quality check.
                         </div>
                     </div>
 
@@ -252,10 +274,10 @@
                             <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded" id="badge-refine-elem">Locked</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-3">
-                            Use your teacher experience (matching 2nd-grade reading levels and historical accuracy) to polish this passage.
+                            Apply your professional knowledge (2nd-grade reading level standards &amp; historical facts) to refine the AI output.
                         </p>
                         <button id="btn-refine-elem" disabled onclick="applyRefinement('elem')" class="w-full py-2.5 px-4 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl shadow-none cursor-not-allowed transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lock"></i> Find All 3 Mistakes To Unlock Polish
+                            <i class="fa-solid fa-lock"></i> Find All 3 Hallucinations To Unlock
                         </button>
                     </div>
                 </div>
@@ -265,30 +287,30 @@
             <div id="solution-elem" class="hidden bg-emerald-50/80 border-2 border-emerald-500 rounded-2xl p-6 shadow-md space-y-4">
                 <div class="flex items-center justify-between border-b border-emerald-200 pb-3">
                     <div class="flex items-center gap-2 text-emerald-900 font-bold text-base">
-                        <i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> Polished &amp; Student-Ready Passage (2nd Grade)
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> Polished &amp; Student-Ready Passage (2nd Grade Target)
                     </div>
                     <span class="px-2.5 py-1 bg-emerald-200 text-emerald-800 font-bold text-xs rounded-md">Teacher Approved!</span>
                 </div>
-                <div class="text-sm text-emerald-950 font-serif leading-relaxed bg-white p-4 rounded-xl border border-emerald-200 shadow-inner">
-                    <p class="mb-3">
-                        Long ago, George Washington became the first President of the United States. He worked hard to help our young country grow and served as a brave general during the American Revolution.
-                    </p>
-                    <p class="mb-3">
-                        In 1776, George Washington led soldiers and wrote letters to other leaders like Thomas Jefferson to ask for help. He did not have phones or computers, so messengers carried handwritten letters on horseback.
-                    </p>
-                    <p class="mb-3">
-                        Washington was known as a fair and careful leader. He helped guide the nation with great honesty and respect for all people.
+                <div class="text-sm text-emerald-950 font-serif leading-relaxed bg-white p-5 rounded-xl border border-emerald-200 shadow-inner space-y-3">
+                    <p>
+                        Long ago, George Washington served as the first President of the United States. He worked hard to help our young nation grow and led soldiers during the American Revolution.
                     </p>
                     <p>
-                        In 1787, Washington traveled to Philadelphia to help write and sign the U.S. Constitution with ink and quill pens, setting up rules that guide our country today.
+                        In 1776, George Washington wrote letters to other leaders like Thomas Jefferson to ask for help. Because phones, computers, and telegraphs did not exist yet, messengers carried handwritten letters on horseback.
+                    </p>
+                    <p>
+                        Washington was known as a fair and careful leader. He wanted all citizens to understand how democratic laws were discussed and voted on.
+                    </p>
+                    <p>
+                        In 1787, Washington traveled to Philadelphia, Pennsylvania to help write and sign the U.S. Constitution with ink and quill pens, setting up rules that guide our country today.
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-emerald-100/70 p-3.5 rounded-xl text-emerald-900">
                     <div>
-                        <strong><i class="fa-solid fa-user-graduate"></i> Knowing Your Students:</strong> Swapped out high school words for clear, age-appropriate reading vocabulary.
+                        <strong><i class="fa-solid fa-user-graduate"></i> Pedagogy &amp; Reading Level:</strong> Replaced college-level vocabulary ("quintessential manifestation") with accessible 2nd-grade concepts.
                     </div>
                     <div>
-                        <strong><i class="fa-solid fa-book-bookmark"></i> Subject Expertise:</strong> Replaced modern technology mix-ups with real 18th-century historical facts.
+                        <strong><i class="fa-solid fa-book-bookmark"></i> Subject Matter Knowledge:</strong> Corrected historical errors (telegraph technology, capital location, and signing location).
                     </div>
                 </div>
             </div>
@@ -301,63 +323,55 @@
                 <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-pcsd-borderRose space-y-4">
                     <div class="flex items-center justify-between border-b pb-3 border-pcsd-borderRose/60">
                         <div>
-                            <p class="text-xs font-bold text-pcsd-rose uppercase tracking-wider mb-0">Raw AI Draft • High School Chemistry</p>
-                            <h3 class="text-lg font-bold text-slate-900 mt-0">Lab Rubric: Acid-Base Reaction Activity</h3>
+                            <p class="text-xs font-bold text-pcsd-rose uppercase tracking-wider mb-0">Raw AI Generation • Prompted for "High School Chemistry Rubric"</p>
+                            <h3 class="text-lg font-bold text-slate-900 mt-0">Lab Rubric: Acid-Base Titration Reaction</h3>
                         </div>
                         <span class="px-2.5 py-1 bg-rose-100 text-pcsd-rose rounded-full text-xs font-semibold flex items-center gap-1 border border-rose-200">
-                            <i class="fa-solid fa-bug"></i> 2 Critical Mistakes
+                            <i class="fa-solid fa-bug"></i> 2 Critical Errors
                         </span>
                     </div>
 
-                    <!-- Banner Instructions for Case 2 -->
-                    <div class="bg-pcsd-lightRose border border-pcsd-borderRose rounded-xl p-3.5 text-xs text-rose-950 space-y-1">
-                        <div class="font-bold flex items-center gap-2 text-pcsd-rose">
-                            <i class="fa-solid fa-hand-pointer text-pcsd-accent"></i> What to do:
-                        </div>
-                        <p>
-                            Click on the <strong>first two rows in the rubric table</strong> below. Look for <strong>missing lab safety steps</strong> and <strong>impossible chemical science mistakes</strong>.
-                        </p>
-                    </div>
-
-                    <!-- Rubric Table -->
+                    <!-- Rubric Table with Clickable Clauses -->
                     <div class="overflow-x-auto border border-pcsd-borderRose rounded-xl">
                         <table class="w-full text-xs text-left text-slate-700">
                             <thead class="bg-pcsd-lightRose text-pcsd-rose font-bold uppercase text-[11px] border-b border-pcsd-borderRose">
                                 <tr>
                                     <th class="p-3 w-1/4">Criteria</th>
-                                    <th class="p-3">Good Performance (3 Points)</th>
+                                    <th class="p-3">Good Performance Expectations (3 Points)</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-pcsd-borderRose/60">
                                 <!-- Row 1: Safety Flaw -->
-                                <tr class="hover:bg-rose-50/50 cursor-pointer transition-colors" id="flaw-sec-1" onclick="auditFlaw('sec', 1, 'Missing Lab Safety Rules')">
+                                <tr>
                                     <td class="p-3 font-bold text-slate-900 bg-slate-50/80">
-                                        1. Lab Setup &amp; Steps
+                                        1. Lab Setup &amp; Safety Protocol
                                     </td>
                                     <td class="p-3">
-                                        <span class="highlightable">
-                                            Student gathers Hydrochloric Acid ($HCl$) and Sodium Hydroxide ($NaOH$) at the lab table. Student begins titration using glassware without needing safety goggles, gloves, or aprons since dilute solutions carry no hazard.
+                                        <span class="audit-target has-flaw" id="target-sec-flaw1" onclick="auditSentence('sec', 1, true)">
+                                            Student gathers Hydrochloric Acid ($HCl$) and Sodium Hydroxide ($NaOH$). Chemical splash goggles and lab aprons are optional during dilute titrations since small spills present minimal hazard.
                                         </span>
                                     </td>
                                 </tr>
                                 <!-- Row 2: Reaction Product Hallucination -->
-                                <tr class="hover:bg-rose-50/50 cursor-pointer transition-colors" id="flaw-sec-2" onclick="auditFlaw('sec', 2, 'Chemical Science Mistake')">
+                                <tr>
                                     <td class="p-3 font-bold text-slate-900 bg-slate-50/80">
-                                        2. Chemical Equation Analysis
+                                        2. Chemical Reaction Analysis
                                     </td>
                                     <td class="p-3">
-                                        <span class="highlightable">
-                                            Student shows that mixing $HCl$ and $NaOH$ creates explosive Plutonium gas ($Pu$) and toxic Carbon Monoxide ($CO$), leaving pure concentrated acid in the flask.
+                                        <span class="audit-target has-flaw" id="target-sec-flaw2" onclick="auditSentence('sec', 2, true)">
+                                            Student notes that mixing equal molar amounts of $HCl(aq)$ and $NaOH(aq)$ generates a vigorous gas-evolution reaction, releasing toxic Chlorine gas ($Cl_2$) and Hydrogen gas ($H_2$).
                                         </span>
                                     </td>
                                 </tr>
                                 <!-- Row 3: Standard Data Analysis (No flaw) -->
-                                <tr class="hover:bg-slate-50 opacity-75">
+                                <tr>
                                     <td class="p-3 font-bold text-slate-900 bg-slate-50/80">
-                                        3. Reflection &amp; Data Review
+                                        3. Error Calculation &amp; Reflection
                                     </td>
                                     <td class="p-3">
-                                        Student calculates error percentage between measured volume and expected results, naming two sources of lab error.
+                                        <span class="audit-target" id="target-sec-valid1" onclick="auditSentence('sec', 'valid1', false)">
+                                            Student calculates percent error between measured equivalence volume and theoretical stoichiometry, citing at least two potential sources of experimental error.
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -366,8 +380,8 @@
 
                     <!-- Status Banner for Case 2 -->
                     <div id="sec-status" class="p-3.5 rounded-xl bg-pcsd-lightRose border border-pcsd-borderRose text-xs text-slate-600 flex items-center justify-between">
-                        <span>Status: Click highlighted rows to review safety rules and science content.</span>
-                        <span class="font-bold text-pcsd-rose" id="sec-counter">0/2 Mistakes Found</span>
+                        <span>Click rubric rows to verify science accuracy and lab safety standards.</span>
+                        <span class="font-bold text-pcsd-rose" id="sec-counter">0/2 Errors Caught</span>
                     </div>
                 </div>
 
@@ -375,10 +389,10 @@
                 <div class="lg:col-span-5 space-y-4">
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-pcsd-borderRose">
                         <h4 class="text-sm font-bold text-pcsd-rose uppercase tracking-wider mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-pcsd-accent"></i> Teacher Review Findings
+                            <i class="fa-solid fa-shield-halved text-pcsd-accent"></i> Teacher Audit Findings
                         </h4>
-                        <div id="audit-feedback-sec" class="text-xs text-slate-500 space-y-3 min-h-[160px] flex items-center justify-center border-2 border-dashed border-pcsd-borderRose/70 rounded-xl p-4 text-center">
-                            Select a rubric row on the left to check for science accuracy and lab safety compliance.
+                        <div id="audit-feedback-sec" class="text-xs text-slate-500 space-y-3 min-h-[180px] flex items-center justify-center border-2 border-dashed border-pcsd-borderRose/70 rounded-xl p-4 text-center">
+                            Select a rubric row on the left to verify chemical stoichiometry and lab compliance.
                         </div>
                     </div>
 
@@ -391,10 +405,10 @@
                             <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded" id="badge-refine-sec">Locked</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-3">
-                            Apply Chemistry Knowledge and District Safety Mandates to fix the AI output before printing.
+                            Apply Chemistry Content Expertise &amp; District Safety Guidelines to fix the AI rubric before distributing to students.
                         </p>
                         <button id="btn-refine-sec" disabled onclick="applyRefinement('sec')" class="w-full py-2.5 px-4 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl shadow-none cursor-not-allowed transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lock"></i> Find Both Mistakes To Unlock Polish
+                            <i class="fa-solid fa-lock"></i> Catch Both Errors To Unlock
                         </button>
                     </div>
                 </div>
@@ -414,22 +428,28 @@
                         <thead class="bg-emerald-100 text-emerald-900 font-bold border-b border-emerald-300">
                             <tr>
                                 <th class="p-3 w-1/4">Criteria</th>
-                                <th class="p-3">Good Performance (3 Points)</th>
+                                <th class="p-3">Good Performance Expectations (3 Points)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-emerald-200">
                             <tr>
-                                <td class="p-3 font-bold bg-emerald-50/50 text-emerald-950">1. Mandatory Safety &amp; Lab Rules</td>
+                                <td class="p-3 font-bold bg-emerald-50/50 text-emerald-950">1. Mandatory Safety &amp; Lab Protocol</td>
                                 <td class="p-3">
-                                    <strong>Must-Do Safety Rule:</strong> Student wears approved splash goggles, gloves, and a lab apron during the entire lab. Safely handles acids and bases, cleans up spills properly, and disposes of liquids in approved containers.
+                                    <strong>Non-Negotiable Safety Rule:</strong> Student wears OSHA-approved chemical splash goggles, chemical-resistant gloves, and a full lab apron throughout the entire lab. Safely handles acids and bases, cleans up spills immediately with teacher supervision, and disposes of neutralized solutions in designated hazardous waste containers.
                                 </td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-bold bg-emerald-50/50 text-emerald-950">2. Chemical Equation Accuracy</td>
+                                <td class="p-3 font-bold bg-emerald-50/50 text-emerald-950">2. Chemical Reaction Equation</td>
                                 <td class="p-3">
-                                    Student correctly writes and balances the reaction equation: <br>
-                                    <code class="bg-slate-100 px-2 py-0.5 rounded text-pcsd-rose font-mono text-[11px]">HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)</code><br>
-                                    Accurately shows that mixing these forms salt water ($NaCl + H_2O$).
+                                    Student correctly writes and balances the acid-base neutralization reaction equation: <br>
+                                    <code class="bg-slate-100 px-2 py-1 my-1 inline-block rounded text-pcsd-rose font-mono text-[11px]">HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l) + Heat</code><br>
+                                    Accurately identifies that this aqueous neutralization forms harmless salt water ($NaCl + H_2O$) and releases slight heat (exothermic reaction).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-emerald-50/50 text-emerald-950">3. Error Calculation &amp; Reflection</td>
+                                <td class="p-3">
+                                    Student calculates percent error between measured equivalence volume and theoretical stoichiometry, citing at least two potential sources of experimental error.
                                 </td>
                             </tr>
                         </tbody>
@@ -438,10 +458,10 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-emerald-100/70 p-3.5 rounded-xl text-emerald-900">
                     <div>
-                        <strong><i class="fa-solid fa-triangle-exclamation"></i> Safety First:</strong> Added required safety gear rules before students handle acids and bases.
+                        <strong><i class="fa-solid fa-triangle-exclamation"></i> Safety First:</strong> Replaced AI's permissive PPE statement with mandatory district lab safety gear rules.
                     </div>
                     <div>
-                        <strong><i class="fa-solid fa-atom"></i> Accurate Science:</strong> Replaced made-up radioactive gas ($Pu$) with real science ($NaCl + H_2O$).
+                        <strong><i class="fa-solid fa-atom"></i> Subject Knowledge:</strong> Replaced hallucinated gas evolution ($Cl_2 / H_2$) with correct neutral salt water aqueous products ($NaCl + H_2O$).
                     </div>
                 </div>
             </div>
@@ -455,7 +475,7 @@
                     <p class="text-xs font-bold text-pcsd-rose uppercase tracking-wider mb-0">Teacher Toolkit</p>
                     <h3 class="text-xl font-bold text-slate-900 mt-0">Your Classroom Superpowers vs. AI Blindspots</h3>
                     <p class="text-xs text-slate-600 mt-1">
-                        AI drafts are just starting points. Teachers bring three irreplaceable superpowers to review and refine every lesson:
+                        Generative AI drafts are rapid starting points, but teachers bring three irreplaceable human superpowers to review and refine every lesson:
                     </p>
                 </div>
 
@@ -469,10 +489,10 @@
                             1. Subject Knowledge
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            You spot made-up facts, timeline errors, inaccurate math formulas, or incorrect science equations that AI generates with total confidence.
+                            You spot made-up historical dates, incorrect chemical stoichiometry, or flawed mathematical proofs that AI generates with authoritative tone.
                         </p>
                         <div class="text-[11px] font-bold text-pcsd-rose bg-white/80 px-2 py-1 rounded border border-pcsd-borderRose/60">
-                            Example: Catching and fixing $HCl + NaOH$ chemical reactions.
+                            Example: Catching $HCl + NaOH \rightarrow NaCl + H_2O$ vs gas evolution errors.
                         </div>
                     </div>
 
@@ -482,13 +502,13 @@
                             <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs">
                                 <i class="fa-solid fa-graduation-cap"></i>
                             </div>
-                            2. Teaching &amp; Grade-Level Experience
+                            2. Pedagogical &amp; Grade Experience
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            You know what language fits 2nd graders vs. 10th graders, how to sequence learning steps, and how to build rubrics that make sense to students.
+                            You know what vocabulary fits 2nd graders versus high schoolers, how to scaffold multi-step tasks, and how to calibrate reading difficulty.
                         </p>
                         <div class="text-[11px] font-bold text-amber-800 bg-amber-100/80 px-2 py-1 rounded">
-                            Example: Simplifying overly complex vocabulary for 2nd graders.
+                            Example: Replacing "quintessential efficacy" with 2nd-grade reading terms.
                         </div>
                     </div>
 
@@ -498,13 +518,13 @@
                             <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs">
                                 <i class="fa-solid fa-users"></i>
                             </div>
-                            3. Knowing Your Students &amp; School
+                            3. Knowing Your Students &amp; Safety Rules
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            You know lab safety needs, student IEP accommodations, Pickens County community context, and what keeps your learners safe and engaged.
+                            You understand district lab safety rules, student IEP accommodations, Pickens County community context, and emotional needs.
                         </p>
                         <div class="text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2 py-1 rounded">
-                            Example: Adding mandatory lab eye safety gear into chemistry activities.
+                            Example: Enforcing mandatory eye safety gear in acid-base titration labs.
                         </div>
                     </div>
                 </div>
@@ -519,22 +539,22 @@
                 <!-- Accordion Item 1 -->
                 <div class="border border-pcsd-borderRose/80 rounded-xl overflow-hidden">
                     <button onclick="toggleAccordion('acc1')" class="w-full p-4 bg-pcsd-lightRose/50 text-left font-bold text-xs text-slate-800 flex justify-between items-center hover:bg-pcsd-lightRose">
-                        <span>Why does AI sound so confident even when it's completely wrong ("hallucinating")?</span>
+                        <span>Why does AI sound so confident even when its answers contain factual mistakes ("hallucinations")?</span>
                         <i id="acc1-icon" class="fa-solid fa-chevron-down text-slate-400"></i>
                     </button>
                     <div id="acc1" class="accordion-content bg-white p-4 text-xs text-slate-600 leading-relaxed border-t border-pcsd-borderRose/50">
-                        AI tools don't lookup verified facts in an encyclopedia—they guess the most likely next word based on patterns in millions of texts. Because they focus on sounding natural and fluent, they can write convincing sentences that contain total factual mistakes. That's why your quick review is so important!
+                        Large Language Models (LLMs) are statistical text predictors, not lookup engines or encyclopedias. They calculate the most probable sequence of words based on vast training datasets. Because they are optimized for fluency, tone, and coherence, they can construct plausible-sounding sentences that mix historical eras, omit critical safety warnings, or hallucinate scientific equations.
                     </div>
                 </div>
 
                 <!-- Accordion Item 2 -->
                 <div class="border border-pcsd-borderRose/80 rounded-xl overflow-hidden">
                     <button onclick="toggleAccordion('acc2')" class="w-full p-4 bg-pcsd-lightRose/50 text-left font-bold text-xs text-slate-800 flex justify-between items-center hover:bg-pcsd-lightRose">
-                        <span>What is the "Toothpaste Rule" for student privacy?</span>
+                        <span>What is the "Toothpaste Rule" regarding student data privacy?</span>
                         <i id="acc2-icon" class="fa-solid fa-chevron-down text-slate-400"></i>
                     </button>
                     <div id="acc2" class="accordion-content bg-white p-4 text-xs text-slate-600 leading-relaxed border-t border-pcsd-borderRose/50">
-                        Just like toothpaste squeezed out of a tube, once student information is typed into a public AI tool, you can't pull it back. Teachers must <strong>never</strong> put student full names, grades, IEP details, or private information into public AI prompts.
+                        Just like toothpaste squeezed out of a tube, once personally identifiable information (PII)—such as student full names, grades, IEP goals, or behavioral notes—is entered into a public AI tool, it cannot be un-sent or retrieved. Educators must always anonymize data (e.g., using "Student A") when drafting individualized materials.
                     </div>
                 </div>
             </div>
@@ -550,18 +570,18 @@
 
                 <div class="space-y-3 text-xs">
                     <p class="text-rose-100">
-                        <strong>Scenario:</strong> You ask AI to make a 5th-grade math worksheet, but the AI generates problems requiring high school algebra. Which teacher superpower helps you catch this issue?
+                        <strong>Scenario:</strong> You ask an AI tool to generate a 5th-grade math word problem set, but the output introduces multi-variable system equations standard for 9th-grade Algebra. Which teacher superpower catches this mismatch?
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                         <button onclick="checkQuiz(this, false)" class="p-3 bg-pcsd-darkRose/60 hover:bg-pcsd-darkRose rounded-xl border border-rose-400/30 text-left transition-all">
-                            A. Data Privacy Rules
+                            A. Data Privacy &amp; FERPA Protocol
                         </button>
                         <button onclick="checkQuiz(this, true)" class="p-3 bg-pcsd-darkRose/60 hover:bg-pcsd-darkRose rounded-xl border border-rose-400/30 text-left transition-all">
-                            B. Teaching &amp; Grade-Level Experience
+                            B. Pedagogical &amp; Grade-Level Experience
                         </button>
                         <button onclick="checkQuiz(this, false)" class="p-3 bg-pcsd-darkRose/60 hover:bg-pcsd-darkRose rounded-xl border border-rose-400/30 text-left transition-all">
-                            C. Automated Computer Programming
+                            C. Automated Code Debugging
                         </button>
                     </div>
                     <div id="quiz-feedback" class="hidden p-3 rounded-xl text-xs font-semibold"></div>
@@ -573,7 +593,7 @@
 
     <!-- Footer -->
     <footer class="max-w-6xl mx-auto px-4 mt-8 text-center text-xs text-slate-500 border-t border-pcsd-borderRose/60 pt-4">
-        Pickens County School District • Department of Teaching &amp; Learning • Professional Learning Division
+        Pickens County School District • Department of Teaching &amp; Learning 
     </footer>
 
     <!-- JavaScript Application State & Logic -->
@@ -583,107 +603,132 @@
             elemFlawsFound: new Set(),
             secFlawsFound: new Set(),
             elemRefined: false,
-            secRefined: false
+            secRefined: false,
+            guidedMode: false
         };
 
         const totalFlaws = 5;
 
+        // Toggle Guided / Realistic Mode
+        function toggleGuidedMode(checkbox) {
+            state.guidedMode = checkbox.checked;
+            const badge = document.getElementById('mode-badge');
+
+            if (state.guidedMode) {
+                document.body.classList.add('guided-mode');
+                badge.className = "text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-emerald-600 text-white";
+                badge.innerText = "Guided Clues On";
+            } else {
+                document.body.classList.remove('guided-mode');
+                badge.className = "text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-pcsd-rose text-white";
+                badge.innerText = "Realistic";
+            }
+        }
+
         // Switch Active Tabs
         function switchTab(tabKey) {
-            // Hide all content blocks
             document.getElementById('content-elem').classList.add('hidden');
             document.getElementById('content-sec').classList.add('hidden');
             document.getElementById('content-takeaway').classList.add('hidden');
 
-            // Reset tab styles
             const tabs = ['elem', 'sec', 'takeaway'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 btn.className = "px-5 py-3 font-semibold text-sm rounded-t-xl transition-all flex items-center gap-2 bg-rose-50/60 text-slate-600 hover:bg-rose-100/50 border-b border-pcsd-borderRose";
             });
 
-            // Show selected block & activate tab style
             document.getElementById(`content-${tabKey}`).classList.remove('hidden');
             const activeBtn = document.getElementById(`tab-${tabKey}`);
             activeBtn.className = "px-5 py-3 font-semibold text-sm rounded-t-xl transition-all flex items-center gap-2 bg-white text-pcsd-rose border-t-2 border-x border-pcsd-rose shadow-sm";
+            
+            // Re-trigger MathJax typesetting if switching to science
+            if (tabKey === 'sec' && window.MathJax) {
+                MathJax.typesetPromise();
+            }
         }
 
-        // Audit Flaw Click Handler
-        function auditFlaw(caseType, flawId, category) {
-            const targetEl = document.getElementById(`flaw-${caseType}-${flawId}`);
+        // Sentence Audit Logic (Handles both Flawed and Accurate sentence clicks)
+        function auditSentence(caseType, identifier, isFlaw) {
+            const targetEl = document.getElementById(`target-${caseType}-${isFlaw ? 'flaw' : ''}${identifier}`);
             const feedbackBox = document.getElementById(`audit-feedback-${caseType}`);
 
+            if (!isFlaw) {
+                // User clicked an accurate sentence
+                targetEl.classList.add('accurate-selected');
+                feedbackBox.innerHTML = `
+                    <div class="p-3.5 bg-blue-50 border-l-4 border-blue-500 rounded-xl text-left shadow-sm">
+                        <span class="font-bold text-blue-900 block mb-1"><i class="fa-solid fa-circle-check text-blue-600"></i> Quality Check: Accurate Passage</span>
+                        <p class="text-xs text-blue-800">Good eye! This sentence is factual, aligned with grade-level standards, and safe for student instruction. Keep searching for the hidden AI flaws!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // User clicked a true AI flaw
             if (caseType === 'elem') {
+                const flawId = Number(identifier);
                 state.elemFlawsFound.add(flawId);
                 targetEl.classList.add('flaw-found');
 
-                // Explanations for Elementary Case
                 let text = '';
                 if (flawId === 1) {
                     text = `
                         <div class="p-3.5 bg-red-50 border-l-4 border-red-500 rounded-xl text-left shadow-sm">
-                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-bug"></i> Mistake Found: Modern Tech in 1776</span>
-                            <p class="text-xs text-red-800">The AI hallucinated smartphones in 1776. AI models often accidentally mix modern concepts into historical text unless you double-check them.</p>
+                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-bug"></i> AI Flaw #1: Historical Technology Anachronism</span>
+                            <p class="text-xs text-red-800">The AI hallucinated <strong>telegraph messages in 1776</strong>. Samuel Morse did not develop the commercial telegraph until the 1830s–1840s! AI models frequently blend adjacent historical eras unless explicitly verified.</p>
                         </div>
                     `;
                 } else if (flawId === 2) {
                     text = `
                         <div class="p-3.5 bg-amber-50 border-l-4 border-amber-500 rounded-xl text-left shadow-sm">
-                            <span class="font-bold text-amber-900 block mb-1"><i class="fa-solid fa-graduation-cap"></i> Mistake Found: Words Too Hard for 2nd Grade</span>
-                            <p class="text-xs text-amber-800">Words like <em>"quintessential"</em> and <em>"metamorphosis"</em> are way too high above a 2nd-grade reading level. You know how to simplify language for your readers!</p>
+                            <span class="font-bold text-amber-900 block mb-1"><i class="fa-solid fa-graduation-cap"></i> AI Flaw #2: Lexile / Reading Level Mismatch</span>
+                            <p class="text-xs text-amber-800">Phrases like <em>"quintessential manifestation of fastidious administrative efficacy"</em> represent collegiate-level vocabulary. Generative AI defaults to complex academic jargon unless actively constrained by a teacher.</p>
                         </div>
                     `;
                 } else if (flawId === 3) {
                     text = `
                         <div class="p-3.5 bg-red-50 border-l-4 border-red-500 rounded-xl text-left shadow-sm">
-                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-bug"></i> Mistake Found: Timeline &amp; Tech Errors</span>
-                            <p class="text-xs text-red-800">George Washington passed away in 1799! Claiming he traveled to D.C. in 1998 to sign the Constitution on an iPad combines multiple historical mistakes.</p>
+                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-bug"></i> AI Flaw #3: Geographical &amp; Historical Fact Hallucination</span>
+                            <p class="text-xs text-red-800">The U.S. Constitution was signed in <strong>Philadelphia, PA in 1787</strong>. Washington, D.C. was not established as the national capital until 1790, and the White House was not completed until 1800.</p>
                         </div>
                     `;
                 }
                 feedbackBox.innerHTML = text;
+                document.getElementById('elem-counter').innerText = `${state.elemFlawsFound.size}/3 Flaws Caught`;
 
-                // Update counter
-                document.getElementById('elem-counter').innerText = `${state.elemFlawsFound.size}/3 Mistakes Found`;
-
-                // Check unlock refine
-                if (state.elemFlawsFound.size === 3) {
-                    unlockRefine('elem');
-                }
+                if (state.elemFlawsFound.size === 3) unlockRefine('elem');
 
             } else if (caseType === 'sec') {
+                const flawId = Number(identifier);
                 state.secFlawsFound.add(flawId);
-                targetEl.classList.add('bg-red-50');
+                targetEl.classList.add('flaw-found');
 
                 let text = '';
                 if (flawId === 1) {
                     text = `
                         <div class="p-3.5 bg-red-50 border-l-4 border-red-500 rounded-xl text-left shadow-sm">
-                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-triangle-exclamation"></i> Mistake Found: Missing Safety Gear</span>
-                            <p class="text-xs text-red-800">Handling Hydrochloric Acid and Sodium Hydroxide without safety goggles or gloves violates lab safety rules. AI models often forget safety steps unless you add them.</p>
+                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-triangle-exclamation"></i> AI Error #1: Omission of Mandatory Safety PPE</span>
+                            <p class="text-xs text-red-800">Handling $HCl$ and $NaOH$ without splash goggles or lab aprons violates district and OSHA science lab protocols. AI models routinely overlook safety constraints unless prompt parameters explicitly mandate them.</p>
                         </div>
                     `;
                 } else if (flawId === 2) {
                     text = `
                         <div class="p-3.5 bg-red-50 border-l-4 border-red-500 rounded-xl text-left shadow-sm">
-                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-atom"></i> Mistake Found: Science Equation Error</span>
-                            <p class="text-xs text-red-800">Mixing $HCl$ and $NaOH$ creates safe salt water ($NaCl + H_2O$), not radioactive Plutonium gas ($Pu$). Your science knowledge catches these made-up equations!</p>
+                            <span class="font-bold text-red-900 block mb-1"><i class="fa-solid fa-atom"></i> AI Error #2: Incorrect Chemical Reaction Products</span>
+                            <p class="text-xs text-red-800">Reacting strong acids ($HCl$) with strong bases ($NaOH$) forms aqueous salt water ($NaCl + H_2O$), NOT toxic $Cl_2$ or $H_2$ gases! LLMs frequently mix up acid-base neutralizations with redox or gas-evolution reactions.</p>
                         </div>
                     `;
                 }
                 feedbackBox.innerHTML = text;
+                document.getElementById('sec-counter').innerText = `${state.secFlawsFound.size}/2 Errors Caught`;
 
-                document.getElementById('sec-counter').innerText = `${state.secFlawsFound.size}/2 Mistakes Found`;
-
-                if (state.secFlawsFound.size === 2) {
-                    unlockRefine('sec');
-                }
+                if (state.secFlawsFound.size === 2) unlockRefine('sec');
             }
 
             updateProgressBar();
         }
 
-        // Unlock Step 4 Polish Button
+        // Unlock Step 4 Refine Button
         function unlockRefine(caseType) {
             const btn = document.getElementById(`btn-refine-${caseType}`);
             const box = document.getElementById(`refine-box-${caseType}`);
@@ -705,6 +750,10 @@
 
             if (caseType === 'elem') state.elemRefined = true;
             if (caseType === 'sec') state.secRefined = true;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
         }
 
         // Update Global Progress Bar
@@ -713,7 +762,7 @@
             const percentage = (count / totalFlaws) * 100;
 
             document.getElementById('progress-bar').style.width = `${percentage}%`;
-            document.getElementById('progress-text').innerText = `${count} of ${totalFlaws} AI Mistakes Spotted`;
+            document.getElementById('progress-text').innerText = `${count} of ${totalFlaws} Critical AI Hallucinations Caught`;
         }
 
         // Accordion Toggle Logic
@@ -737,10 +786,10 @@
 
             if (isCorrect) {
                 feedback.className = "p-3 rounded-xl text-xs font-semibold bg-emerald-900/90 text-emerald-100 border border-emerald-400 block";
-                feedback.innerHTML = "<i class='fa-solid fa-circle-check text-emerald-400 mr-1'></i> Spot on! Catching grade-level mismatches relies on your <strong>Teaching Experience &amp; Knowledge of Your Students</strong>.";
+                feedback.innerHTML = "<i class='fa-solid fa-circle-check text-emerald-400 mr-1'></i> Spot on! Identifying grade-level complexity mismatches relies on your <strong>Pedagogical &amp; Grade-Level Experience</strong>.";
             } else {
                 feedback.className = "p-3 rounded-xl text-xs font-semibold bg-red-900/90 text-red-100 border border-red-400 block";
-                feedback.innerHTML = "<i class='fa-solid fa-circle-xmark text-red-300 mr-1'></i> Give it another try! Think about which superpower deals with matching lesson difficulty to your students' age.";
+                feedback.innerHTML = "<i class='fa-solid fa-circle-xmark text-red-300 mr-1'></i> Give it another try! Think about which superpower deals with calibrating lesson difficulty to student age.";
             }
         }
     </script>
