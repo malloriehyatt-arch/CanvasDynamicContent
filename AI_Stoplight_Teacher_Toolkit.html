@@ -16,10 +16,10 @@
 </div><div class="callout"><strong>Red limits generative AI, not all technology or support.</strong><p>Clarify teacher-approved resources and accessibility supports separately. An assignment’s AI boundary should not silently remove those supports. If a tool includes AI features, specify which features students may use.</p></div>
 <div class="panel"><h3>Human → AI → Human</h3><p class="muted">Use this process whenever AI is permitted. Green still has boundaries.</p><div class="loop"><div><strong>1 · Human sets the purpose</strong><p>Identify the learning goal, permitted tool, and allowed task. Keep personal and confidential information out of prompts.</p></div><div><strong>2 · AI supports the task</strong><p>Use only the approved tool and permitted features. Keep a useful record of the help received.</p></div><div><strong>3 · Human checks the work</strong><p>Check claims, sources, and bias. Test results, revise thoughtfully, and explain your contribution.</p></div></div></div>
 <div class="panel section-gap"><h3>Same assignment. Different learning goals.</h3><p>Create an interactive math game:</p><div class="table-wrap"><table><thead><tr><th scope="col">Light</th><th scope="col">What students must demonstrate</th><th scope="col">AI boundary</th></tr></thead><tbody><tr><th scope="row">🔴 Red</th><td>Independent coding skills</td><td>No AI-generated code or AI help for this stage.</td></tr><tr><th scope="row">🟡 Yellow</th><td>Student-authored code and debugging decisions</td><td>AI may explain an error message; it may not write a solution.</td></tr><tr><th scope="row">🟢 Green</th><td>Testing, evaluating, and revising generated code</td><td>AI may draft code; students test, improve, and explain it.</td></tr></tbody></table></div></div><div class="row section-gap"><button class="primary" data-go="practice">Practice a decision →</button><button data-go="build">Build assignment directions</button></div></section>
-<section id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden><div class="practice"><div class="intro"><div><h2>Practice the reasoning.</h2><p class="muted">Read the learning goal and the permission boundaries. When they are missing, ask for more information.</p></div><button id="restart">Start over</button></div><div class="row"><strong id="practice-count"></strong><span id="review-count" class="muted"></span></div><div class="progress" aria-hidden="true"><span id="progress-fill"></span></div><article class="panel scenario"><span class="eyebrow" id="scenario-context"></span><h3 id="scenario-title" tabindex="-1"></h3><p id="scenario-description"></p><fieldset><legend>Which light fits these directions?</legend><div class="choices" id="choices"><button data-answer="red" aria-pressed="false">🔴 Red · Independent</button><button data-answer="yellow" aria-pressed="false">🟡 Yellow · Limited support</button><button data-answer="green" aria-pressed="false">🟢 Green · AI collaboration</button><button data-answer="info" aria-pressed="false">? · Need more information</button></div></fieldset><div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div><div class="row section-gap"><button id="previous">← Previous</button><button id="next" class="primary">Next scenario →</button></div></article><div id="complete" class="callout" hidden><h3>You’ve reviewed all eight scenarios.</h3><p>The key decision: What must the student demonstrate, and what may AI contribute? Apply that reasoning to an assignment you teach.</p><button class="primary" data-go="build">Build my assignment directions →</button></div></div></section>
+<section id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden><div class="practice"><div class="intro"><div><h2>Practice the reasoning.</h2><p class="muted">Explore 16 scenarios across grades K–2, 3–5, 6–8, and 9–12, with English language arts, mathematics, science, and social studies in every band. Read the learning goal and permission boundaries; when they are missing, ask for more information.</p></div><button id="restart">Start over</button></div><p class="hint">Elementary AI examples use teacher-mediated support. Any student access must follow district approval and the tool’s age and account requirements. A light describes the permitted contribution, not approval to use a tool.</p><div class="row"><strong id="practice-count"></strong><span id="review-count" class="muted"></span></div><div class="progress" aria-hidden="true"><span id="progress-fill"></span></div><article class="panel scenario"><span class="eyebrow" id="scenario-context"></span><h3 id="scenario-title" tabindex="-1"></h3><p id="scenario-description"></p><fieldset><legend>Which light fits these directions?</legend><div class="choices" id="choices"><button data-answer="red" aria-pressed="false">🔴 Red · Independent</button><button data-answer="yellow" aria-pressed="false">🟡 Yellow · Limited support</button><button data-answer="green" aria-pressed="false">🟢 Green · AI collaboration</button><button data-answer="info" aria-pressed="false">? · Need more information</button></div></fieldset><div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div><div class="row section-gap"><button id="previous">← Previous</button><button id="next" class="primary">Next scenario →</button></div></article><div id="complete" class="callout" hidden><h3>You’ve reviewed all 16 scenarios.</h3><p>The key decision: What must the student demonstrate, and what may AI contribute? Apply that reasoning to an assignment you teach.</p><button class="primary" data-go="build">Build my assignment directions →</button></div></div></section>
 <section id="build" role="tabpanel" aria-labelledby="tab-build" hidden><div class="intro"><div><h2>Build clear assignment directions.</h2><p class="muted">Choose the learning goal and AI role, then customize the student-facing directions. Your entries stay in this page and reset when it is reloaded.</p></div></div><div class="builder"><form id="builder-form" class="panel"><fieldset><legend>1 · Choose the boundary</legend><label for="goal">What is the main learning goal?</label><select id="goal"><option value="red">Demonstrate independent skills on this task</option><option value="yellow">Develop student-authored work with limited support</option><option value="green">Evaluate, revise, and explain AI-supported work</option></select><label for="role">What may AI contribute?</label><select id="role"><option value="red">No generative AI for this task</option><option value="yellow">Only specific support, such as ideas or feedback</option><option value="green">Substantial content, code, or other draft material</option></select><p id="alignment" class="notice" role="status" hidden></p></fieldset><hr><fieldset><legend>2 · Make it specific</legend><label for="title">Assignment or stage</label><input id="title" placeholder="e.g., Math game: debugging stage" maxlength="180"><label for="independent">What must students demonstrate themselves?</label><textarea id="independent" placeholder="e.g., Explain why each change fixes the code."></textarea><div id="ai-fields" hidden><label for="tool">Approved tool and permitted features</label><input id="tool" placeholder="Name the district-approved tool and features"><label for="allowed">AI may help with…</label><textarea id="allowed" placeholder="Name the exact steps or contributions allowed."></textarea><label for="prohibited">AI must not…</label><textarea id="prohibited" placeholder="e.g., Write the final explanation or replace my solution."></textarea></div><label for="supports">Other permitted resources and accessibility supports</label><textarea id="supports" placeholder="e.g., Class notes, a calculator, and teacher-approved accessibility supports."></textarea></fieldset><hr><fieldset><legend>3 · Choose evidence of learning</legend><label for="evidence">What should students submit?</label><select id="evidence"><option value="brief">Work sample + brief process note</option><option value="record">Work sample + selected process records</option><option value="explain">Work sample + explanation or demonstration</option></select><p class="hint">This choice changes the directions below; it does not determine the light.</p><label for="extra">Additional submission requirements (optional)</label><textarea id="extra" placeholder="e.g., Include two test cases and explain one revision."></textarea></fieldset><p class="hint">Review these directions against district expectations, student access, and the learning goal before assigning.</p></form><aside class="panel output red" id="output"><span id="recommendation" class="tag" role="status">🔴 RED · Independent work</span><p id="rationale" class="hint"></p><p class="hint">Preview • Complete the bracketed details before sharing.</p><pre id="directions"></pre><div class="row"><button id="copy" class="primary">Copy directions</button><button id="print">Print directions</button></div><p id="copy-status" class="status" role="status"></p><div id="copy-fallback" hidden><label for="copy-text">Select and copy these directions</label><textarea id="copy-text" class="copybox" readonly></textarea></div></aside></div></section>
 </main><footer class="footer">AI Stoplight Framework · A planning aid for teachers · Teacher judgment and district expectations guide every decision.</footer>
-<dialog id="help" aria-labelledby="help-title"><div class="dialog-top"><h2 id="help-title">Start with your next lesson.</h2><button id="help-close" aria-label="Close instructions">✕</button></div><p><strong>Learn:</strong> Compare the three lights and see how the learning goal changes the boundary.</p><p><strong>Practice:</strong> Work through eight scenarios. Reconsider any response and explore what would change the light.</p><p><strong>Build:</strong> Set a boundary, name permitted uses, and choose evidence of learning. Copy or print the directions.</p><p class="muted">This tool supports planning; it does not approve a tool or set district policy. Save your directions before closing this page.</p><button id="help-done" class="primary">Got it</button></dialog>
+<dialog id="help" aria-labelledby="help-title"><div class="dialog-top"><h2 id="help-title">Start with your next lesson.</h2><button id="help-close" aria-label="Close instructions">✕</button></div><p><strong>Learn:</strong> Compare the three lights and see how the learning goal changes the boundary.</p><p><strong>Practice:</strong> Work through 16 scenarios across four grade bands and four core subjects. Reconsider any response and explore what would change the light.</p><p><strong>Build:</strong> Set a boundary, name permitted uses, and choose evidence of learning. Copy or print the directions.</p><p class="muted">This tool supports planning; it does not approve a tool or set district policy. Save your directions before closing this page.</p><button id="help-done" class="primary">Got it</button></dialog>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
@@ -30,19 +30,139 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>switchTab(b.data
 $('help-open').onclick=()=>$('help').showModal();['help-close','help-done'].forEach(id=>$(id).onclick=()=>$('help').close());$('help').addEventListener('close',()=>$('help-open').focus());
 document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('[data-tier]').forEach(c=>c.hidden=b.dataset.filter!=='all'&&c.dataset.tier!==b.dataset.filter);$('tier-cards').style.gridTemplateColumns=b.dataset.filter==='all'?'':'1fr'});
 const scenarios=[
-{context:'Computer science · Independent skills',title:'Build a math game',description:'The teacher is assessing whether students can write loops independently. Students must write and explain their game code without generative AI. Class notes are allowed.',answer:'red',why:'The evidence is independent coding. The directions explicitly prohibit generative AI while allowing class notes.',change:'If AI could explain error messages, but could not write code, this stage would become Yellow.'},
-{context:'Computer science · Limited support',title:'Debug the same math game',description:'Students write their own code. The teacher permits an approved AI tool only to explain error messages. Students must fix the code themselves and describe the help they used.',answer:'yellow',why:'AI has one limited role: explaining errors. Students still produce the solution and explain their decisions.',change:'If students instead evaluated and revised AI-generated code, the directions could support Green.'},
-{context:'Computer science · Evaluation and revision',title:'Test an AI-generated math game',description:'Students may use an approved AI tool to generate a first version of the game. They must test it, correct mathematical and coding errors, and explain each major change. The goal is evaluating and improving generated code.',answer:'green',why:'AI may contribute substantial code. Students demonstrate learning through testing, correction, and explanation.',change:'If the goal changed to measuring independent coding, AI-generated code would no longer provide that evidence; choose Red for that stage.'},
-{context:'Elementary science · Brainstorming',title:'Choose a science investigation',description:'The teacher permits an approved AI tool to suggest investigation questions. Students choose a testable question, design the procedure themselves, and note how AI helped. AI may not write the procedure.',answer:'yellow',why:'AI is limited to question ideas; the student designs the investigation. The allowed and prohibited uses are explicit.',change:'If students were learning to generate research questions independently, the brainstorming stage could be Red.'},
-{context:'Language arts · Personal reflection',title:'Reflect on a field trip',description:'Students write about their own experience. The teacher permits an approved AI tool to ask follow-up questions about a non-identifying outline, but not to write or rewrite sentences. Students disclose that help.',answer:'yellow',why:'A personal reflection is not automatically Red. Here, permission is limited to questions and students remain the authors.',change:'If the teacher needed an unaided sample of reflective writing, Red would fit that task.'},
-{context:'Middle school · Missing boundaries',title:'Use AI on your presentation',description:'The assignment says: “Create a presentation about an ecosystem. You may use AI.” It does not identify the assessed skill, allowed AI contributions, or required evidence of learning.',answer:'info',why:'Permission alone does not distinguish Yellow from Green. Ask what students must demonstrate and whether AI may brainstorm, draft, or produce presentation content.',change:'With ideas only and student-authored explanations, Yellow could fit. With generated content that students verify and revise, Green could fit.'},
-{context:'Social studies · Source evaluation',title:'Audit a historical explanation',description:'The teacher permits an approved AI tool to draft an explanation of a historical event. Students compare it with assigned sources, identify unsupported claims and missing perspectives, and revise it with evidence.',answer:'green',why:'The goal is evaluating and improving substantial AI-generated content. Verification and student judgment are central.',change:'If AI were limited to asking questions about a student-written explanation, Yellow could fit.'},
-{context:'Language arts · Tool features matter',title:'“Grammar help is okay”',description:'The directions allow “grammar help” on an independently assessed essay. The available tool can flag errors, rewrite paragraphs, and generate new text. The teacher has not specified which features are permitted.',answer:'info',why:'Clarify the assessed skill and permitted features before assigning a light. Error flags and paragraph generation make very different contributions.',change:'Explicit permission for feedback only could support Yellow. A separate unaided writing stage could be Red.'}
+  {
+    "context": "Grades K–2 · English language arts",
+    "title": "Retell a familiar story",
+    "description": "After a read-aloud, students draw and orally retell the beginning, middle, and end. The teacher is assessing each child’s own understanding. Picture cards and approved communication supports are allowed; generative AI may not supply the retelling.",
+    "answer": "red",
+    "why": "The task assesses the child’s own comprehension. Approved supports remain available, but AI cannot produce the retelling.",
+    "change": "If the teacher used AI to suggest follow-up questions after a child’s retelling, with no generated answers, that support could be Yellow."
+  },
+  {
+    "context": "Grades K–2 · Mathematics",
+    "title": "Ask for a counting hint",
+    "description": "Students solve an addition story with counters. At students’ request, the teacher operates an approved AI tool to offer a question such as “What could you count first?” AI may not give the answer or solution steps. Each child models and explains the solution.",
+    "answer": "yellow",
+    "why": "AI offers a limited prompt through the teacher. Children still choose a strategy, model the problem, and explain their own answers.",
+    "change": "For an independent check of addition strategies with no AI prompts, Red would fit."
+  },
+  {
+    "context": "Grades K–2 · Science",
+    "title": "Fix a plant-care poster",
+    "description": "The goal is to evaluate a simple explanation using class observations. The teacher operates an approved AI tool to draft a plant-care poster from class-selected ideas, without student information. Children compare its claims with their class plant investigation, direct revisions, and explain a correction through drawing or speech.",
+    "answer": "green",
+    "why": "AI contributes a substantial first draft through the teacher. Children evaluate it against observations and direct meaningful corrections. Green does not require independent student accounts.",
+    "change": "If AI only suggested questions and children created all poster content themselves, Yellow could fit."
+  },
+  {
+    "context": "Grades K–2 · Social studies",
+    "title": "Make a community-helper page",
+    "description": "The directions say, “Create a page about a community helper. AI help is okay.” They do not say whether students should identify the helper’s role themselves, whether AI can write the page, or whether use is teacher-mediated.",
+    "answer": "info",
+    "why": "The learning goal, AI contribution, and access arrangement are unclear. Ask what children must demonstrate and exactly how the teacher will permit AI support.",
+    "change": "Student-created descriptions with teacher-mediated AI questions could be Yellow; evaluating and revising AI-drafted descriptions could be Green."
+  },
+  {
+    "context": "Grades 3–5 · English language arts",
+    "title": "Plan an opinion paragraph",
+    "description": "Students choose a position about a classroom issue. Through a teacher-operated approved tool, AI may ask questions to help students consider reasons, but may not suggest their position or draft sentences. Students write their own paragraph and explain which question helped.",
+    "answer": "yellow",
+    "why": "AI is limited to planning questions. Students supply the position, reasons, and writing, and explain the assistance.",
+    "change": "If AI were prohibited so the teacher could assess unaided planning and writing, Red would fit."
+  },
+  {
+    "context": "Grades 3–5 · Mathematics",
+    "title": "Audit a fraction explanation",
+    "description": "The goal is to evaluate mathematical reasoning. The teacher uses an approved AI tool to draft an explanation comparing two fractions. Students test it with fraction strips, identify mistakes, and direct a revised explanation. Each student explains why the final comparison is valid.",
+    "answer": "green",
+    "why": "AI supplies substantial reasoning to evaluate. Students demonstrate understanding through models, corrections, and explanations.",
+    "change": "If students had to produce the original comparison independently and AI could only ask a checking question, Yellow could fit."
+  },
+  {
+    "context": "Grades 3–5 · Science",
+    "title": "Prepare a weather report",
+    "description": "Students are told to create a weather report and may use an AI tool approved for the planned access arrangement. The directions do not identify whether the goal is interpreting data, writing a forecast, or evaluating generated claims, and do not specify what AI may create.",
+    "answer": "info",
+    "why": "Tool approval does not define assignment permission. Clarify the assessed skill, permitted AI contribution, and required evidence before selecting a light.",
+    "change": "AI-generated forecasts that students check against weather data could support Green. AI vocabulary hints only could support Yellow."
+  },
+  {
+    "context": "Grades 3–5 · Social studies",
+    "title": "Read a map independently",
+    "description": "Students use a printed map and key to describe where settlements developed near rivers. The teacher is assessing independent map-reading and explanation. Class notes and approved accessibility supports are allowed, but generative AI is not.",
+    "answer": "red",
+    "why": "The teacher needs the students’ own interpretation of the map. Permission for other resources does not imply permission for AI.",
+    "change": "If AI could ask guiding questions without interpreting the map for students, the supported stage could be Yellow."
+  },
+  {
+    "context": "Grades 6–8 · English language arts",
+    "title": "Revise an AI-drafted scene",
+    "description": "The goal is evaluating how dialogue reveals character. An approved AI tool may draft a scene. Students annotate weak characterization, revise the dialogue, and explain how their changes convey character traits, acknowledging AI’s contribution.",
+    "answer": "green",
+    "why": "AI creates a substantial draft, and students demonstrate learning by analyzing and improving it with specific explanations.",
+    "change": "If the goal were independent scene writing and AI could only give feedback on a student draft, Yellow would fit."
+  },
+  {
+    "context": "Grades 6–8 · Mathematics",
+    "title": "Use AI on a ratio problem",
+    "description": "The assignment says, “Solve the ratio problem; AI tutoring is permitted.” The tool can offer hints, show full solutions, or solve the problem. The directions do not state which features students may use or what reasoning they must produce independently.",
+    "answer": "info",
+    "why": "“Tutoring” does not specify a boundary. Clarify whether AI may give hints, worked steps, or answers, and what the teacher is assessing.",
+    "change": "Hints only with student-produced reasoning could be Yellow. Checking and correcting an AI-generated solution could be Green."
+  },
+  {
+    "context": "Grades 6–8 · Science",
+    "title": "Explain a lab result",
+    "description": "After an investigation, students independently write a claim supported by their observations and explain the scientific reasoning. They may use the class data table and notes. Generative AI may not draft, revise, or advise on this assessed explanation.",
+    "answer": "red",
+    "why": "The assessed evidence is each student’s own scientific reasoning. Data and notes are allowed resources, but AI support is explicitly excluded.",
+    "change": "If AI could ask questions about missing evidence without supplying reasoning or rewriting, Yellow could fit."
+  },
+  {
+    "context": "Grades 6–8 · Social studies",
+    "title": "Strengthen a source comparison",
+    "description": "Students compare two historical accounts. They may ask an approved AI tool to generate questions about a non-identifying outline, but AI may not interpret the sources or write the comparison. Students use the original sources to revise their own analysis and disclose the help.",
+    "answer": "yellow",
+    "why": "AI offers questions only. Students interpret the sources, make comparisons, and write the analysis themselves.",
+    "change": "If the teacher allowed an AI-drafted comparison for students to verify, critique, and rewrite with source evidence, Green could fit."
+  },
+  {
+    "context": "Grades 9–12 · English language arts",
+    "title": "Clarify “editing assistance”",
+    "description": "For a literary analysis essay, the teacher permits “AI editing assistance.” The approved tool can flag errors, rewrite paragraphs, and generate interpretations. The directions do not identify permitted features or whether writing style and interpretation must be independently demonstrated.",
+    "answer": "info",
+    "why": "Editing can range from narrow feedback to substantial generation. Ask which features are allowed and which skills the assignment assesses.",
+    "change": "Feedback only without generated interpretations or rewritten passages could fit Yellow. No AI on an independently assessed writing sample would fit Red."
+  },
+  {
+    "context": "Grades 9–12 · Mathematics",
+    "title": "Justify an algebraic solution",
+    "description": "Students solve an equation and justify each transformation to demonstrate independent algebraic reasoning. The teacher permits a specified calculator feature and approved accessibility supports, but no generative AI help for this task.",
+    "answer": "red",
+    "why": "Independent solution and justification are the learning evidence. A permitted calculator feature does not open permission for generative AI.",
+    "change": "If AI could ask a checking question but not supply transformations or answers, Yellow could fit."
+  },
+  {
+    "context": "Grades 9–12 · Science",
+    "title": "Get feedback on an investigation plan",
+    "description": "Students design an investigation. An approved AI tool may flag unclear variables or ask about controls in a non-identifying draft, but may not write the procedure, invent data, or draw conclusions. Students revise the plan themselves and document the feedback they accepted or rejected.",
+    "answer": "yellow",
+    "why": "AI provides bounded feedback. Students retain responsibility for the experimental design, revisions, and reasoning.",
+    "change": "If the goal became evaluating and correcting a full AI-generated investigation plan, Green could fit."
+  },
+  {
+    "context": "Grades 9–12 · Social studies",
+    "title": "Audit a historical argument",
+    "description": "The goal is evaluating historical claims and perspectives. An approved AI tool may draft an argument about an event studied in class. Students check claims against assigned primary and secondary sources, identify missing perspectives, and revise the argument with evidence and an AI disclosure.",
+    "answer": "green",
+    "why": "AI contributes the initial argument. Students demonstrate learning by verifying claims, examining perspectives, and supporting revisions with evidence.",
+    "change": "If AI could only brainstorm questions and students had to develop the original argument themselves, Yellow could fit."
+  }
 ];
-let index=0;let answers=Array(8).fill(null);const reviewed=new Set();
+let index=0;let answers=Array(scenarios.length).fill(null);const reviewed=new Set();
 function renderScenario(focus=false){const s=scenarios[index];$('practice-count').textContent=`Scenario ${index+1} of ${scenarios.length}`;$('review-count').textContent=`${reviewed.size} of ${scenarios.length} reviewed`;$('progress-fill').style.width=(reviewed.size/scenarios.length*100)+'%';$('scenario-context').textContent=s.context;$('scenario-title').textContent=s.title;$('scenario-description').textContent=s.description;$('previous').disabled=index===0;$('next').disabled=index===scenarios.length-1;$('complete').hidden=reviewed.size!==scenarios.length;document.querySelectorAll('[data-answer]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.answer===answers[index]));renderFeedback();if(focus)$('scenario-title').focus()}
 function renderFeedback(){const a=answers[index],s=scenarios[index];$('feedback').hidden=!a;if(!a){$('feedback').replaceChildren();return}const h=document.createElement('strong');h.textContent=a===s.answer?'That fits the directions.':'Reconsider the goal and boundaries.';const p=document.createElement('p');p.textContent=a===s.answer?s.why:'Look for what students must demonstrate and exactly what AI may contribute. If those details are missing, ask for more information. You can choose again.';$('feedback').replaceChildren(h,p);if(a===s.answer){const d=document.createElement('details'),summary=document.createElement('summary'),ex=document.createElement('p');summary.textContent='What would change the light?';ex.textContent=s.change;d.append(summary,ex);$('feedback').append(d)}}
-document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{answers[index]=b.dataset.answer;if(b.dataset.answer===scenarios[index].answer)reviewed.add(index);renderScenario()});$('previous').onclick=()=>{if(index>0){index--;renderScenario(true)}};$('next').onclick=()=>{if(index<7){index++;renderScenario(true)}};$('restart').onclick=()=>{index=0;answers=Array(8).fill(null);reviewed.clear();renderScenario(true)};
+document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{answers[index]=b.dataset.answer;if(b.dataset.answer===scenarios[index].answer)reviewed.add(index);renderScenario()});$('previous').onclick=()=>{if(index>0){index--;renderScenario(true)}};$('next').onclick=()=>{if(index<scenarios.length-1){index++;renderScenario(true)}};$('restart').onclick=()=>{index=0;answers=Array(scenarios.length).fill(null);reviewed.clear();renderScenario(true)};
 const labels={red:'🔴 RED · Independent work',yellow:'🟡 YELLOW · Limited AI support',green:'🟢 GREEN · Intentional AI collaboration'};
 function chooseTier(goal,role){if(goal==='red'||role==='red')return 'red';return goal==='green'&&role==='green'?'green':'yellow'}
 function value(id,fallback){return $(id).value.trim()||fallback}
