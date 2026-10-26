@@ -1,179 +1,726 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Stoplight • Teacher Toolkit</title>
-<style>
-:root{--ink:#182d2a;--muted:#50635f;--green:#00853e;--line:#d8e2dc;--paper:#fff;--red:#aa2832;--amber:#805300;--go:#076a38}*{box-sizing:border-box}body{margin:0;background:#f4f6f2;color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button,input,select,textarea{border:1px solid #9cafa5;border-radius:9px}button{padding:10px 16px;background:white;color:var(--ink);font-weight:650}button:hover{background:#edf3ee}button:disabled{cursor:default;opacity:.65}a{color:#006b32}:focus-visible{outline:3px solid #185ac0;outline-offset:3px}[hidden]{display:none!important}.skip{position:absolute;left:12px;top:-80px;background:white;padding:12px;z-index:9}.skip:focus{top:12px}header{background:#153d31;color:#fff;padding:38px 24px 30px}.wrap{max-width:1140px;margin:auto}.eyebrow{text-transform:uppercase;font-size:.75rem;font-weight:750;letter-spacing:.13em}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:10px 0}h2{font-size:1.65rem;line-height:1.25;margin:0 0 12px}h3{font-size:1.2rem;line-height:1.3;margin:8px 0 12px}p{margin:8px 0 16px}.lede{max-width:720px;color:#dae9df;font-size:1.05rem}.header-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:24px}.default{font-size:.9rem;max-width:770px;color:#e0ebe4}.help{flex-shrink:0;background:transparent;border-color:#8caf9f;color:white}.help:hover{background:#285140}nav{background:white;border-bottom:1px solid var(--line)}.tabs{display:flex;gap:8px;padding:10px 0}.tabs button{border:0;background:transparent;flex:1;border-radius:7px}.tabs [aria-selected=true]{background:#e7f3ea;color:#006c32;box-shadow:inset 0 -3px #00853e}main{padding:32px 24px 48px}.intro{display:flex;justify-content:space-between;align-items:start;gap:20px;margin-bottom:24px}.muted,small{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:24px}.tier{border-top:6px solid var(--tone)}.red{--tone:var(--red);--tint:#fff0f0}.yellow{--tone:var(--amber);--tint:#fff5d9}.green{--tone:var(--go);--tint:#eaf6ed}.tag{display:inline-block;font-size:.8rem;font-weight:750;border-radius:30px;padding:5px 12px;background:var(--tint,#edf1ee);color:var(--tone,var(--ink))}.tier h3{font-size:1.4rem;margin-top:18px}.tier ul{padding-left:21px}.tier li{margin-bottom:8px}.callout{background:#eaf1e9;border-left:4px solid var(--green);border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover{background:#00692f}.filters{margin:18px 0}.filters [aria-pressed=true]{background:#153d31;color:white}.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.loop div{border-top:2px solid #93b6a1;padding-top:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:14px;border-bottom:1px solid var(--line)}th{font-size:.85rem;background:#f3f6f2}.section-gap{margin-top:28px}.practice{max-width:840px;margin:auto}.scenario{padding:30px}.scenario h3{font-size:1.5rem}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:24px 0}.choices button{text-align:left;padding:15px}.choices [aria-pressed=true]{box-shadow:inset 0 0 0 2px #153d31}.feedback{background:#f0f4ee;border-radius:10px;padding:20px;margin-top:20px}.progress{height:7px;background:#dee7df;border-radius:9px;margin:18px 0 24px;overflow:hidden}.progress span{display:block;height:100%;background:var(--green);width:0}.builder{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}label{display:block;font-weight:650;margin:18px 0 6px}input,select,textarea{width:100%;padding:11px;background:#fff;color:var(--ink)}textarea{min-height:90px;resize:vertical}fieldset{border:0;margin:0;padding:0}legend{font-size:1.2rem;font-weight:750}hr{border:0;border-top:1px solid var(--line);margin:24px 0}.output{border-top:6px solid var(--tone);position:sticky;top:18px}.output pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere}.hint{font-size:.88rem;margin:5px 0}.notice{padding:12px;background:#fff4d7;border-radius:8px}.status{min-height:26px;font-size:.9rem}.copybox{min-height:260px}.footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}dialog{border:0;border-radius:16px;padding:28px;max-width:560px;width:calc(100% - 32px);max-height:85vh;overflow:auto;box-shadow:0 20px 80px #0004}dialog::backdrop{background:#122a2466}.dialog-top{display:flex;justify-content:space-between;align-items:start;gap:16px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:760px){.cards,.builder,.loop{grid-template-columns:1fr}.header-bottom,.intro{display:block}.help{margin-top:12px}.tabs{padding:8px}.tabs button{padding:12px 8px}.output{position:static}header{padding:28px 20px}.card,.panel,.scenario{padding:20px}main{padding:24px 16px}th,td{min-width:150px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media print{body{background:white;font-size:11pt}body>*{display:none!important}body>main{display:block!important;padding:0;max-width:none}main>*{display:none!important}main>#build{display:block!important}#build>*{display:none!important}#build>.builder{display:block!important}.builder>*{display:none!important}.builder>.output{display:block!important;position:static;border:0;padding:0}.output>*{display:none!important}.output>#directions{display:block!important}.output pre{margin:0} @page{margin:18mm}}
-</style></head><body>
-<a class="skip" href="#main">Skip to toolkit</a>
-<header><div class="wrap"><div class="eyebrow">Teacher toolkit · Purpose before permission</div><h1>AI Stoplight Framework</h1><p class="lede">Set clear boundaries. Protect student thinking. Turn your learning goal into AI directions students can understand.</p><div class="header-bottom"><div class="default"><strong>Framework default: Red light first.</strong> Unless you explicitly permit generative AI, students should not use it for the task. Apply this framework in alignment with your district’s expectations.</div><button class="help" id="help-open">How to use this toolkit</button></div></div></header>
-<nav aria-label="Toolkit"><div class="wrap tabs" role="tablist" aria-label="Toolkit sections"><button id="tab-learn" role="tab" aria-selected="true" aria-controls="learn" tabindex="0">1 · Learn</button><button id="tab-practice" role="tab" aria-selected="false" aria-controls="practice" tabindex="-1">2 · Practice</button><button id="tab-build" role="tab" aria-selected="false" aria-controls="build" tabindex="-1">3 · Build</button></div></nav>
-<main id="main" class="wrap" tabindex="-1">
-<section id="learn" role="tabpanel" aria-labelledby="tab-learn"><div class="intro"><div><h2>The goal determines the light.</h2><p class="muted">Choose a light for a specific task or step—not automatically for an entire subject or assignment type.</p></div></div>
-<div class="row filters" role="group" aria-label="Show stoplight guidance"><button data-filter="all" aria-pressed="true">All lights</button><button data-filter="red" aria-pressed="false">🔴 Red</button><button data-filter="yellow" aria-pressed="false">🟡 Yellow</button><button data-filter="green" aria-pressed="false">🟢 Green</button></div>
-<div class="cards" id="tier-cards">
-<article class="card tier red" data-tier="red"><span class="tag">🔴 RED · Independent work</span><h3>Show your own thinking.</h3><p>No generative AI for the specified task.</p><strong>Choose this when…</strong><p>You need evidence of what students can independently explain, write, solve, or create.</p><strong>Make the boundary clear</strong><ul><li>Identify the exact task or stage where AI is prohibited.</li><li>Name other resources and supports students may use.</li><li>Ask for work that reveals their process.</li></ul><p class="hint"><strong>Example:</strong> Write and explain a program independently to demonstrate the coding skills you have learned.</p></article>
-<article class="card tier yellow" data-tier="yellow"><span class="tag">🟡 YELLOW · Limited support</span><h3>Use only the help allowed.</h3><p>AI is allowed only for the steps the teacher identifies.</p><strong>Choose this when…</strong><p>Students remain responsible for the core thinking or creation, with specific AI support.</p><strong>Make the boundary clear</strong><ul><li>Specify permitted help, such as questions or feedback.</li><li>Name what AI must not produce or rewrite.</li><li>Require students to explain how they used the help.</li></ul><p class="hint"><strong>Example:</strong> Write your own code; use AI to explain an error message, but not to generate replacement code.</p></article>
-<article class="card tier green" data-tier="green"><span class="tag">🟢 GREEN · AI collaboration</span><h3>Direct, evaluate, and revise.</h3><p>AI may contribute substantially within stated boundaries.</p><strong>Choose this when…</strong><p>The goal includes evaluating, testing, or improving AI-supported work.</p><strong>Make the boundary clear</strong><ul><li>Define what AI can contribute.</li><li>Require verification and meaningful revision.</li><li>Ask students to explain decisions and acknowledge AI use.</li></ul><p class="hint"><strong>Example:</strong> Generate game code with AI, test it, fix errors, and explain how the final program works.</p></article>
-</div><div class="callout"><strong>Red limits generative AI, not all technology or support.</strong><p>Clarify teacher-approved resources and accessibility supports separately. An assignment’s AI boundary should not silently remove those supports. If a tool includes AI features, specify which features students may use.</p></div>
-<div class="panel"><h3>Human → AI → Human</h3><p class="muted">Use this process whenever AI is permitted. Green still has boundaries.</p><div class="loop"><div><strong>1 · Human sets the purpose</strong><p>Identify the learning goal, permitted tool, and allowed task. Keep personal and confidential information out of prompts.</p></div><div><strong>2 · AI supports the task</strong><p>Use only the approved tool and permitted features. Keep a useful record of the help received.</p></div><div><strong>3 · Human checks the work</strong><p>Check claims, sources, and bias. Test results, revise thoughtfully, and explain your contribution.</p></div></div></div>
-<div class="panel section-gap"><h3>Same assignment. Different learning goals.</h3><p>Create an interactive math game:</p><div class="table-wrap"><table><thead><tr><th scope="col">Light</th><th scope="col">What students must demonstrate</th><th scope="col">AI boundary</th></tr></thead><tbody><tr><th scope="row">🔴 Red</th><td>Independent coding skills</td><td>No AI-generated code or AI help for this stage.</td></tr><tr><th scope="row">🟡 Yellow</th><td>Student-authored code and debugging decisions</td><td>AI may explain an error message; it may not write a solution.</td></tr><tr><th scope="row">🟢 Green</th><td>Testing, evaluating, and revising generated code</td><td>AI may draft code; students test, improve, and explain it.</td></tr></tbody></table></div></div><div class="row section-gap"><button class="primary" data-go="practice">Practice a decision →</button><button data-go="build">Build assignment directions</button></div></section>
-<section id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden><div class="practice"><div class="intro"><div><h2>Practice the reasoning.</h2><p class="muted">Explore 16 scenarios across grades K–2, 3–5, 6–8, and 9–12, with English language arts, mathematics, science, and social studies in every band. Read the learning goal and permission boundaries; when they are missing, ask for more information.</p></div><button id="restart">Start over</button></div><p class="hint">Elementary AI examples use teacher-mediated support. Any student access must follow district approval and the tool’s age and account requirements. A light describes the permitted contribution, not approval to use a tool.</p><div class="row"><strong id="practice-count"></strong><span id="review-count" class="muted"></span></div><div class="progress" aria-hidden="true"><span id="progress-fill"></span></div><article class="panel scenario"><span class="eyebrow" id="scenario-context"></span><h3 id="scenario-title" tabindex="-1"></h3><p id="scenario-description"></p><fieldset><legend>Which light fits these directions?</legend><div class="choices" id="choices"><button data-answer="red" aria-pressed="false">🔴 Red · Independent</button><button data-answer="yellow" aria-pressed="false">🟡 Yellow · Limited support</button><button data-answer="green" aria-pressed="false">🟢 Green · AI collaboration</button><button data-answer="info" aria-pressed="false">? · Need more information</button></div></fieldset><div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div><div class="row section-gap"><button id="previous">← Previous</button><button id="next" class="primary">Next scenario →</button></div></article><div id="complete" class="callout" hidden><h3>You’ve reviewed all 16 scenarios.</h3><p>The key decision: What must the student demonstrate, and what may AI contribute? Apply that reasoning to an assignment you teach.</p><button class="primary" data-go="build">Build my assignment directions →</button></div></div></section>
-<section id="build" role="tabpanel" aria-labelledby="tab-build" hidden><div class="intro"><div><h2>Build clear assignment directions.</h2><p class="muted">Choose the learning goal and AI role, then customize the student-facing directions. Your entries stay in this page and reset when it is reloaded.</p></div></div><div class="builder"><form id="builder-form" class="panel"><fieldset><legend>1 · Choose the boundary</legend><label for="goal">What is the main learning goal?</label><select id="goal"><option value="red">Demonstrate independent skills on this task</option><option value="yellow">Develop student-authored work with limited support</option><option value="green">Evaluate, revise, and explain AI-supported work</option></select><label for="role">What may AI contribute?</label><select id="role"><option value="red">No generative AI for this task</option><option value="yellow">Only specific support, such as ideas or feedback</option><option value="green">Substantial content, code, or other draft material</option></select><p id="alignment" class="notice" role="status" hidden></p></fieldset><hr><fieldset><legend>2 · Make it specific</legend><label for="title">Assignment or stage</label><input id="title" placeholder="e.g., Math game: debugging stage" maxlength="180"><label for="independent">What must students demonstrate themselves?</label><textarea id="independent" placeholder="e.g., Explain why each change fixes the code."></textarea><div id="ai-fields" hidden><label for="tool">Approved tool and permitted features</label><input id="tool" placeholder="Name the district-approved tool and features"><label for="allowed">AI may help with…</label><textarea id="allowed" placeholder="Name the exact steps or contributions allowed."></textarea><label for="prohibited">AI must not…</label><textarea id="prohibited" placeholder="e.g., Write the final explanation or replace my solution."></textarea></div><label for="supports">Other permitted resources and accessibility supports</label><textarea id="supports" placeholder="e.g., Class notes, a calculator, and teacher-approved accessibility supports."></textarea></fieldset><hr><fieldset><legend>3 · Choose evidence of learning</legend><label for="evidence">What should students submit?</label><select id="evidence"><option value="brief">Work sample + brief process note</option><option value="record">Work sample + selected process records</option><option value="explain">Work sample + explanation or demonstration</option></select><p class="hint">This choice changes the directions below; it does not determine the light.</p><label for="extra">Additional submission requirements (optional)</label><textarea id="extra" placeholder="e.g., Include two test cases and explain one revision."></textarea></fieldset><p class="hint">Review these directions against district expectations, student access, and the learning goal before assigning.</p></form><aside class="panel output red" id="output"><span id="recommendation" class="tag" role="status">🔴 RED · Independent work</span><p id="rationale" class="hint"></p><p class="hint">Preview • Complete the bracketed details before sharing.</p><pre id="directions"></pre><div class="row"><button id="copy" class="primary">Copy directions</button><button id="print">Print directions</button></div><p id="copy-status" class="status" role="status"></p><div id="copy-fallback" hidden><label for="copy-text">Select and copy these directions</label><textarea id="copy-text" class="copybox" readonly></textarea></div></aside></div></section>
-</main><footer class="footer">AI Stoplight Framework · A planning aid for teachers · Teacher judgment and district expectations guide every decision.</footer>
-<dialog id="help" aria-labelledby="help-title"><div class="dialog-top"><h2 id="help-title">Start with your next lesson.</h2><button id="help-close" aria-label="Close instructions">✕</button></div><p><strong>Learn:</strong> Compare the three lights and see how the learning goal changes the boundary.</p><p><strong>Practice:</strong> Work through 16 scenarios across four grade bands and four core subjects. Reconsider any response and explore what would change the light.</p><p><strong>Build:</strong> Set a boundary, name permitted uses, and choose evidence of learning. Copy or print the directions.</p><p class="muted">This tool supports planning; it does not approve a tool or set district policy. Save your directions before closing this page.</p><button id="help-done" class="primary">Got it</button></dialog>
-<script>
-'use strict';
-const $=id=>document.getElementById(id);
-const tabs=[...document.querySelectorAll('[role=tab]')];
-function switchTab(name,focus=true){tabs.forEach(t=>{const selected=t.id==='tab-'+name;t.setAttribute('aria-selected',selected);t.tabIndex=selected?0:-1;$(t.getAttribute('aria-controls')).hidden=!selected});if(focus)$('tab-'+name).focus()}
-tabs.forEach((t,i)=>{t.addEventListener('click',()=>switchTab(t.getAttribute('aria-controls')));t.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%3;else if(e.key==='ArrowLeft')n=(i+2)%3;else if(e.key==='Home')n=0;else if(e.key==='End')n=2;else return;e.preventDefault();switchTab(tabs[n].getAttribute('aria-controls'))})});
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>switchTab(b.dataset.go));
-$('help-open').onclick=()=>$('help').showModal();['help-close','help-done'].forEach(id=>$(id).onclick=()=>$('help').close());$('help').addEventListener('close',()=>$('help-open').focus());
-document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('[data-tier]').forEach(c=>c.hidden=b.dataset.filter!=='all'&&c.dataset.tier!==b.dataset.filter);$('tier-cards').style.gridTemplateColumns=b.dataset.filter==='all'?'':'1fr'});
-const scenarios=[
-  {
-    "context": "Grades K–2 · English language arts",
-    "title": "Retell a familiar story",
-    "description": "After a read-aloud, students draw and orally retell the beginning, middle, and end. The teacher is assessing each child’s own understanding. Picture cards and approved communication supports are allowed; generative AI may not supply the retelling.",
-    "answer": "red",
-    "why": "The task assesses the child’s own comprehension. Approved supports remain available, but AI cannot produce the retelling.",
-    "change": "If the teacher used AI to suggest follow-up questions after a child’s retelling, with no generated answers, that support could be Yellow."
-  },
-  {
-    "context": "Grades K–2 · Mathematics",
-    "title": "Ask for a counting hint",
-    "description": "Students solve an addition story with counters. At students’ request, the teacher operates an approved AI tool to offer a question such as “What could you count first?” AI may not give the answer or solution steps. Each child models and explains the solution.",
-    "answer": "yellow",
-    "why": "AI offers a limited prompt through the teacher. Children still choose a strategy, model the problem, and explain their own answers.",
-    "change": "For an independent check of addition strategies with no AI prompts, Red would fit."
-  },
-  {
-    "context": "Grades K–2 · Science",
-    "title": "Fix a plant-care poster",
-    "description": "The goal is to evaluate a simple explanation using class observations. The teacher operates an approved AI tool to draft a plant-care poster from class-selected ideas, without student information. Children compare its claims with their class plant investigation, direct revisions, and explain a correction through drawing or speech.",
-    "answer": "green",
-    "why": "AI contributes a substantial first draft through the teacher. Children evaluate it against observations and direct meaningful corrections. Green does not require independent student accounts.",
-    "change": "If AI only suggested questions and children created all poster content themselves, Yellow could fit."
-  },
-  {
-    "context": "Grades K–2 · Social studies",
-    "title": "Make a community-helper page",
-    "description": "The directions say, “Create a page about a community helper. AI help is okay.” They do not say whether students should identify the helper’s role themselves, whether AI can write the page, or whether use is teacher-mediated.",
-    "answer": "info",
-    "why": "The learning goal, AI contribution, and access arrangement are unclear. Ask what children must demonstrate and exactly how the teacher will permit AI support.",
-    "change": "Student-created descriptions with teacher-mediated AI questions could be Yellow; evaluating and revising AI-drafted descriptions could be Green."
-  },
-  {
-    "context": "Grades 3–5 · English language arts",
-    "title": "Plan an opinion paragraph",
-    "description": "Students choose a position about a classroom issue. Through a teacher-operated approved tool, AI may ask questions to help students consider reasons, but may not suggest their position or draft sentences. Students write their own paragraph and explain which question helped.",
-    "answer": "yellow",
-    "why": "AI is limited to planning questions. Students supply the position, reasons, and writing, and explain the assistance.",
-    "change": "If AI were prohibited so the teacher could assess unaided planning and writing, Red would fit."
-  },
-  {
-    "context": "Grades 3–5 · Mathematics",
-    "title": "Audit a fraction explanation",
-    "description": "The goal is to evaluate mathematical reasoning. The teacher uses an approved AI tool to draft an explanation comparing two fractions. Students test it with fraction strips, identify mistakes, and direct a revised explanation. Each student explains why the final comparison is valid.",
-    "answer": "green",
-    "why": "AI supplies substantial reasoning to evaluate. Students demonstrate understanding through models, corrections, and explanations.",
-    "change": "If students had to produce the original comparison independently and AI could only ask a checking question, Yellow could fit."
-  },
-  {
-    "context": "Grades 3–5 · Science",
-    "title": "Prepare a weather report",
-    "description": "Students are told to create a weather report and may use an AI tool approved for the planned access arrangement. The directions do not identify whether the goal is interpreting data, writing a forecast, or evaluating generated claims, and do not specify what AI may create.",
-    "answer": "info",
-    "why": "Tool approval does not define assignment permission. Clarify the assessed skill, permitted AI contribution, and required evidence before selecting a light.",
-    "change": "AI-generated forecasts that students check against weather data could support Green. AI vocabulary hints only could support Yellow."
-  },
-  {
-    "context": "Grades 3–5 · Social studies",
-    "title": "Read a map independently",
-    "description": "Students use a printed map and key to describe where settlements developed near rivers. The teacher is assessing independent map-reading and explanation. Class notes and approved accessibility supports are allowed, but generative AI is not.",
-    "answer": "red",
-    "why": "The teacher needs the students’ own interpretation of the map. Permission for other resources does not imply permission for AI.",
-    "change": "If AI could ask guiding questions without interpreting the map for students, the supported stage could be Yellow."
-  },
-  {
-    "context": "Grades 6–8 · English language arts",
-    "title": "Revise an AI-drafted scene",
-    "description": "The goal is evaluating how dialogue reveals character. An approved AI tool may draft a scene. Students annotate weak characterization, revise the dialogue, and explain how their changes convey character traits, acknowledging AI’s contribution.",
-    "answer": "green",
-    "why": "AI creates a substantial draft, and students demonstrate learning by analyzing and improving it with specific explanations.",
-    "change": "If the goal were independent scene writing and AI could only give feedback on a student draft, Yellow would fit."
-  },
-  {
-    "context": "Grades 6–8 · Mathematics",
-    "title": "Use AI on a ratio problem",
-    "description": "The assignment says, “Solve the ratio problem; AI tutoring is permitted.” The tool can offer hints, show full solutions, or solve the problem. The directions do not state which features students may use or what reasoning they must produce independently.",
-    "answer": "info",
-    "why": "“Tutoring” does not specify a boundary. Clarify whether AI may give hints, worked steps, or answers, and what the teacher is assessing.",
-    "change": "Hints only with student-produced reasoning could be Yellow. Checking and correcting an AI-generated solution could be Green."
-  },
-  {
-    "context": "Grades 6–8 · Science",
-    "title": "Explain a lab result",
-    "description": "After an investigation, students independently write a claim supported by their observations and explain the scientific reasoning. They may use the class data table and notes. Generative AI may not draft, revise, or advise on this assessed explanation.",
-    "answer": "red",
-    "why": "The assessed evidence is each student’s own scientific reasoning. Data and notes are allowed resources, but AI support is explicitly excluded.",
-    "change": "If AI could ask questions about missing evidence without supplying reasoning or rewriting, Yellow could fit."
-  },
-  {
-    "context": "Grades 6–8 · Social studies",
-    "title": "Strengthen a source comparison",
-    "description": "Students compare two historical accounts. They may ask an approved AI tool to generate questions about a non-identifying outline, but AI may not interpret the sources or write the comparison. Students use the original sources to revise their own analysis and disclose the help.",
-    "answer": "yellow",
-    "why": "AI offers questions only. Students interpret the sources, make comparisons, and write the analysis themselves.",
-    "change": "If the teacher allowed an AI-drafted comparison for students to verify, critique, and rewrite with source evidence, Green could fit."
-  },
-  {
-    "context": "Grades 9–12 · English language arts",
-    "title": "Clarify “editing assistance”",
-    "description": "For a literary analysis essay, the teacher permits “AI editing assistance.” The approved tool can flag errors, rewrite paragraphs, and generate interpretations. The directions do not identify permitted features or whether writing style and interpretation must be independently demonstrated.",
-    "answer": "info",
-    "why": "Editing can range from narrow feedback to substantial generation. Ask which features are allowed and which skills the assignment assesses.",
-    "change": "Feedback only without generated interpretations or rewritten passages could fit Yellow. No AI on an independently assessed writing sample would fit Red."
-  },
-  {
-    "context": "Grades 9–12 · Mathematics",
-    "title": "Justify an algebraic solution",
-    "description": "Students solve an equation and justify each transformation to demonstrate independent algebraic reasoning. The teacher permits a specified calculator feature and approved accessibility supports, but no generative AI help for this task.",
-    "answer": "red",
-    "why": "Independent solution and justification are the learning evidence. A permitted calculator feature does not open permission for generative AI.",
-    "change": "If AI could ask a checking question but not supply transformations or answers, Yellow could fit."
-  },
-  {
-    "context": "Grades 9–12 · Science",
-    "title": "Get feedback on an investigation plan",
-    "description": "Students design an investigation. An approved AI tool may flag unclear variables or ask about controls in a non-identifying draft, but may not write the procedure, invent data, or draw conclusions. Students revise the plan themselves and document the feedback they accepted or rejected.",
-    "answer": "yellow",
-    "why": "AI provides bounded feedback. Students retain responsibility for the experimental design, revisions, and reasoning.",
-    "change": "If the goal became evaluating and correcting a full AI-generated investigation plan, Green could fit."
-  },
-  {
-    "context": "Grades 9–12 · Social studies",
-    "title": "Audit a historical argument",
-    "description": "The goal is evaluating historical claims and perspectives. An approved AI tool may draft an argument about an event studied in class. Students check claims against assigned primary and secondary sources, identify missing perspectives, and revise the argument with evidence and an AI disclosure.",
-    "answer": "green",
-    "why": "AI contributes the initial argument. Students demonstrate learning by verifying claims, examining perspectives, and supporting revisions with evidence.",
-    "change": "If AI could only brainstorm questions and students had to develop the original argument themselves, Yellow could fit."
-  }
-];
-let index=0;let answers=Array(scenarios.length).fill(null);const reviewed=new Set();
-function renderScenario(focus=false){const s=scenarios[index];$('practice-count').textContent=`Scenario ${index+1} of ${scenarios.length}`;$('review-count').textContent=`${reviewed.size} of ${scenarios.length} reviewed`;$('progress-fill').style.width=(reviewed.size/scenarios.length*100)+'%';$('scenario-context').textContent=s.context;$('scenario-title').textContent=s.title;$('scenario-description').textContent=s.description;$('previous').disabled=index===0;$('next').disabled=index===scenarios.length-1;$('complete').hidden=reviewed.size!==scenarios.length;document.querySelectorAll('[data-answer]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.answer===answers[index]));renderFeedback();if(focus)$('scenario-title').focus()}
-function renderFeedback(){const a=answers[index],s=scenarios[index];$('feedback').hidden=!a;if(!a){$('feedback').replaceChildren();return}const h=document.createElement('strong');h.textContent=a===s.answer?'That fits the directions.':'Reconsider the goal and boundaries.';const p=document.createElement('p');p.textContent=a===s.answer?s.why:'Look for what students must demonstrate and exactly what AI may contribute. If those details are missing, ask for more information. You can choose again.';$('feedback').replaceChildren(h,p);if(a===s.answer){const d=document.createElement('details'),summary=document.createElement('summary'),ex=document.createElement('p');summary.textContent='What would change the light?';ex.textContent=s.change;d.append(summary,ex);$('feedback').append(d)}}
-document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{answers[index]=b.dataset.answer;if(b.dataset.answer===scenarios[index].answer)reviewed.add(index);renderScenario()});$('previous').onclick=()=>{if(index>0){index--;renderScenario(true)}};$('next').onclick=()=>{if(index<scenarios.length-1){index++;renderScenario(true)}};$('restart').onclick=()=>{index=0;answers=Array(scenarios.length).fill(null);reviewed.clear();renderScenario(true)};
-const labels={red:'🔴 RED · Independent work',yellow:'🟡 YELLOW · Limited AI support',green:'🟢 GREEN · Intentional AI collaboration'};
-function chooseTier(goal,role){if(goal==='red'||role==='red')return 'red';return goal==='green'&&role==='green'?'green':'yellow'}
-function value(id,fallback){return $(id).value.trim()||fallback}
-function build(){const goal=$('goal').value,role=$('role').value,tier=chooseTier(goal,role),ai=tier!=='red';$('output').className='panel output '+tier;$('recommendation').textContent=labels[tier];$('ai-fields').hidden=!ai;$('alignment').hidden=goal===role;$('alignment').textContent='Your goal and AI role differ. This preview uses the more limited boundary. Reconcile both choices before sharing directions.';$('rationale').textContent={red:'Suggested boundary: preserve independent evidence for this task.',yellow:'Suggested boundary: retain student authorship and specify limited AI help.',green:'Suggested boundary: assess how students evaluate, revise, and explain AI-supported work.'}[tier];
-let lines=[value('title','[Assignment or stage]'),labels[tier],'', 'LEARNING I WILL DEMONSTRATE',value('independent','[Describe what students must explain, solve, create, or demonstrate themselves.]'),'','AI BOUNDARY'];
-if(ai){lines.push(tier==='yellow'?'AI is permitted only for the specific support listed below. I remain responsible for the core thinking and final work.':'AI may contribute to this work within the boundaries below. I must evaluate, revise, and explain the result.','Approved tool and features: '+value('tool','[Name the approved tool and permitted features.]'),'AI may: '+value('allowed','[Specify the exact support or contributions permitted.]'),'AI must not: '+value('prohibited','[Specify prohibited uses and work I must complete myself.]'));}else lines.push('Do not use generative AI for this task or stage. Complete the assessed thinking and work yourself.');
-lines.push('','OTHER PERMITTED RESOURCES AND SUPPORTS',value('supports','[Teacher: specify permitted resources and accessibility supports.]'),'','EVIDENCE TO SUBMIT');
-const evidence={brief:ai?'Submit the work and a brief note naming the AI tool, what it helped with, and one decision or check you made.':'Submit the work and a brief note explaining your approach.',record:ai?'Submit the work, selected prompts and relevant outputs with private information removed, and an explanation of what you checked, changed, or rejected.':'Submit the work and selected drafts, calculations, or other process records.',explain:ai?'Submit the work and an explanation or demonstration of your understanding. Identify AI contributions and explain how you checked and revised them.':'Submit the work and an explanation or demonstration of the thinking behind it.'};lines.push(evidence[$('evidence').value]);if(value('extra',''))lines.push(value('extra',''));
-if(ai)lines.push('','HUMAN → AI → HUMAN','Before: Set the purpose and stay within the permitted task and approved tool. Do not enter personal or confidential information.','During: Use AI only as allowed and retain the relevant process evidence.','After: Check claims, sources, and bias; test results where appropriate. Revise the work and be ready to explain your decisions. Acknowledge AI contributions.');
-lines.push('','IF I AM UNSURE','Ask the teacher before using AI in a way not explicitly allowed.');$('directions').textContent=lines.join('\n');$('copy-status').textContent='';$('copy-fallback').hidden=true;return lines.join('\n')}
-$('builder-form').addEventListener('submit',e=>e.preventDefault());$('builder-form').addEventListener('input',build);$('builder-form').addEventListener('change',build);
-$('copy').onclick=async()=>{const text=$('directions').textContent;try{await navigator.clipboard.writeText(text);$('copy-status').textContent='Directions copied. Review any bracketed details before sharing.'}catch(e){$('copy-fallback').hidden=false;$('copy-text').value=text;$('copy-text').focus();$('copy-text').select();$('copy-status').textContent='Automatic copy is unavailable here. Press Ctrl+C (Windows) or Command+C (Mac) to copy the selected text.'}};$('print').onclick=()=>window.print();
-renderScenario();build();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stoplight Framework Toolkit</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        stopred: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                        },
+                        stopyellow: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        },
+                        stopgreen: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-btn.active {
+            border-bottom: 3px solid #2563eb;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+
+    <!-- HEADER BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow">
+                        🚦
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">AI Stoplight Framework</h1>
+                        <p class="text-xs sm:text-sm text-slate-600 font-medium">Simple, clear AI guidelines for everyday K-12 classrooms</p>
+                    </div>
+                </div>
+
+                <!-- DEFAULT RULE BANNER -->
+                <div class="bg-stopred-50 border border-stopred-200 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+                    <div class="flex h-3 w-3 relative flex-shrink-0">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-stopred-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-stopred-600"></span>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-stopred-700 block">Golden Rule: Red Light First</span>
+                        <p class="text-xs font-semibold text-stopred-900">Unless you tell students otherwise, all assignments default to Red Light (No AI).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUICK START BANNER -->
+    <section class="bg-slate-900 text-white py-3.5 px-4 shadow-inner">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-xs sm:text-sm">
+                <span class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded-md text-xs uppercase tracking-wide flex-shrink-0">
+                    <i class="fa-solid fa-hand-pointer mr-1"></i> Quick Start
+                </span>
+                <span class="text-slate-200">Use the tabs below to explore the three lights, practice with real classroom examples, or quickly pick the right light for your next lesson.</span>
+            </div>
+            <button onclick="toggleInstructionsModal()" class="text-xs font-bold text-blue-300 hover:text-white underline flex items-center gap-1 flex-shrink-0">
+                <i class="fa-solid fa-circle-question"></i> How to Use This Tool
+            </button>
+        </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="bg-white border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-6 sm:space-x-8 overflow-x-auto">
+                <button onclick="switchTab('guide')" id="tab-btn-guide" class="tab-btn active py-4 px-1 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-traffic-light text-slate-500"></i> Tab 1: Stoplight Guide
+                </button>
+                <button onclick="switchTab('sorting')" id="tab-btn-sorting" class="tab-btn py-4 px-1 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-gamepad text-slate-500"></i> Tab 2: Scenario Practice Game
+                </button>
+                <button onclick="switchTab('wizard')" id="tab-btn-wizard" class="tab-btn py-4 px-1 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-compass text-slate-500"></i> Tab 3: Quick Assignment Color Finder
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: INTERACTIVE GUIDE                   -->
+        <!-- ========================================== -->
+        <section id="tab-guide" class="tab-content space-y-8">
+            <!-- Intro Card -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
+                <!-- Visual Traffic Light -->
+                <div class="bg-slate-900 p-4 rounded-2xl flex md:flex-col items-center justify-center gap-4 shadow-lg flex-shrink-0 w-full md:w-28">
+                    <button onclick="focusTier('red')" class="w-14 h-14 rounded-full bg-stopred-600 flex items-center justify-center text-white text-xl font-bold transition-all hover:scale-110 cursor-pointer focus:outline-none shadow">
+                        🔴
+                    </button>
+                    <button onclick="focusTier('yellow')" class="w-14 h-14 rounded-full bg-stopyellow-600 flex items-center justify-center text-white text-xl font-bold transition-all hover:scale-110 cursor-pointer focus:outline-none shadow">
+                        🟡
+                    </button>
+                    <button onclick="focusTier('green')" class="w-14 h-14 rounded-full bg-stopgreen-600 flex items-center justify-center text-white text-xl font-bold transition-all hover:scale-110 cursor-pointer focus:outline-none shadow">
+                        🟢
+                    </button>
+                </div>
+
+                <div class="space-y-3 flex-grow">
+                    <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">
+                        <i class="fa-solid fa-lightbulb"></i> How It Works
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Understanding the 3 Colors</h2>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Just like a traffic light, each color tells students clearly when and how tech tools can be used. Click any color below to read what it means for students and see easy assignment ideas.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <button onclick="focusTier('all')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-all">Show All 3 Lights</button>
+                        <button onclick="focusTier('red')" class="px-3 py-1.5 bg-stopred-50 text-stopred-700 border border-stopred-200 hover:bg-stopred-100 rounded-lg text-xs font-semibold transition-all">🔴 Red Light</button>
+                        <button onclick="focusTier('yellow')" class="px-3 py-1.5 bg-stopyellow-50 text-stopyellow-700 border border-stopyellow-200 hover:bg-stopyellow-100 rounded-lg text-xs font-semibold transition-all">🟡 Yellow Light</button>
+                        <button onclick="focusTier('green')" class="px-3 py-1.5 bg-stopgreen-50 text-stopgreen-700 border border-stopgreen-200 hover:bg-stopgreen-100 rounded-lg text-xs font-semibold transition-all">🟢 Green Light</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIER CARDS GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- RED LIGHT -->
+                <div id="card-red" class="tier-card bg-white rounded-2xl border-2 border-stopred-200 hover:border-stopred-500 transition-all shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-stopred-600 text-white p-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🔴</span>
+                            <span class="text-xs font-extrabold uppercase bg-stopred-800 px-3 py-1 rounded-full tracking-wider">No AI Allowed</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold mt-3">Red Light</h3>
+                        <p class="text-stopred-100 text-xs mt-1 font-medium">100% Student's Own Work</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-5 text-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-stopred-600 flex items-center gap-1.5">
+                                <i class="fa-solid fa-user"></i> What Students Do
+                            </h4>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                                Complete work entirely on their own using their own brainpower. AI tools are strictly off-limits.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-apple-whole"></i> Why Use It?
+                            </h4>
+                            <p class="text-slate-600 text-xs mt-1.5 leading-relaxed">
+                                To check what students truly know on their own, test memory, build core skills, and read personal thoughts.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-pen"></i> Great Examples
+                            </h4>
+                            <ul class="list-disc list-inside text-slate-600 mt-1.5 space-y-1 text-xs">
+                                <li>In-class quizzes and tests</li>
+                                <li>Personal journal entries and opinion pieces</li>
+                                <li>Basic skill practice (spelling, math steps)</li>
+                                <li>In-class timed speeches or essays</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YELLOW LIGHT -->
+                <div id="card-yellow" class="tier-card bg-white rounded-2xl border-2 border-stopyellow-200 hover:border-stopyellow-500 transition-all shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-stopyellow-600 text-white p-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🟡</span>
+                            <span class="text-xs font-extrabold uppercase bg-stopyellow-800 px-3 py-1 rounded-full tracking-wider">Classroom Assistant</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold mt-3">Yellow Light</h3>
+                        <p class="text-stopyellow-100 text-xs mt-1 font-medium">Ask First & Show How It Helped</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-5 text-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-stopyellow-600 flex items-center gap-1.5">
+                                <i class="fa-solid fa-hand"></i> What Students Do
+                            </h4>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                                Get teacher permission first, then use AI like a helpful classmate for ideas, spelling checks, or feedback.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-apple-whole"></i> Why Use It?
+                            </h4>
+                            <p class="text-slate-600 text-xs mt-1.5 leading-relaxed">
+                                Helps students practice getting feedback, improving their first drafts, and brainstorming project topics.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-pen"></i> Great Examples
+                            </h4>
+                            <ul class="list-disc list-inside text-slate-600 mt-1.5 space-y-1 text-xs">
+                                <li>Brainstorming topics for a science project</li>
+                                <li>Getting grammar or style tips on a draft</li>
+                                <li>Making outlines before writing an essay</li>
+                                <li>Asking AI to explain a confusing concept</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GREEN LIGHT -->
+                <div id="card-green" class="tier-card bg-white rounded-2xl border-2 border-stopgreen-200 hover:border-stopgreen-500 transition-all shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-stopgreen-600 text-white p-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl">🟢</span>
+                            <span class="text-xs font-extrabold uppercase bg-stopgreen-800 px-3 py-1 rounded-full tracking-wider">Full Collaboration</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold mt-3">Green Light</h3>
+                        <p class="text-stopgreen-100 text-xs mt-1 font-medium">Explore & Create Together</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-5 text-sm">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-stopgreen-600 flex items-center gap-1.5">
+                                <i class="fa-solid fa-robot"></i> What Students Do
+                            </h4>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                                Actively use AI as a main learning tool to build, design, or explore. Students guide AI and check its answers for accuracy.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-apple-whole"></i> Why Use It?
+                            </h4>
+                            <p class="text-slate-600 text-xs mt-1.5 leading-relaxed">
+                                Teaches critical thinking, double-checking facts, asking smart questions, and creative problem-solving.
+                            </p>
+                        </div>
+                        <hr class="border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-pen"></i> Great Examples
+                            </h4>
+                            <ul class="list-disc list-inside text-slate-600 mt-1.5 space-y-1 text-xs">
+                                <li>Co-writing creative stories or character scripts</li>
+                                <li>Building computer games or coding projects</li>
+                                <li>Using AI as a practice quiz partner or tutor</li>
+                                <li>Analyzing large amounts of information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 2: SCENARIO PRACTICE GAME              -->
+        <!-- ========================================== -->
+        <section id="tab-sorting" class="tab-content hidden space-y-6">
+            <!-- Header Banner -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-purple-50 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-2 border border-purple-200">
+                        <i class="fa-solid fa-gamepad"></i> Friendly Practice Activity
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Classroom Scenario Practice Game</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                        Read each classroom scenario below and pick the best Stoplight Color (<strong>Red</strong>, <strong>Yellow</strong>, or <strong>Green</strong>).
+                    </p>
+                </div>
+
+                <button onclick="resetSortingGame()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-2 flex-shrink-0 shadow">
+                    <i class="fa-solid fa-rotate-right"></i> Start Over
+                </button>
+            </div>
+
+            <!-- Scoreboard -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Answered</span>
+                    <span id="score-solved" class="text-2xl font-black text-slate-900 mt-1 block">0 / 6</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Score</span>
+                    <span id="score-points" class="text-2xl font-black text-blue-600 mt-1 block">0%</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Streak</span>
+                    <span id="score-streak" class="text-2xl font-black text-amber-600 mt-1 block">⭐ 0</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm flex items-center justify-center">
+                    <span id="score-status" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full">
+                        In Progress
+                    </span>
+                </div>
+            </div>
+
+            <!-- Scenario Cards Grid -->
+            <div id="scenarios-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Dynamically Populated via JS -->
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TAB 3: QUICK ASSIGNMENT COLOR FINDER       -->
+        <!-- ========================================== -->
+        <section id="tab-wizard" class="tab-content hidden space-y-6">
+            <!-- Header Banner -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-2 border border-blue-200">
+                        <i class="fa-solid fa-compass"></i> Teacher Helper Tool
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Quick Assignment Color Finder</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-1">
+                        Answer 3 quick questions about your upcoming assignment to figure out which Stoplight Color fits best!
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- 3-STEP QUESTIONS -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <h3 class="text-base font-bold text-slate-900">3 Quick Questions</h3>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">Step-by-Step</span>
+                    </div>
+
+                    <!-- QUESTION 1 -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-700">
+                            1. What is the main goal of this assignment?
+                        </label>
+                        <select id="wiz-q1" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" onchange="runWizard()">
+                            <option value="red">Check what students know on their own (individual skills, memory, or feelings)</option>
+                            <option value="yellow">Help students brainstorm, outline, or get feedback on their draft</option>
+                            <option value="green">Explore a topic together, build something creative, or learn with an AI tutor</option>
+                        </select>
+                    </div>
+
+                    <!-- QUESTION 2 -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-700">
+                            2. Who should do the primary writing or creation?
+                        </label>
+                        <select id="wiz-q2" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" onchange="runWizard()">
+                            <option value="red">100% Student - No outside tech help allowed</option>
+                            <option value="yellow">Student Author - AI only helps with ideas, spelling, or advice</option>
+                            <option value="green">Student & AI Teamwork - Student directs the AI and checks its work</option>
+                        </select>
+                    </div>
+
+                    <!-- QUESTION 3 -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-700">
+                            3. How should students show their work?
+                        </label>
+                        <select id="wiz-q3" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" onchange="runWizard()">
+                            <option value="red">No AI notes needed (AI was not allowed)</option>
+                            <option value="yellow">Include a brief note explaining how AI helped them</option>
+                            <option value="green">Share their questions and explain how they checked the AI's answers</option>
+                        </select>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <!-- ASSIGNMENT NAME -->
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Assignment Details (Optional)</h4>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Assignment Title</label>
+                            <input type="text" id="wiz-title" value="Weekly Reflection Essay" placeholder="e.g. Science Lab Report" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" oninput="runWizard()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESULT CARD -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div id="wiz-result-card" class="bg-white rounded-2xl border-2 border-stopred-300 p-6 shadow-sm space-y-5 transition-all">
+                        <div class="flex items-center justify-between border-b pb-3">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Your Recommended Light</span>
+                            <span id="wiz-tier-pill" class="px-3 py-1 rounded-full text-xs font-black uppercase bg-stopred-100 text-stopred-800">
+                                🔴 Red Light (No AI)
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 id="wiz-res-title" class="text-lg font-bold text-slate-900">Weekly Reflection Essay</h3>
+                            <p id="wiz-res-subtitle" class="text-xs text-slate-500 mt-1">Clear Classroom Guidance</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs sm:text-sm">
+                            <div>
+                                <strong class="font-bold text-slate-900 uppercase tracking-wide text-xs block mb-1">📢 Student Expectations:</strong>
+                                <p id="wiz-res-expectation" class="text-slate-700 leading-relaxed"></p>
+                            </div>
+
+                            <div>
+                                <strong class="font-bold text-slate-900 uppercase tracking-wide text-xs block mb-1">💡 Why This Fits:</strong>
+                                <p id="wiz-res-rationale" class="text-slate-700 leading-relaxed"></p>
+                            </div>
+
+                            <div>
+                                <strong class="font-bold text-slate-900 uppercase tracking-wide text-xs block mb-1">📝 Student Note Requirement:</strong>
+                                <p id="wiz-res-notes" class="text-slate-700 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INSTRUCTIONS MODAL -->
+    <div id="instructions-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 space-y-5 shadow-2xl border border-slate-200">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-blue-600"></i> How to Use This Toolkit
+                </h3>
+                <button onclick="toggleInstructionsModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">
+                    &times;
+                </button>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <strong class="font-bold text-slate-900 block mb-1">🚦 Tab 1: Stoplight Guide</strong>
+                    <p>Click on the visual lights (🔴 🟡 🟢) or category buttons to see what each color means for students and read easy classroom examples.</p>
+                </div>
+
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <strong class="font-bold text-slate-900 block mb-1">🎮 Tab 2: Scenario Practice Game</strong>
+                    <p>Read 6 real classroom examples. Choose the correct light for each scenario to test your knowledge and see instant explanations.</p>
+                </div>
+
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <strong class="font-bold text-slate-900 block mb-1">🧭 Tab 3: Quick Assignment Color Finder</strong>
+                    <p>Answer 3 quick questions about an upcoming assignment to easily find which stoplight color fits your lesson best!</p>
+                </div>
+            </div>
+
+            <div class="pt-2 text-right">
+                <button onclick="toggleInstructionsModal()" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all">
+                    Got it, close guide
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
+            AI Stoplight Framework • Clear & Friendly AI Expectations for K-12 Classrooms
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // TAB SWITCHING
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            document.getElementById('tab-btn-' + tabName).classList.add('active');
+        }
+
+        // MODAL TOGGLE
+        function toggleInstructionsModal() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // TAB 1: FOCUS TIER
+        function focusTier(tier) {
+            const cards = document.querySelectorAll('.tier-card');
+            if (tier === 'all') {
+                cards.forEach(c => c.classList.remove('hidden'));
+                return;
+            }
+
+            cards.forEach(c => c.classList.add('hidden'));
+            const target = document.getElementById('card-' + tier);
+            if (target) target.classList.remove('hidden');
+        }
+
+        // TAB 2: SCENARIOS GAME DATA
+        const scenarios = [
+            {
+                id: 1,
+                title: "Friday In-Class History Quiz",
+                description: "Testing students on key historical dates and facts without outside notes.",
+                correctTier: "Red",
+                explanation: "🔴 Red Light: In-class quizzes test what students know on their own using individual memory."
+            },
+            {
+                id: 2,
+                title: "Brainstorming Science Fair Topics",
+                description: "Using an AI chat tool to generate ideas for science project questions.",
+                correctTier: "Yellow",
+                explanation: "🟡 Yellow Light: AI acts like a classmate helping brainstorm ideas. Students ask first and share how AI helped."
+            },
+            {
+                id: 3,
+                title: "Personal Field Trip Journal Reflection",
+                description: "Writing about personal feelings and favorite memories from a class trip.",
+                correctTier: "Red",
+                explanation: "🔴 Red Light: Personal reflections come from direct lived experience and personal thoughts."
+            },
+            {
+                id: 4,
+                title: "Getting Grammar Tips on an Essay Draft",
+                description: "Asking an AI helper to check a student-written draft for spelling and grammar tips.",
+                correctTier: "Yellow",
+                explanation: "🟡 Yellow Light: The student is the primary author using AI for helpful editing advice."
+            },
+            {
+                id: 5,
+                title: "Co-Creating a Fantasy Story World",
+                description: "Working side-by-side with AI to invent fictional characters and interactive dialogue.",
+                correctTier: "Green",
+                explanation: "🟢 Green Light: Creative teamwork where students steer the AI and refine the story together."
+            },
+            {
+                id: 6,
+                title: "Building an Interactive Math Game",
+                description: "Using AI as a coding helper to write simple computer scripts and fix bugs.",
+                correctTier: "Green",
+                explanation: "🟢 Green Light: AI serves as a learning partner to build and design projects together."
+            }
+        ];
+
+        let gameState = {
+            answered: {},
+            score: 0,
+            streak: 0
+        };
+
+        function renderScenarios() {
+            const container = document.getElementById('scenarios-container');
+            container.innerHTML = '';
+
+            scenarios.forEach(s => {
+                const isAnswered = gameState.answered.hasOwnProperty(s.id);
+                const userAnswer = gameState.answered[s.id];
+                const isCorrect = isAnswered && userAnswer === s.correctTier;
+
+                let cardHtml = `
+                    <div class="bg-white rounded-2xl border ${isAnswered ? (isCorrect ? 'border-stopgreen-300 bg-stopgreen-50/20' : 'border-stopred-300 bg-stopred-50/20') : 'border-slate-200'} p-5 shadow-sm space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Example ${s.id}</span>
+                                ${isAnswered ? 
+                                    (isCorrect ? '<span class="text-xs font-bold text-stopgreen-700 bg-stopgreen-100 px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-check"></i> Great Job!</span>' 
+                                               : '<span class="text-xs font-bold text-stopred-700 bg-stopred-100 px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-xmark"></i> Try Again Next Time</span>') 
+                                    : ''}
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900">${s.title}</h3>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">${s.description}</p>
+                        </div>
+
+                        ${!isAnswered ? `
+                            <div class="space-y-2 pt-3 border-t border-slate-100">
+                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Pick the Best Color:</span>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="handleAnswer(${s.id}, 'Red')" class="py-2 px-3 bg-stopred-50 hover:bg-stopred-600 hover:text-white border border-stopred-200 text-stopred-700 rounded-lg text-xs font-bold transition-all">
+                                        🔴 Red
+                                    </button>
+                                    <button onclick="handleAnswer(${s.id}, 'Yellow')" class="py-2 px-3 bg-stopyellow-50 hover:bg-stopyellow-600 hover:text-white border border-stopyellow-200 text-stopyellow-800 rounded-lg text-xs font-bold transition-all">
+                                        🟡 Yellow
+                                    </button>
+                                    <button onclick="handleAnswer(${s.id}, 'Green')" class="py-2 px-3 bg-stopgreen-50 hover:bg-stopgreen-600 hover:text-white border border-stopgreen-200 text-stopgreen-800 rounded-lg text-xs font-bold transition-all">
+                                        🟢 Green
+                                    </button>
+                                </div>
+                            </div>
+                        ` : `
+                            <div class="pt-3 border-t border-slate-200 text-xs">
+                                <p class="font-medium text-slate-700">
+                                    ${s.explanation}
+                                </p>
+                            </div>
+                        `}
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        function handleAnswer(id, selectedTier) {
+            const scenario = scenarios.find(s => s.id === id);
+            if (!scenario || gameState.answered.hasOwnProperty(id)) return;
+
+            const isCorrect = selectedTier === scenario.correctTier;
+            gameState.answered[id] = selectedTier;
+
+            if (isCorrect) {
+                gameState.score += 1;
+                gameState.streak += 1;
+            } else {
+                gameState.streak = 0;
+            }
+
+            const totalAnswered = Object.keys(gameState.answered).length;
+            const percentage = Math.round((gameState.score / totalAnswered) * 100);
+
+            document.getElementById('score-solved').textContent = `${totalAnswered} / ${scenarios.length}`;
+            document.getElementById('score-points').textContent = `${percentage}%`;
+            document.getElementById('score-streak').textContent = `⭐ ${gameState.streak}`;
+
+            if (totalAnswered === scenarios.length) {
+                document.getElementById('score-status').textContent = '🎉 Activity Complete!';
+                document.getElementById('score-status').className = 'text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1.5 rounded-full';
+            }
+
+            renderScenarios();
+        }
+
+        function resetSortingGame() {
+            gameState = { answered: {}, score: 0, streak: 0 };
+            document.getElementById('score-solved').textContent = '0 / 6';
+            document.getElementById('score-points').textContent = '0%';
+            document.getElementById('score-streak').textContent = '⭐ 0';
+            document.getElementById('score-status').textContent = 'In Progress';
+            document.getElementById('score-status').className = 'text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full';
+            renderScenarios();
+        }
+
+        // TAB 3: DECISION FINDER LOGIC
+        function runWizard() {
+            const q1 = document.getElementById('wiz-q1').value;
+            const q2 = document.getElementById('wiz-q2').value;
+            const title = document.getElementById('wiz-title').value.trim() || 'Class Assignment';
+
+            let recommendedTier = 'Red';
+
+            if (q1 === 'red' || q2 === 'red') {
+                recommendedTier = 'Red';
+            } else if (q1 === 'green' && q2 === 'green') {
+                recommendedTier = 'Green';
+            } else {
+                recommendedTier = 'Yellow';
+            }
+
+            const card = document.getElementById('wiz-result-card');
+            const pill = document.getElementById('wiz-tier-pill');
+            const resTitle = document.getElementById('wiz-res-title');
+            const expectation = document.getElementById('wiz-res-expectation');
+            const rationale = document.getElementById('wiz-res-rationale');
+            const notes = document.getElementById('wiz-res-notes');
+
+            resTitle.textContent = title;
+
+            if (recommendedTier === 'Red') {
+                card.className = "bg-white rounded-2xl border-2 border-stopred-300 p-6 shadow-sm space-y-5 transition-all";
+                pill.className = "px-3 py-1 rounded-full text-xs font-black uppercase bg-stopred-100 text-stopred-800";
+                pill.textContent = "🔴 RED LIGHT (NO AI ALLOWED)";
+                expectation.textContent = "Students must do 100% of the work on their own. Tech helpers and AI tools are off-limits.";
+                rationale.textContent = "This assignment measures a student's own thinking, individual memory, and core skills without outside help.";
+                notes.textContent = "None required because AI tools are not permitted.";
+            } else if (recommendedTier === 'Yellow') {
+                card.className = "bg-white rounded-2xl border-2 border-stopyellow-300 p-6 shadow-sm space-y-5 transition-all";
+                pill.className = "px-3 py-1 rounded-full text-xs font-black uppercase bg-stopyellow-100 text-stopyellow-800";
+                pill.textContent = "🟡 YELLOW LIGHT (CLASSROOM ASSISTANT)";
+                expectation.textContent = "Students can use AI like a helpful classmate for brainstorming, outlines, or draft feedback after asking permission.";
+                rationale.textContent = "This activity allows students to practice getting feedback and strengthening their own original writing or thinking.";
+                notes.textContent = "Students write a short sentence explaining how AI helped them (for example: 'AI helped me brainstorm 3 ideas').";
+            } else {
+                card.className = "bg-white rounded-2xl border-2 border-stopgreen-300 p-6 shadow-sm space-y-5 transition-all";
+                pill.className = "px-3 py-1 rounded-full text-xs font-black uppercase bg-stopgreen-100 text-stopgreen-800";
+                pill.textContent = "🟢 GREEN LIGHT (FULL COLLABORATION)";
+                expectation.textContent = "AI is a key learning tool for this assignment! Students explore, build, or create together with AI.";
+                rationale.textContent = "This assignment teaches students how to guide AI, ask smart questions, and double-check facts for accuracy.";
+                notes.textContent = "Students share the questions they asked AI and briefly explain how they checked or improved the final output.";
+            }
+        }
+
+        // INITIALIZE ON LOAD
+        window.onload = function() {
+            renderScenarios();
+            runWizard();
+        };
+    </script>
+</body>
+</html>
