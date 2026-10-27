@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISTE AI-Ready Graduate Teacher Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --bg-porcelain: #fdfbf7;
+      --violet-deep: #312e81;
+      --indigo-rich: #4f46e5;
+      --amber-sunset: #f59e0b;
+      --teal-warm: #0d9488;
+      --rose-soft: #f43f5e;
+      --emerald-accent: #10b981;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-porcelain);
+      color: #1e1b4b;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c7c7d4;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9f9fb3;
+    }
+
+    /* Glassmorphism Styling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 25px -5px rgba(49, 46, 129, 0.05), 0 8px 10px -6px rgba(49, 46, 129, 0.03);
+    }
+
+    /* Pill Navigation Styling */
+    .nav-pill {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .nav-pill-active {
+      background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
+    }
+
+    .profile-card-active {
+      border-color: #4f46e5 !important;
+      background: #f5f3ff !important;
+      box-shadow: 0 0 0 2px #4f46e5, 0 4px 12px rgba(79, 70, 229, 0.15) !important;
+    }
+
+    .interactive-hover {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .interactive-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(49, 46, 129, 0.08);
+    }
+  </style>
+</head>
+<body class="p-3 md:p-8 min-h-screen">
+
+  <!-- Header Banner -->
+  <header class="max-w-6xl mx-auto glass-card rounded-2xl p-6 mb-6 border-l-8 border-l-indigo-700">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-900 text-xs font-bold rounded-full uppercase tracking-wider mb-2">
+          ISTE Standards Integration
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-indigo-950 tracking-tight">
+          Profile of an AI-Ready Graduate
+        </h1>
+        <p class="text-slate-600 text-sm md:text-base mt-1">
+          Interactive Professional Learning Suite: Explore how AI augments uniquely human skills across K-12 learning.
+        </p>
+      </div>
+      <div class="text-xs text-indigo-950 bg-indigo-50/80 p-3.5 rounded-xl border border-indigo-100 shrink-0 w-full md:w-auto">
+        <span class="font-bold block text-indigo-900 mb-0.5">Interactive Learning Studio</span>
+        Explore learning modules and test practical scenarios
+      </div>
+    </div>
+
+    <!-- Studio Progress Indicator -->
+    <div class="mt-5 pt-4 border-t border-slate-200/60">
+      <div class="flex justify-between items-center text-xs font-semibold text-slate-600 mb-1.5">
+        <span>Studio Exploration Progress</span>
+        <span id="overall-progress-text" class="text-indigo-700 font-bold">0% Completed</span>
+      </div>
+      <div class="w-full bg-slate-200/70 h-2.5 rounded-full overflow-hidden">
+        <div id="overall-progress-bar" class="bg-gradient-to-r from-indigo-700 to-indigo-500 h-full w-0 transition-all duration-500 rounded-full"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Pill Tabs -->
+  <nav class="max-w-6xl mx-auto mb-6 glass-card rounded-2xl p-1.5 flex flex-wrap gap-1.5">
+    <button onclick="switchTab('module1')" id="tab-module1" class="nav-pill nav-pill-active flex-1 min-w-[140px] py-3 px-4 text-center text-sm font-semibold rounded-xl hover:text-indigo-900 transition-all">
+      Module 1: Card Sort
+    </button>
+    <button onclick="switchTab('module2')" id="tab-module2" class="nav-pill flex-1 min-w-[140px] py-3 px-4 text-center text-sm font-semibold rounded-xl text-slate-600 hover:text-indigo-900 transition-all">
+      Module 2: 6 Profiles Wheel
+    </button>
+    <button onclick="switchTab('module3')" id="tab-module3" class="nav-pill flex-1 min-w-[140px] py-3 px-4 text-center text-sm font-semibold rounded-xl text-slate-600 hover:text-indigo-900 transition-all">
+      Module 3: Scenario Matrix
+    </button>
+    <button onclick="switchTab('module4')" id="tab-module4" class="nav-pill flex-1 min-w-[140px] py-3 px-4 text-center text-sm font-semibold rounded-xl text-slate-600 hover:text-indigo-900 transition-all">
+      Module 4: Pathway Builder
+    </button>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="max-w-6xl mx-auto">
+
+    <!-- ========================================== -->
+    <!-- MODULE 1: CARD SORT                        -->
+    <!-- ========================================== -->
+    <section id="module1" class="tab-content">
+      <div class="glass-card rounded-2xl p-6 mb-6">
+        <!-- Teacher Instructions -->
+        <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-4 mb-6 text-slate-800 text-sm">
+          <h3 class="font-bold text-amber-950 text-base mb-1.5 flex items-center gap-2">
+            Welcome to Module 1: Exploring Human & AI Roles
+          </h3>
+          <p class="mb-2 text-slate-700 leading-relaxed">
+            The ISTE AI-Ready Graduate framework emphasizes helping students understand <em>when human judgment and empathy are essential</em> versus <em>when AI can meaningfully amplify our human potential</em>.
+          </p>
+          <p class="font-medium text-amber-950">
+            <strong>Your Activity Goal:</strong> Select each classroom practice card below and assign it to either <strong>"Uniquely Human Responsibility"</strong> (tasks requiring ethics, agency, empathy, or critical judgment) or <strong>"Appropriate AI Augmentation"</strong> (tasks where AI provides immediate feedback, alternative perspectives, or ideation support).
+          </p>
+        </div>
+
+        <!-- Card Sorting Board -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Unsorted Pool -->
+          <div class="lg:col-span-4 bg-slate-100/80 rounded-xl p-4 border border-slate-200/80">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-bold text-indigo-950 text-xs uppercase tracking-wider">Practice Cards</h4>
+              <span id="card-count" class="bg-indigo-700 text-white text-xs font-bold px-2.5 py-1 rounded-full">6 Remaining</span>
+            </div>
+            <div id="cards-pool" class="space-y-3 min-h-[300px]">
+              <!-- Cards rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Target Buckets -->
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Human Bucket -->
+            <div id="bucket-human" onclick="sortActiveCard('human')" class="bg-indigo-50/50 border-2 border-dashed border-indigo-200 rounded-xl p-4 min-h-[320px] transition-all hover:border-indigo-400 cursor-pointer flex flex-col">
+              <div class="mb-3 pb-2 border-b border-indigo-200/80">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-800 block mb-0.5">Category A</span>
+                <h4 class="font-bold text-indigo-950 text-base">Uniquely Human Responsibility</h4>
+                <p class="text-xs text-indigo-800 mt-1">Requires human moral judgment, personal agency, empathy, and ethical reflection.</p>
+              </div>
+              <div id="human-list" class="space-y-2 flex-grow">
+                <!-- Sorted cards rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- AI Bucket -->
+            <div id="bucket-ai" onclick="sortActiveCard('ai')" class="bg-teal-50/50 border-2 border-dashed border-teal-200 rounded-xl p-4 min-h-[320px] transition-all hover:border-teal-400 cursor-pointer flex flex-col">
+              <div class="mb-3 pb-2 border-b border-teal-200/80">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-teal-800 block mb-0.5">Category B</span>
+                <h4 class="font-bold text-teal-950 text-base">Appropriate AI Augmentation</h4>
+                <p class="text-xs text-teal-800 mt-1">AI acts as a supportive partner for brainstorming, custom practice, or formatting.</p>
+              </div>
+              <div id="ai-list" class="space-y-2 flex-grow">
+                <!-- Sorted cards rendered dynamically -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Feedback Box -->
+        <div id="sort-feedback" class="mt-6 hidden p-4 rounded-xl border bg-slate-900 text-white text-sm">
+          <div class="flex items-start gap-3">
+            <div>
+              <h5 id="feedback-title" class="font-bold text-base mb-1"></h5>
+              <p id="feedback-body" class="text-slate-300 leading-relaxed text-xs md:text-sm"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-between items-center border-t border-slate-200/60 pt-4 text-xs text-slate-500">
+          <button onclick="resetModule1()" class="text-indigo-700 hover:text-indigo-900 font-semibold underline">Reset Card Sort</button>
+          <span>Select a card above, then click a column to place it.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 2: THE 6-PROFILE WHEEL             -->
+    <!-- ========================================== -->
+    <section id="module2" class="tab-content hidden">
+      <div class="glass-card rounded-2xl p-6 mb-6">
+        
+        <!-- Instructions -->
+        <div class="bg-indigo-50/80 border border-indigo-200/80 rounded-xl p-4 mb-6 text-slate-800 text-sm">
+          <h3 class="font-bold text-indigo-950 text-base mb-1.5 flex items-center gap-2">
+            Welcome to Module 2: The 6 AI-Ready Graduate Profiles
+          </h3>
+          <p class="mb-3 text-slate-700 leading-relaxed">
+            The ISTE framework outlines six distinct roles students embody as they learn to partner thoughtfully with AI technology. Click any role below to explore its core practices, view grade-level classroom examples, and complete a quick reflection check.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-indigo-200/60">
+            <span class="font-bold text-xs text-indigo-950 uppercase tracking-wider">Select Grade Level Examples:</span>
+            <div class="inline-flex rounded-lg border border-slate-300 p-0.5 bg-white shadow-sm" role="group">
+              <button onclick="setGradeBand('elementary')" id="btn-elem" class="px-3 py-1 text-xs font-semibold rounded-md transition-all">Elementary</button>
+              <button onclick="setGradeBand('middle')" id="btn-mid" class="px-3 py-1 text-xs font-semibold rounded-md bg-indigo-700 text-white transition-all">Middle School</button>
+              <button onclick="setGradeBand('high')" id="btn-high" class="px-3 py-1 text-xs font-semibold rounded-md transition-all">High School</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profiles Selector & Detail Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Profiles Selector Column -->
+          <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            
+            <button onclick="selectProfile('learner')" id="prof-btn-learner" class="profile-card-active interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 1</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Learner</h4>
+              <p class="text-xs text-slate-500 mt-1">Sets goals, manages learning pathways, gets targeted help.</p>
+            </button>
+
+            <button onclick="selectProfile('researcher')" id="prof-btn-researcher" class="interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 2</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Researcher</h4>
+              <p class="text-xs text-slate-500 mt-1">Investigates inquiries, checks claims, compares perspectives.</p>
+            </button>
+
+            <button onclick="selectProfile('synthesizer')" id="prof-btn-synthesizer" class="interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 3</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Synthesizer</h4>
+              <p class="text-xs text-slate-500 mt-1">Remixes formats, tailors complexity, discovers patterns.</p>
+            </button>
+
+            <button onclick="selectProfile('problem-solver')" id="prof-btn-problem-solver" class="interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 4</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Problem-Solver</h4>
+              <p class="text-xs text-slate-500 mt-1">Brainstorms ideas, evaluates solutions, tests for risks.</p>
+            </button>
+
+            <button onclick="selectProfile('connector')" id="prof-btn-connector" class="interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 5</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Connector</h4>
+              <p class="text-xs text-slate-500 mt-1">Bridges language gaps, connects viewpoints, builds teams.</p>
+            </button>
+
+            <button onclick="selectProfile('storyteller')" id="prof-btn-storyteller" class="interactive-hover p-4 rounded-xl border border-slate-200 bg-white text-left transition-all">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block mb-0.5">Role 6</span>
+              <h4 class="font-bold text-indigo-950 text-sm">Storyteller</h4>
+              <p class="text-xs text-slate-500 mt-1">Refines messaging, creates visual analogies, designs media.</p>
+            </button>
+
+          </div>
+
+          <!-- Selected Profile Detail Column -->
+          <div class="lg:col-span-7 bg-slate-50/80 rounded-xl p-5 border border-slate-200/80">
+            <div id="profile-detail-display">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 3: SCENARIO MATRIX                  -->
+    <!-- ========================================== -->
+    <section id="module3" class="tab-content hidden">
+      <div class="glass-card rounded-2xl p-6 mb-6">
+        
+        <!-- Instructions -->
+        <div class="bg-teal-50/80 border border-teal-200/80 rounded-xl p-4 mb-6 text-slate-800 text-sm">
+          <h3 class="font-bold text-teal-950 text-base mb-1.5 flex items-center gap-2">
+            Welcome to Module 3: Classroom Scenario Matrix
+          </h3>
+          <p class="mb-2 text-slate-700 leading-relaxed">
+            Below are four practical classroom scenarios inspired by the ISTE AI-Ready Graduate publication. 
+          </p>
+          <p class="font-medium text-teal-950">
+            <strong>Your Activity Goal:</strong> Read each classroom scenario and select which AI-Ready Graduate role is being primarily demonstrated. Submit your answer to view aligned practices and guidance.
+          </p>
+        </div>
+
+        <div id="scenario-container" class="space-y-6">
+          <!-- Rendered dynamically -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 4: UNPLUGGED-TO-PLUGGED PATHWAY     -->
+    <!-- ========================================== -->
+    <section id="module4" class="tab-content hidden">
+      <div class="glass-card rounded-2xl p-6 mb-6">
+        
+        <!-- Instructions -->
+        <div class="bg-amber-50/80 border border-amber-200/80 rounded-xl p-4 mb-6 text-slate-800 text-sm">
+          <h3 class="font-bold text-amber-950 text-base mb-1.5 flex items-center gap-2">
+            Welcome to Module 4: Unplugged-to-Plugged Pathway Builder
+          </h3>
+          <p class="mb-2 text-slate-700 leading-relaxed">
+            The ISTE framework highlights the power of <strong>"unplugged" (technology-free) foundational activities</strong> to develop core human reasoning skills before introducing AI digital tools.
+          </p>
+          <p class="font-medium text-amber-950">
+            <strong>How to use this tool:</strong> Select a target skill and grade level. The builder will generate a 2-step scaffold pairing a tech-free foundation with a thoughtful AI enhancement strategy. You can copy the generated lesson scaffold straight into your lesson plan document.
+          </p>
+        </div>
+
+        <!-- Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 bg-slate-100/80 p-4 rounded-xl border border-slate-200/80">
+          <div>
+            <label class="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2">1. Choose Target Human Skill</label>
+            <select id="pathway-skill" onchange="generatePathway()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-medium focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+              <option value="inquiry">Formulating Inquiry Questions & Curiosities</option>
+              <option value="evaluating">Evaluating Source Perspectives & Bias</option>
+              <option value="unstuck">Identifying Confusion & Seeking Targeted Feedback</option>
+              <option value="brainstorming">Brainstorming & Stress-Testing Solutions</option>
+              <option value="empathy">Understanding Divergent Viewpoints</option>
+              <option value="storytelling">Sharpening Narrative & Visual Metaphors</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2">2. Choose Grade Level</label>
+            <select id="pathway-grade" onchange="generatePathway()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm font-medium focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+              <option value="elem">Elementary School (K-5)</option>
+              <option value="mid" selected>Middle School (6-8)</option>
+              <option value="high">High School (9-12)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Pathway Output Display -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm mb-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b border-slate-200/80">
+            <div>
+              <span id="pathway-badge" class="px-2.5 py-1 bg-amber-100 text-amber-900 text-xs font-bold rounded-full">
+                Lesson Scaffold Generated
+              </span>
+              <h4 id="pathway-title" class="font-bold text-indigo-950 text-lg mt-1">
+                Formulating Inquiry Questions & Curiosities
+              </h4>
+            </div>
+            <button onclick="copyScaffold()" class="bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
+              Copy Lesson Scaffold
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Unplugged Column -->
+            <div class="bg-amber-50/60 border border-amber-200/80 rounded-xl p-5">
+              <div class="mb-3">
+                <span class="px-2.5 py-0.5 bg-amber-200 text-amber-950 rounded text-xs font-bold uppercase tracking-wider">Phase 1</span>
+                <h5 class="font-bold text-amber-950 text-base mt-1">Unplugged Foundation</h5>
+                <p class="text-xs text-amber-800">Technology-free practice builds core human reasoning first</p>
+              </div>
+              <p id="pathway-unplugged-text" class="text-sm text-slate-800 leading-relaxed">
+                <!-- Text inserted dynamically -->
+              </p>
+            </div>
+
+            <!-- Plugged Column -->
+            <div class="bg-teal-50/60 border border-teal-200/80 rounded-xl p-5">
+              <div class="mb-3">
+                <span class="px-2.5 py-0.5 bg-teal-200 text-teal-950 rounded text-xs font-bold uppercase tracking-wider">Phase 2</span>
+                <h5 class="font-bold text-teal-950 text-base mt-1">Plugged AI Augmentation</h5>
+                <p class="text-xs text-teal-800">Students leverage AI tools to expand and deepen their work</p>
+              </div>
+              <p id="pathway-plugged-text" class="text-sm text-slate-800 leading-relaxed">
+                <!-- Text inserted dynamically -->
+              </p>
+            </div>
+          </div>
+
+          <!-- Prompt Template Box -->
+          <div class="mt-6 pt-4 border-t border-slate-100 bg-slate-50/80 p-4 rounded-xl">
+            <h5 class="text-xs font-bold text-indigo-950 uppercase tracking-wider mb-1">Student Task Prompt Template:</h5>
+            <p id="pathway-prompt-template" class="text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200">
+              <!-- Prompt inserted dynamically -->
+            </p>
+          </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="copy-toast" class="hidden fixed bottom-6 right-6 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-lg border border-slate-700 z-50">
+          Lesson scaffold copied to clipboard!
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       PROGRESS TRACKING & TAB NAVIGATION
+       ========================================================================== */
+    const progressState = {
+      cardsSorted: false,
+      profilesViewed: new Set(['learner']),
+      scenariosAnswered: new Set(),
+      pathwayGenerated: true
+    };
+
+    function updateProgress() {
+      let score = 0;
+      if (progressState.cardsSorted) score += 25;
+      score += Math.min(25, Math.round((progressState.profilesViewed.size / 6) * 25));
+      score += Math.min(25, Math.round((progressState.scenariosAnswered.size / 4) * 25));
+      if (progressState.pathwayGenerated) score += 25;
+
+      document.getElementById('overall-progress-bar').style.width = score + '%';
+      document.getElementById('overall-progress-text').innerText = score + '% Completed';
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-pill').forEach(btn => {
+        btn.classList.remove('nav-pill-active');
+        btn.classList.add('text-slate-600');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-' + tabId);
+      activeBtn.classList.add('nav-pill-active');
+      activeBtn.classList.remove('text-slate-600');
+    }
+
+    /* ==========================================================================
+       MODULE 1: CARD SORT DATA & LOGIC
+       ========================================================================== */
+    const sortCards = [
+      {
+        id: 1,
+        title: "Establishing Ethical Boundaries & Goals",
+        desc: "Defining why a learning task matters, setting personal targets, and identifying ethical boundaries.",
+        correct: "human",
+        explanation: "ISTE emphasizes that determining purpose, setting moral boundaries, and defining meaningful targets remain uniquely human responsibilities."
+      },
+      {
+        id: 2,
+        title: "Adapting Text Complexity & Presentation",
+        desc: "Rephrasing complex source texts into accessible summaries or converting written notes into spoken explanations.",
+        correct: "ai",
+        explanation: "The Synthesizer profile highlights using AI to tailor content complexity and adapt media formats to fit varied learning needs."
+      },
+      {
+        id: 3,
+        title: "Evaluating and Finalizing AI Ideas",
+        desc: "Deciding which AI suggestions or feedback points to adopt, modify, or reject based on human context.",
+        correct: "human",
+        explanation: "The Problem-Solver profile notes that students maintain agency by critically evaluating and deciding which AI suggestions to accept."
+      },
+      {
+        id: 4,
+        title: "Targeted Practice & Immediate Feedback",
+        desc: "Practicing vocabulary or problem-solving with immediate step-by-step diagnostic feedback.",
+        correct: "ai",
+        explanation: "The Learner profile shows how AI can provide immediate, ongoing feedback to help students pinpoint mistakes and practice skills."
+      },
+      {
+        id: 5,
+        title: "Building Team Trust and Empathy",
+        desc: "Resolving interpersonal differences, supporting group members, and nurturing mutual trust in collaboration.",
+        correct: "human",
+        explanation: "While AI can help structure tasks, genuine emotional connection and interpersonal trust require human empathy and care."
+      },
+      {
+        id: 6,
+        title: "Stress-Testing Plans for Potential Weaknesses",
+        desc: "Asking AI to act as a reviewer to identify missing considerations or potential risks in a proposal.",
+        correct: "ai",
+        explanation: "The Problem-Solver profile highlights AI as a tool for probing proposals to reveal overlooked constraints or weaknesses."
+      }
+    ];
+
+    let currentCards = sortCards.map(c => ({ ...c, assigned: null }));
+    let selectedCardId = null;
+
+    function renderModule1() {
+      const pool = document.getElementById('cards-pool');
+      pool.innerHTML = '';
+
+      const unassigned = currentCards.filter(c => !c.assigned);
+      document.getElementById('card-count').innerText = `${unassigned.length} Remaining`;
+
+      if (unassigned.length === 0) {
+        progressState.cardsSorted = true;
+        updateProgress();
+        pool.innerHTML = `
+          <div class="p-5 text-center bg-teal-100/60 rounded-xl border border-teal-300">
+            <span class="font-extrabold text-teal-950 text-sm block">All Cards Sorted!</span>
+            <p class="text-xs text-teal-800 mt-1">Review your placements or reset the activity anytime to practice again.</p>
+          </div>
+        `;
+      }
+
+      unassigned.forEach(card => {
+        const isSelected = selectedCardId === card.id;
+        const cardEl = document.createElement('div');
+        cardEl.className = `p-3.5 rounded-xl border text-sm cursor-pointer transition-all ${
+          isSelected 
+            ? 'bg-indigo-700 text-white border-indigo-800 shadow-md scale-102' 
+            : 'bg-white text-slate-800 border-slate-200 hover:border-indigo-400 shadow-sm'
+        }`;
+        cardEl.onclick = (e) => {
+          e.stopPropagation();
+          selectedCardId = isSelected ? null : card.id;
+          renderModule1();
+        };
+        cardEl.innerHTML = `
+          <div class="font-bold text-[10px] ${isSelected ? 'text-indigo-200' : 'text-indigo-700'} uppercase tracking-wider mb-1">Click to select card</div>
+          <div class="font-bold mb-1">${card.title}</div>
+          <div class="text-xs ${isSelected ? 'text-indigo-100' : 'text-slate-600'}">${card.desc}</div>
+        `;
+        pool.appendChild(cardEl);
+      });
+
+      renderBucketList('human-list', 'human');
+      renderBucketList('ai-list', 'ai');
+    }
+
+    function renderBucketList(elementId, category) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = '';
+      const assigned = currentCards.filter(c => c.assigned === category);
+
+      if (assigned.length === 0) {
+        container.innerHTML = `<div class="text-xs text-slate-400 italic p-6 text-center">Click a practice card on the left, then click here to assign it.</div>`;
+        return;
+      }
+
+      assigned.forEach(card => {
+        const isCorrect = card.assigned === card.correct;
+        const cardEl = document.createElement('div');
+        cardEl.className = `p-3 rounded-xl border text-xs bg-white shadow-sm flex flex-col gap-1 ${
+          isCorrect ? 'border-teal-300 bg-teal-50/30' : 'border-rose-300 bg-rose-50/30'
+        }`;
+        cardEl.innerHTML = `
+          <div class="flex justify-between items-start font-bold">
+            <span class="text-indigo-950">${card.title}</span>
+            <span class="${isCorrect ? 'text-teal-700' : 'text-rose-700'} text-xs">${isCorrect ? 'Aligned' : 'Reconsider'}</span>
+          </div>
+          <p class="text-slate-600 text-[11px] mt-1">${card.explanation}</p>
+        `;
+        container.appendChild(cardEl);
+      });
+    }
+
+    function sortActiveCard(targetCategory) {
+      if (!selectedCardId) return;
+      const card = currentCards.find(c => c.id === selectedCardId);
+      if (card) {
+        card.assigned = targetCategory;
+        showSortFeedback(card, targetCategory);
+        selectedCardId = null;
+        renderModule1();
+      }
+    }
+
+    function showSortFeedback(card, targetCategory) {
+      const feedbackEl = document.getElementById('sort-feedback');
+      const isCorrect = targetCategory === card.correct;
+      
+      feedbackEl.classList.remove('hidden', 'bg-slate-900', 'border-teal-500', 'border-amber-500');
+      feedbackEl.classList.add('bg-slate-900', isCorrect ? 'border-teal-500' : 'border-amber-500');
+
+      document.getElementById('feedback-title').innerText = isCorrect ? 'Aligned with ISTE Guidelines' : 'Consider ISTE Framework Guidance';
+      document.getElementById('feedback-body').innerText = card.explanation;
+    }
+
+    function resetModule1() {
+      currentCards = sortCards.map(c => ({ ...c, assigned: null }));
+      selectedCardId = null;
+      document.getElementById('sort-feedback').classList.add('hidden');
+      progressState.cardsSorted = false;
+      updateProgress();
+      renderModule1();
+    }
+
+    /* ==========================================================================
+       MODULE 2: 6 PROFILES DATA & LOGIC
+       ========================================================================== */
+    const profileData = {
+      'learner': {
+        title: 'Learner Profile',
+        definition: 'Students use AI to set learning goals, design personal learning pathways, get unstuck, and seek targeted feedback.',
+        skills: [
+          'Break broad goals into actionable step-by-step plans',
+          'Ask AI diagnostic questions to identify exact points of confusion',
+          'Request actionable feedback on draft work to improve performance'
+        ],
+        examples: {
+          'elementary': 'Elementary students solving multi-digit math problems share their steps with an AI assistant to receive a hint without giving away the solution.',
+          'middle': 'Middle schoolers practicing fraction concepts ask AI to create a personalized review guide based on errors from their recent practice activity.',
+          'high': 'High school language students interact with AI in conversational dialogues to practice past-tense grammar and receive immediate phrasing tips.'
+        },
+        quiz: {
+          q: 'A student hits a roadblock while working through a physics assignment. Which action reflects the AI-Ready Learner profile?',
+          options: [
+            'Having AI generate all finished solutions to turn in quickly.',
+            'Asking AI to pose diagnostic guiding questions to discover where their misconception lies.',
+            'Skipping the difficult concept entirely without seeking help.'
+          ],
+          correct: 1,
+          explanation: 'Learner Practice 2A: Students partner with AI to identify specific areas of confusion through diagnostic questions.'
+        }
+      },
+      'researcher': {
+        title: 'Researcher Profile',
+        definition: 'Students use AI to strategically investigate complex topics, evaluate source claims, and compare diverse perspectives.',
+        skills: [
+          'Refine broad topics into precise, focused research questions',
+          'Identify missing voices or underrepresented viewpoints across sources',
+          'Compare points of agreement and contradiction across multiple materials'
+        ],
+        examples: {
+          'elementary': 'Fifth graders researching local ecosystems prompt AI to summarize short articles and point out community perspectives that might be missing.',
+          'middle': 'Eighth grade social studies students compare 1950s news reporting from different regions during the Civil Rights Movement.',
+          'high': 'High school debaters compile research on renewable energy policies and map out economic arguments across varied viewpoints.'
+        },
+        quiz: {
+          q: 'When investigating a complex environmental topic, how does an AI-Ready Researcher use AI tools?',
+          options: [
+            'To discover varied source perspectives and highlight viewpoints that may be underrepresented.',
+            'To automatically write their background literature review.',
+            'To replace reading source materials entirely.'
+          ],
+          correct: 0,
+          explanation: 'Researcher Practice 5A: Students use AI to locate diverse source materials and evaluate underrepresented viewpoints.'
+        }
+      },
+      'synthesizer': {
+        title: 'Synthesizer Profile',
+        definition: 'Students use AI to synthesize, adapt, and transform information into formats and complexity levels suited to their learning needs.',
+        skills: [
+          'Translate information across formats (written summary to diagram or spoken audio script)',
+          'Adjust text complexity to match reading levels while maintaining core ideas',
+          'Identify overarching patterns and key themes across large sets of information'
+        ],
+        examples: {
+          'elementary': 'Fourth graders simplify complex weather science explanations into clear bullet points for a class presentation.',
+          'middle': 'Middle schoolers examining historical demographic data ask AI to highlight recurring trends and organize them chronologically.',
+          'high': 'High school biology students input research summaries on genetic engineering to generate simplified visual analogies.'
+        },
+        quiz: {
+          q: 'Which practice exemplifies an AI-Ready Synthesizer?',
+          options: [
+            'Copying generated text directly without reading or editing.',
+            'Tailoring the complexity of dense content to support understanding while maintaining key insights.',
+            'Reading only short headline summaries.'
+          ],
+          correct: 1,
+          explanation: 'Synthesizer Practice 6B: Students adjust content complexity and format to match their learning needs and deepen comprehension.'
+        }
+      },
+      'problem-solver': {
+        title: 'Problem-Solver Profile',
+        definition: 'Students use AI as a collaborative partner to clarify challenges, explore ideas, and critically evaluate potential solutions.',
+        skills: [
+          'Define challenges clearly to guide effective solution searching',
+          'Brainstorm diverse possibilities before choosing an approach',
+          'Test promising ideas for risks, limitations, and hidden flaws'
+        ],
+        examples: {
+          'elementary': 'Third graders designing a classroom sharing system prompt AI to suggest creative ways to make sure everyone gets equal turn time.',
+          'middle': 'Seventh grade science students evaluate bridge building designs by using AI to simulate varied load conditions.',
+          'high': 'Engineering students analyzing local infrastructure projects prompt AI to stress-test their proposals for budget and maintenance bottlenecks.'
+        },
+        quiz: {
+          q: 'How does an AI-Ready Problem-Solver maintain agency during creative brainstorming?',
+          options: [
+            'By accepting the first suggestion generated by AI without revision.',
+            'By using AI to probe their best ideas for potential weaknesses, then deciding which suggestions to adopt.',
+            'By letting AI determine which problem is worth addressing.'
+          ],
+          correct: 1,
+          explanation: 'Problem-Solver Practice 9B: Students maintain agency by critically probing proposed solutions and making informed decisions.'
+        }
+      },
+      'connector': {
+        title: 'Connector Profile',
+        definition: 'Students use AI to enhance human collaboration, bridge language gaps, and build mutual understanding across viewpoints.',
+        skills: [
+          'Translate across languages while preserving tone and context',
+          'Explore varied perspectives to foster empathetic understanding',
+          'Structure group roles and facilitate inclusive team discussion'
+        ],
+        examples: {
+          'elementary': 'Multilingual elementary students use speech translation tools to collaborate seamlessly with peers on team art projects.',
+          'middle': 'Middle school debate students simulate discussions with historical figure personas to understand varied viewpoints.',
+          'high': 'Student council members rehearse challenging communication scenarios with AI before facilitating school community meetings.'
+        },
+        quiz: {
+          q: 'How can AI support group collaboration according to the Connector profile?',
+          options: [
+            'By replacing human group members completely.',
+            'By suggesting inclusive team roles, bridging language barriers, and aiding perspective-taking.',
+            'By scoring group participants automatically.'
+          ],
+          correct: 1,
+          explanation: 'Connector Practices 11A/B: AI assists in structuring team collaboration and bridging language or perspective differences.'
+        }
+      },
+      'storyteller': {
+        title: 'Storyteller Profile',
+        definition: 'Students use AI to craft engaging narratives and present complex ideas effectively using text, visuals, audio, and media.',
+        skills: [
+          'Sharpen communication tone and message clarity for target audiences',
+          'Create visual analogies to explain abstract or complex concepts',
+          'Select media formats that best convey key project messages'
+        ],
+        examples: {
+          'elementary': 'Elementary students turn creative writing into audio story segments, asking AI for sound effect ideas and narrative pacing tips.',
+          'middle': 'Middle schoolers creating community health materials prompt AI for visual metaphors that clearly explain immune system function.',
+          'high': 'Business students preparing pitch presentations refine their message tone and design relatable visual infographics for their audience.'
+        },
+        quiz: {
+          q: 'What characterizes an AI-Ready Storyteller?',
+          options: [
+            'Allowing AI to generate an entire presentation without human refinement.',
+            'Using AI to visualize abstract concepts, refine messaging tone, and connect meaningfully with an audience.',
+            'Avoiding all visual and media tools in communication.'
+          ],
+          correct: 1,
+          explanation: 'Storyteller Practice 13A: Students leverage AI to enhance visual analogies, refine tone, and craft compelling narratives.'
+        }
+      }
+    };
+
+    let selectedProfileKey = 'learner';
+    let currentGradeBand = 'middle';
+
+    function setGradeBand(gb) {
+      currentGradeBand = gb;
+      document.getElementById('btn-elem').className = `px-3 py-1 text-xs font-semibold rounded-md transition-all ${gb === 'elementary' ? 'bg-indigo-700 text-white' : 'text-slate-700 hover:bg-slate-100'}`;
+      document.getElementById('btn-mid').className = `px-3 py-1 text-xs font-semibold rounded-md transition-all ${gb === 'middle' ? 'bg-indigo-700 text-white' : 'text-slate-700 hover:bg-slate-100'}`;
+      document.getElementById('btn-high').className = `px-3 py-1 text-xs font-semibold rounded-md transition-all ${gb === 'high' ? 'bg-indigo-700 text-white' : 'text-slate-700 hover:bg-slate-100'}`;
+      renderProfileDetail();
+    }
+
+    function selectProfile(key) {
+      selectedProfileKey = key;
+      progressState.profilesViewed.add(key);
+      updateProgress();
+
+      document.querySelectorAll('.profile-card-active').forEach(node => {
+        node.classList.remove('profile-card-active');
+      });
+      const activeBtn = document.getElementById(`prof-btn-${key}`);
+      if (activeBtn) {
+        activeBtn.classList.add('profile-card-active');
+      }
+      renderProfileDetail();
+    }
+
+    function renderProfileDetail() {
+      const data = profileData[selectedProfileKey];
+      const display = document.getElementById('profile-detail-display');
+
+      display.innerHTML = `
+        <div class="mb-4 pb-3 border-b border-slate-200">
+          <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider block mb-1">Role Detail Overview</span>
+          <h3 class="font-bold text-xl text-indigo-950">${data.title}</h3>
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">${data.definition}</p>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2">Core Skills & Practices:</h4>
+          <ul class="space-y-1.5 text-xs text-slate-700">
+            ${data.skills.map(s => `<li class="flex items-start gap-2"><span class="text-indigo-600 font-bold">•</span><span>${s}</span></li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 mb-4 shadow-sm">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="text-[10px] font-extrabold px-2 py-0.5 bg-indigo-100 text-indigo-900 rounded uppercase tracking-wider">
+              ${currentGradeBand.toUpperCase()} CLASSROOM EXAMPLE
+            </span>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">${data.examples[currentGradeBand]}</p>
+        </div>
+
+        <div class="bg-slate-100/90 p-4 rounded-xl border border-slate-200">
+          <div class="text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2">
+            Practice Reflection Check
+          </div>
+          <p class="text-xs font-medium text-slate-900 mb-3">${data.quiz.q}</p>
+          <div class="space-y-2">
+            ${data.quiz.options.map((opt, idx) => `
+              <button onclick="checkMicroQuiz(${idx}, ${data.quiz.correct}, '${data.quiz.explanation.replace(/'/g, "\\'")}')" 
+                      class="w-full text-left p-2.5 rounded-lg border bg-white border-slate-200 hover:border-indigo-400 text-xs transition-all text-slate-800">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="micro-quiz-feedback" class="mt-3 hidden p-3 rounded-lg text-xs"></div>
+        </div>
+      `;
+    }
+
+    function checkMicroQuiz(selectedIdx, correctIdx, explanation) {
+      const fb = document.getElementById('micro-quiz-feedback');
+      fb.classList.remove('hidden', 'bg-teal-100', 'text-teal-950', 'bg-rose-100', 'text-rose-950');
+      
+      if (selectedIdx === correctIdx) {
+        fb.classList.add('bg-teal-100', 'text-teal-950');
+        fb.innerHTML = `<strong>Aligned Choice!</strong> ${explanation}`;
+      } else {
+        fb.classList.add('bg-rose-100', 'text-rose-950');
+        fb.innerHTML = `<strong>Consider this perspective:</strong> ${explanation}`;
+      }
+    }
+
+    /* ==========================================================================
+       MODULE 3: SCENARIO MATRIX DATA & LOGIC
+       ========================================================================== */
+    const scenarios = [
+      {
+        id: 1,
+        title: "Historical Civil Rights Inquiry",
+        context: "Middle School Social Studies",
+        scenario: "Eighth graders studying the Civil Rights Movement formulate initial inquiry questions about local history. They prompt AI to summarize primary sources, compare 1950s news coverage from different regions, and evaluate missing voices in the archival record.",
+        options: ["Learner", "Researcher", "Synthesizer", "Problem-Solver", "Connector", "Storyteller"],
+        correct: "Researcher",
+        citation: "Researcher (Practices 4A & 5B): Students use AI to strategically investigate topics, evaluate claims, and compare differing source perspectives."
+      },
+      {
+        id: 2,
+        title: "Language Conversation & Grammar Practice",
+        context: "High School World Languages",
+        scenario: "A high school student prompts AI to act as a supportive conversational practice partner. The AI tests past-tense verb usage, identifies specific errors, and suggests immediate targeted practice drills to help the student overcome points of confusion.",
+        options: ["Learner", "Researcher", "Synthesizer", "Problem-Solver", "Connector", "Storyteller"],
+        correct: "Learner",
+        citation: "Learner (Practices 2B & 3A): Students use AI to identify areas of confusion, receive targeted assistance, and seek actionable feedback."
+      },
+      {
+        id: 3,
+        title: "Community Infrastructure Bridge Proposal",
+        context: "Engineering / STEM Studio",
+        scenario: "Engineering students analyze town infrastructure data. They prompt AI to help stress-test their bridge repair designs by probing for potential structural risks, budget constraints, and implementation bottlenecks.",
+        options: ["Learner", "Researcher", "Synthesizer", "Problem-Solver", "Connector", "Storyteller"],
+        correct: "Problem-Solver",
+        citation: "Problem-Solver (Practices 8B & 9B): Students use AI to analyze constraints, explore possibilities, and stress-test proposed solutions for weaknesses."
+      },
+      {
+        id: 4,
+        title: "Product Pitch & Communication Campaign",
+        context: "High School Business & Media",
+        scenario: "Students preparing a community project pitch prompt AI to help refine their message tone, clarify their main call to action, and generate relatable visual analogies that simplify complex market data for presentation judges.",
+        options: ["Learner", "Researcher", "Synthesizer", "Problem-Solver", "Connector", "Storyteller"],
+        correct: "Storyteller",
+        citation: "Storyteller (Practices 12A & 13A): Students use AI to sharpen messaging clarity, design visual analogies, and structure compelling content."
+      }
+    ];
+
+    function renderModule3() {
+      const container = document.getElementById('scenario-container');
+      container.innerHTML = '';
+
+      scenarios.forEach((sc, idx) => {
+        const scEl = document.createElement('div');
+        scEl.className = 'bg-white rounded-xl border border-slate-200 p-5 shadow-sm';
+        scEl.innerHTML = `
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+            <span class="text-xs font-bold px-2.5 py-1 bg-indigo-100 text-indigo-900 rounded-md">
+              Scenario ${idx + 1}: ${sc.context}
+            </span>
+            <span class="text-xs font-semibold text-slate-500">Case Study Analysis</span>
+          </div>
+          <h4 class="font-bold text-indigo-950 text-base mb-2">${sc.title}</h4>
+          <p class="text-xs text-slate-700 leading-relaxed mb-4 bg-slate-50 p-3.5 rounded-lg border border-slate-100">
+            "${sc.scenario}"
+          </p>
+
+          <label class="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2">
+            Which ISTE Graduate Role best aligns with this activity?
+          </label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+            ${sc.options.map(opt => `
+              <button onclick="submitScenarioAnswer(${sc.id}, '${opt}')" 
+                      id="sc-${sc.id}-btn-${opt}"
+                      class="sc-btn-${sc.id} py-2 px-3 rounded-lg border border-slate-200 text-xs font-medium bg-white hover:bg-slate-50 text-slate-800 transition-all text-center">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="sc-feedback-${sc.id}" class="hidden p-3.5 rounded-lg text-xs leading-relaxed mt-3"></div>
+        `;
+        container.appendChild(scEl);
+      });
+    }
+
+    function submitScenarioAnswer(scenarioId, chosenRole) {
+      const sc = scenarios.find(s => s.id === scenarioId);
+      const fb = document.getElementById(`sc-feedback-${scenarioId}`);
+
+      progressState.scenariosAnswered.add(scenarioId);
+      updateProgress();
+
+      document.querySelectorAll(`.sc-btn-${scenarioId}`).forEach(btn => {
+        btn.classList.remove('bg-indigo-700', 'text-white', 'border-indigo-700');
+        btn.classList.add('bg-white', 'text-slate-800', 'border-slate-200');
+      });
+      const activeBtn = document.getElementById(`sc-${scenarioId}-btn-${chosenRole}`);
+      activeBtn.classList.remove('bg-white', 'text-slate-800');
+      activeBtn.classList.add('bg-indigo-700', 'text-white', 'border-indigo-700');
+
+      fb.classList.remove('hidden', 'bg-teal-100', 'text-teal-950', 'bg-amber-100', 'text-amber-950');
+
+      if (chosenRole === sc.correct) {
+        fb.classList.add('bg-teal-100', 'text-teal-950');
+        fb.innerHTML = `<strong>Aligned Match!</strong> ${sc.citation}`;
+      } else {
+        fb.classList.add('bg-amber-100', 'text-amber-950');
+        fb.innerHTML = `<strong>Good thinking!</strong> While roles can overlap, the primary focus here is <strong>${sc.correct}</strong>: ${sc.citation}`;
+      }
+    }
+
+    /* ==========================================================================
+       MODULE 4: PATHWAY BUILDER DATA & LOGIC
+       ========================================================================== */
+    const pathwayData = {
+      inquiry: {
+        title: "Formulating Inquiry Questions & Curiosities",
+        elem: {
+          unplugged: "Students use physical sticky notes to write initial questions about a topic, sorting them into 'factual questions' and 'deep investigation questions'.",
+          plugged: "Students share their top investigation question with AI, prompting it to suggest three sub-questions or historical angles they might explore.",
+          prompt: "I am researching [Topic]. My main inquiry question is: [Insert Question]. Suggest 3 interesting sub-questions or unique angles I should explore."
+        },
+        mid: {
+          unplugged: "Students interview classmates about their perspectives on a community or historical issue, recording areas where opinions differ.",
+          plugged: "Students enter their interview themes into AI to generate research questions comparing news reporting or expert opinions on those themes.",
+          prompt: "I interviewed peers about [Issue] and found differences in perspective regarding [Aspect]. Help me form 3 research questions comparing expert viewpoints."
+        },
+        high: {
+          unplugged: "Students draw concept maps on paper connecting cause, effect, and stakeholder perspectives regarding a complex global challenge.",
+          plugged: "Students prompt AI to evaluate their concept map structure and highlight missing systemic variables or interdisciplinary links.",
+          prompt: "I mapped out causes for [Challenge] including [List Variables]. What interdisciplinary connections, economic constraints, or missing variables should I consider?"
+        }
+      },
+      evaluating: {
+        title: "Evaluating Source Perspectives & Bias",
+        elem: {
+          unplugged: "Students read two printed stories showing different viewpoints on a playground decision and highlight descriptive words in different colors.",
+          plugged: "Students ask AI to analyze tone and identify which stakeholder voices are included or omitted in each short text snippet.",
+          prompt: "Read this short excerpt: [Paste text]. Identify the tone and list which stakeholder perspectives are included and which are missing."
+        },
+        mid: {
+          unplugged: "Students examine three printed primary source excerpts from a historical event and complete a graphic organizer analyzing author background.",
+          plugged: "Students ask AI to identify where the sources agree, where they conflict, and what values drive the differences.",
+          prompt: "Here are excerpts from 3 sources: [Paste excerpts]. Create a brief comparison chart showing where they agree, where they conflict, and underlying values."
+        },
+        high: {
+          unplugged: "Students annotate scholarly journal abstracts with highlighters to mark methodology statements, sample sizes, and disclosures.",
+          plugged: "Students prompt AI to act as a peer reviewer, identifying methodology limitations or unstated assumptions in published summaries.",
+          prompt: "Analyze this study abstract: [Paste summary]. What potential methodology limitations, unstated assumptions, or sample biases should I investigate?"
+        }
+      },
+      unstuck: {
+        title: "Identifying Confusion & Seeking Targeted Feedback",
+        elem: {
+          unplugged: "Students use signal cards (Red, Yellow, Green) during problem-solving to articulate exactly where they feel stuck to a peer or teacher.",
+          plugged: "Students type their attempt into AI and prompt: 'Tell me which step has an error, but do not give me the final answer.'",
+          prompt: "I am solving this problem: [Insert problem]. Here is my attempt: [Insert work]. Point out where my mistake is without giving me the final answer."
+        },
+        mid: {
+          unplugged: "Students exchange written draft paragraphs and write one sentence explaining where their partner's claim needs clearer evidence.",
+          plugged: "Students submit their paragraph to AI requesting targeted feedback on thesis clarity, evidence strength, and transition logic.",
+          prompt: "Act as a writing tutor. Review my paragraph: [Insert text]. Give me 2 specific suggestions to strengthen my claim clarity and evidence."
+        },
+        high: {
+          unplugged: "Students outline essay arguments and conduct quick peer speed-critiques focusing specifically on argument structure and assumptions.",
+          plugged: "Students ask AI to evaluate their thesis statement against counterarguments and generate three key objections an opponent would make.",
+          prompt: "Here is my argument thesis: [Insert Thesis]. What are the 3 strongest counterarguments or objections an opponent would raise?"
+        }
+      },
+      brainstorming: {
+        title: "Brainstorming & Stress-Testing Solutions",
+        elem: {
+          unplugged: "Students work in teams using building materials to prototype a physical model for a classroom organization challenge.",
+          plugged: "Students prompt AI to suggest creative ways to make their physical prototype sturdier or easier for classmates to use.",
+          prompt: "We designed a classroom organizational system using [Materials]. What are 3 creative ways we could improve its stability or usability?"
+        },
+        mid: {
+          unplugged: "Students practice written silent brainstorming on paper charts, passing ideas around tables to build upon peer solutions.",
+          plugged: "Students share their top two ideas with AI and ask it to act as a local reviewer probing for practical budget and logistics risks.",
+          prompt: "Act as a community reviewer. Here is our plan to reduce school cafeteria waste: [Insert plan]. What practical or budget risks should we address?"
+        },
+        high: {
+          unplugged: "Students outline project proposals and conduct a pre-mortem exercise on poster boards, brainstorming potential reasons for failure.",
+          plugged: "Students prompt AI to simulate potential failure scenarios and suggest risk mitigation strategies before finalizing their pitch.",
+          prompt: "We are presenting this project plan: [Insert plan]. Simulate potential failure points and suggest risk mitigation strategies."
+        }
+      },
+      empathy: {
+        title: "Understanding Divergent Viewpoints",
+        elem: {
+          unplugged: "Students role-play a storybook conflict from the perspectives of different characters to explore motivations and feelings.",
+          plugged: "Students prompt AI to answer interview questions in character as a figure from the story to deepen understanding.",
+          prompt: "Act as [Character] from [Book]. Answer my questions in character, explaining how you felt during key moments of the story."
+        },
+        mid: {
+          unplugged: "Students research two opposing interest groups in a community issue and write journal entries from both viewpoints.",
+          plugged: "Students engage in a conversational exercise with AI representing a stakeholder persona to deepen empathetic insight.",
+          prompt: "Simulate a dialogue with a small business owner affected by environmental guidelines. Let me ask 3 questions about your perspective."
+        },
+        high: {
+          unplugged: "Students participate in a structured discussion exploring complex ethical dilemmas without requiring a single consensus.",
+          plugged: "Students prompt AI to articulate underlying value systems and philosophical assumptions that guide opposing viewpoints.",
+          prompt: "Analyze the ethical discussion around [Dilemma]. What core values and philosophical assumptions guide each side of this debate?"
+        }
+      },
+      storytelling: {
+        title: "Sharpening Narrative & Visual Metaphors",
+        elem: {
+          unplugged: "Students create paper storyboards to explain a scientific process, drawing visual metaphors for key concepts.",
+          plugged: "Students prompt AI to suggest descriptive adjectives and visual analogies to make their narrative explanations more vivid.",
+          prompt: "I am writing a story about water evaporation. Give me 3 creative analogies to help young readers visualize the process."
+        },
+        mid: {
+          unplugged: "Students write a one-minute spoken pitch advocating for a school improvement initiative and record themselves speaking.",
+          plugged: "Students share their transcript with AI to analyze tone, trim wordiness, and suggest key stats to present visually.",
+          prompt: "Here is my speech transcript: [Paste transcript]. Suggest ways to make the opening punchier and recommend 2 ideas for visual slides."
+        },
+        high: {
+          unplugged: "Students structure a presentation deck using physical index cards, arranging slides into a clear logical arc.",
+          plugged: "Students use AI to refine script tone, anticipate audience objections, and develop visual metaphors for complex data points.",
+          prompt: "I am presenting [Topic] to [Target Audience]. Review my slide outline: [Insert outline]. Suggest visual metaphors to replace text-heavy slides."
+        }
+      }
+    };
+
+    function generatePathway() {
+      const skillKey = document.getElementById('pathway-skill').value;
+      const gradeKey = document.getElementById('pathway-grade').value;
+
+      const skillGroup = pathwayData[skillKey];
+      const data = skillGroup[gradeKey];
+
+      document.getElementById('pathway-title').innerText = skillGroup.title;
+      document.getElementById('pathway-unplugged-text').innerText = data.unplugged;
+      document.getElementById('pathway-plugged-text').innerText = data.plugged;
+      document.getElementById('pathway-prompt-template').innerText = `Student Prompt: "${data.prompt}"`;
+
+      progressState.pathwayGenerated = true;
+      updateProgress();
+    }
+
+    function copyScaffold() {
+      const title = document.getElementById('pathway-title').innerText;
+      const unplugged = document.getElementById('pathway-unplugged-text').innerText;
+      const plugged = document.getElementById('pathway-plugged-text').innerText;
+      const prompt = document.getElementById('pathway-prompt-template').innerText;
+
+      const textToCopy = `=== ISTE AI-READY LESSON SCAFFOLD ===\nFocus Skill: ${title}\n\n1. UNPLUGGED FOUNDATION (Tech-Free):\n${unplugged}\n\n2. PLUGGED AI AUGMENTATION:\n${plugged}\n\n3. STUDENT TASK PROMPT TEMPLATE:\n${prompt}\n===================================`;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const toast = document.getElementById('copy-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    /* ==========================================================================
+       INITIALIZATION
+       ========================================================================== */
+    window.onload = function() {
+      renderModule1();
+      selectProfile('learner');
+      renderModule3();
+      generatePathway();
+      updateProgress();
+    };
+  </script>
+</body>
+</html>
