@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCSD AI Usage Continuum Interactive</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for seamless Canvas experience */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Touch safety for mobile viewports inside iFrames */
+        button, select, input, textarea {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans p-2 sm:p-4 md:p-6 antialiased min-h-screen">
+
+    <!-- Main Container designed for iFrame embedding in Canvas -->
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col">
+        
+        <!-- Header Banner -->
+        <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-md relative">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold uppercase tracking-wider mb-2">
+                        <i class="fa-solid font-bold fa-graduation-cap"></i> Pickens County Schools
+                    </div>
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight">
+                        AI Usage Continuum Module
+                    </h1>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl">
+                        A practical framework for guiding intentional, ethical, and purpose-driven AI integration in K–12 classrooms.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 self-start md:self-auto bg-slate-800/80 p-2 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <i class="fa-solid fa-layer-group text-blue-400 text-base"></i>
+                    <span>5 Implementation Levels</span>
+                </div>
+            </div>
+
+            <!-- PROMINENT INSTRUCTIONS & HOW TO USE BANNER -->
+            <div class="mt-6 bg-indigo-900/60 border border-indigo-500/30 rounded-xl p-4 sm:p-5 text-slate-100 backdrop-blur-sm">
+                <div class="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-compass text-amber-400"></i> Instructions & How to Complete This Activity
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-xs">
+                    <div class="flex items-start gap-2.5 bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 text-white font-extrabold flex items-center justify-center text-[11px]">1</span>
+                        <div>
+                            <strong class="text-white block mb-0.5">Step 1: Explore Levels</strong>
+                            Use the <strong>Continuum Explorer</strong> to review Levels 1–5, AI/Student roles, citation rules, and grade-level classroom examples.
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 text-white font-extrabold flex items-center justify-center text-[11px]">2</span>
+                        <div>
+                            <strong class="text-white block mb-0.5">Step 2: Test Understanding</strong>
+                            Click <strong>Practice Challenge</strong> to analyze 5 real classroom scenarios, identify the correct level, and review instant feedback.
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5 bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 text-white font-extrabold flex items-center justify-center text-[11px]">3</span>
+                        <div>
+                            <strong class="text-white block mb-0.5">Step 3: Apply to Canvas</strong>
+                            Use the <strong>Language Builder</strong> to select a level and copy pre-formatted, student-facing AI guidelines straight into Canvas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex border-b border-slate-700/60 mt-6 -mb-5 sm:-mb-6 overflow-x-auto text-xs sm:text-sm font-medium">
+                <button onclick="switchTab('explorer')" id="tab-explorer" class="py-3 px-4 sm:px-6 flex items-center gap-2 text-blue-400 border-b-2 border-blue-500 font-semibold whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-sliders"></i> Continuum Explorer
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="py-3 px-4 sm:px-6 flex items-center gap-2 text-slate-400 hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-circle-question"></i> Practice Challenge
+                </button>
+                <button onclick="switchTab('builder')" id="tab-builder" class="py-3 px-4 sm:px-6 flex items-center gap-2 text-slate-400 hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-pen-to-square"></i> Assignment Language Builder
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="p-4 sm:p-6 md:p-8 flex-grow">
+
+            <!-- SECTION 1: CONTINUUM EXPLORER -->
+            <section id="section-explorer" class="space-y-6">
+                
+                <!-- Level Selection Grid -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
+                        Select a Level to Explore:
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
+                        <button onclick="selectLevel(1)" id="lvl-btn-1" class="lvl-btn p-3 rounded-xl border text-left transition-all duration-200 shadow-sm flex flex-col justify-between h-24 hover:scale-[1.02]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-slate-700 text-white">L1</span>
+                                <i class="fa-solid fa-ban text-slate-500"></i>
+                            </div>
+                            <span class="font-bold text-xs sm:text-sm leading-tight text-slate-800">No AI Assistance</span>
+                        </button>
+                        
+                        <button onclick="selectLevel(2)" id="lvl-btn-2" class="lvl-btn p-3 rounded-xl border text-left transition-all duration-200 shadow-sm flex flex-col justify-between h-24 hover:scale-[1.02]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-green-700 text-white">L2</span>
+                                <i class="fa-solid fa-lightbulb text-green-600"></i>
+                            </div>
+                            <span class="font-bold text-xs sm:text-sm leading-tight text-slate-800">Brainstorming</span>
+                        </button>
+
+                        <button onclick="selectLevel(3)" id="lvl-btn-3" class="lvl-btn p-3 rounded-xl border text-left transition-all duration-200 shadow-sm flex flex-col justify-between h-24 hover:scale-[1.02]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-600 text-white">L3</span>
+                                <i class="fa-solid fa-magnifying-glass text-amber-600"></i>
+                            </div>
+                            <span class="font-bold text-xs sm:text-sm leading-tight text-slate-800">Research</span>
+                        </button>
+
+                        <button onclick="selectLevel(4)" id="lvl-btn-4" class="lvl-btn p-3 rounded-xl border text-left transition-all duration-200 shadow-sm flex flex-col justify-between h-24 hover:scale-[1.02]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-orange-600 text-white">L4</span>
+                                <i class="fa-solid fa-file-pen text-orange-600"></i>
+                            </div>
+                            <span class="font-bold text-xs sm:text-sm leading-tight text-slate-800">Edit & Revise</span>
+                        </button>
+
+                        <button onclick="selectLevel(5)" id="lvl-btn-5" class="lvl-btn p-3 rounded-xl border text-left transition-all duration-200 shadow-sm flex flex-col justify-between h-24 hover:scale-[1.02] col-span-2 sm:col-span-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-700 text-white">L5</span>
+                                <i class="fa-solid fa-robot text-purple-600"></i>
+                            </div>
+                            <span class="font-bold text-xs sm:text-sm leading-tight text-slate-800">Collaborative Creation</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slider Control -->
+                <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-slate-600 uppercase">Interactive Range Slider:</span>
+                        <span id="slider-label" class="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-800 text-white">Level 1 of 5</span>
+                    </div>
+                    <input type="range" id="level-slider" min="1" max="5" value="1" step="1" oninput="selectLevel(parseInt(this.value))" class="w-full h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                    <div class="flex justify-between text-[11px] text-slate-500 font-medium mt-1 px-1">
+                        <span>Level 1</span>
+                        <span>Level 2</span>
+                        <span>Level 3</span>
+                        <span>Level 4</span>
+                        <span>Level 5</span>
+                    </div>
+                </div>
+
+                <!-- Selected Level Detail Card -->
+                <div id="level-card" class="rounded-2xl border-2 p-5 sm:p-6 transition-all duration-300 shadow-sm">
+                    
+                    <!-- Title Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-4 mb-5 border-slate-200/80">
+                        <div class="flex items-center gap-3">
+                            <span id="card-badge" class="px-3 py-1 text-sm font-extrabold rounded-lg text-white">L1</span>
+                            <h2 id="card-title" class="text-xl sm:text-2xl font-bold">Level 1: No AI Assistance</h2>
+                        </div>
+                        <div id="citation-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold">
+                            <i class="fa-solid fa-quote-right"></i> <span id="card-citation">Not Applicable</span>
+                        </div>
+                    </div>
+
+                    <!-- Roles Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-white/80 rounded-xl p-4 border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-slate-900 font-bold text-sm">
+                                <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                                AI's Role
+                            </div>
+                            <p id="card-ai-role" class="text-slate-700 text-sm leading-relaxed">
+                                No AI is used at any point.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/80 rounded-xl p-4 border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-2 mb-2 text-slate-900 font-bold text-sm">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                </div>
+                                Student's Role
+                            </div>
+                            <p id="card-student-role" class="text-slate-700 text-sm leading-relaxed">
+                                Students create products without the use of AI.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Filterable Grade Level Classroom Examples -->
+                    <div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-chalkboard-user text-indigo-600"></i> Classroom Implementation Examples
+                            </h3>
+                            <!-- Grade Level Filter Buttons -->
+                            <div class="flex items-center gap-1 bg-slate-200/80 p-1 rounded-lg text-xs font-medium self-start sm:self-auto">
+                                <button onclick="filterGradeLevel('all')" id="grade-btn-all" class="px-2.5 py-1 rounded-md bg-white text-slate-900 font-semibold shadow-xs">All</button>
+                                <button onclick="filterGradeLevel('elem')" id="grade-btn-elem" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">Elementary</button>
+                                <button onclick="filterGradeLevel('mid')" id="grade-btn-mid" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">Middle</button>
+                                <button onclick="filterGradeLevel('high')" id="grade-btn-high" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">High School</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div id="card-ex-elem" class="grade-card bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-all duration-200">
+                                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800 tracking-wide">Elementary</span>
+                                <p id="ex-elem" class="text-xs text-slate-600 mt-2 leading-relaxed">Students write a short story by hand using pencil and paper, drawing on personal imagination without technology.</p>
+                            </div>
+                            <div id="card-ex-mid" class="grade-card bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-all duration-200">
+                                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 tracking-wide">Middle School</span>
+                                <p id="ex-mid" class="text-xs text-slate-600 mt-2 leading-relaxed">Math students solve multi-step algebraic equations individually in workbooks to demonstrate baseline skill mastery.</p>
+                            </div>
+                            <div id="card-ex-high" class="grade-card bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-all duration-200">
+                                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-purple-100 text-purple-800 tracking-wide">High School</span>
+                                <p id="ex-high" class="text-xs text-slate-600 mt-2 leading-relaxed">Students write an in-class, timed DBQ essay for AP History without internet or digital assistant access.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- SECTION 2: PRACTICE QUIZ CHALLENGE -->
+            <section id="section-quiz" class="hidden space-y-6">
+                <div class="bg-slate-900 text-white p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-amber-400"></i> Continuum Practice Challenge
+                        </h2>
+                        <p class="text-xs text-slate-300 mt-1">Read the scenario and identify the correct AI Usage Continuum Level and Citation Rule.</p>
+                    </div>
+                    <div class="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-slate-700">
+                        <div class="text-center">
+                            <div class="text-[10px] uppercase text-slate-400 font-bold">Score</div>
+                            <div id="quiz-score" class="text-lg font-extrabold text-green-400">0 / 0</div>
+                        </div>
+                        <button onclick="resetQuiz()" class="text-xs text-slate-300 hover:text-white underline pl-2 border-l border-slate-700">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Card -->
+                <div id="quiz-card" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center">
+                        <span id="quiz-subject" class="text-xs font-extrabold uppercase px-2.5 py-1 rounded bg-slate-100 text-slate-700">Subject: Science</span>
+                        <span id="quiz-counter" class="text-xs text-slate-500 font-medium">Scenario 1 of 5</span>
+                    </div>
+
+                    <p id="quiz-question" class="text-slate-800 text-base font-semibold leading-relaxed">
+                        High school physics students write their original lab report draft. They then upload their text to an AI assistant to get targeted suggestions for passive voice and formatting clarity before making final edits themselves.
+                    </p>
+
+                    <!-- Quiz Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2" id="quiz-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+
+                    <!-- Feedback Box -->
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm leading-relaxed border transition-all duration-200">
+                        <!-- Feedback content -->
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button id="next-btn" onclick="nextQuestion()" class="hidden px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition shadow-sm items-center gap-2">
+                            Next Scenario <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: ASSIGNMENT LANGUAGE BUILDER FOR TEACHERS -->
+            <section id="section-builder" class="hidden space-y-6">
+                <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl flex items-start gap-3">
+                    <i class="fa-solid fa-file-contract text-indigo-600 text-xl mt-0.5"></i>
+                    <div class="text-xs text-indigo-950 leading-relaxed">
+                        <strong>Teacher Tool:</strong> Create clear, student-facing AI policy language for your Canvas assignments or course syllabi. Select a level, customize the specific task parameters, and copy formatted text or HTML directly into Canvas!
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Builder Controls -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                        <h3 class="text-sm font-bold text-slate-800 border-b pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-indigo-600"></i> Configure Assignment Guidelines
+                        </h3>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Select AI Continuum Level:</label>
+                            <select id="builder-level" onchange="updateGeneratedLanguage()" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="1">Level 1: No AI Assistance</option>
+                                <option value="2">Level 2: AI-Assisted Brainstorming</option>
+                                <option value="3">Level 3: AI-Assisted Research</option>
+                                <option value="4">Level 4: AI-Assisted Edit & Revise</option>
+                                <option value="5">Level 5: AI Collaborative Creation</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Assignment / Subject Title:</label>
+                            <input type="text" id="builder-title" placeholder="e.g., Biology Unit 2 Lab Report" oninput="updateGeneratedLanguage()" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Citation Rule:</label>
+                            <select id="builder-citation" onchange="updateGeneratedLanguage()" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="auto">Auto-select rule based on Continuum Level</option>
+                                <option value="Not applicable. No AI tools permitted.">Not applicable (Level 1 default)</option>
+                                <option value="Applicable for formal research projects.">Applicable for formal research projects (Level 2 default)</option>
+                                <option value="AI usage must be cited and referenced in your submitted work.">AI usage must be cited and referenced (Levels 3–5 default)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Specific Teacher Instructions (Optional):</label>
+                            <textarea id="builder-notes" rows="3" placeholder="e.g., You may use ChatGPT to outline thesis options, but all factual claims must be supported by assigned textbook readings." oninput="updateGeneratedLanguage()" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Preview & Language Output -->
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 text-white space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-3">
+                                <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider">Canvas Student View Preview</h3>
+                                <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded"><i class="fa-solid fa-eye"></i> Live Text</span>
+                            </div>
+
+                            <!-- Live Language Preview Container -->
+                            <div id="builder-preview" class="p-4 rounded-xl bg-slate-800 text-slate-100 border border-slate-700 text-xs space-y-2 leading-relaxed">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-2 border-t border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold text-slate-400">Copy Canvas Language:</span>
+                                <div class="flex gap-2">
+                                    <button onclick="copyLanguage('plain')" id="copy-plain-btn" class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-medium transition flex items-center gap-1.5">
+                                        <i class="fa-solid fa-copy"></i> Plain Text
+                                    </button>
+                                    <button onclick="copyLanguage('html')" id="copy-html-btn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-medium transition flex items-center gap-1.5">
+                                        <i class="fa-solid fa-code"></i> Formatted HTML
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea id="builder-output-code" readonly rows="4" class="w-full text-[11px] font-mono p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-emerald-400 focus:outline-none select-all"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-100 border-t border-slate-200 p-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>PCSD Professional Learning • AI Usage Continuum Framework</span>
+            <span class="flex items-center gap-1 text-slate-600 font-medium">
+                <i class="fa-solid fa-shield-halved text-indigo-600"></i> Pickens County School District
+            </span>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Continuum Dataset
+        const continuumData = {
+            1: {
+                title: "Level 1: No AI Assistance",
+                badgeBg: "bg-slate-700",
+                borderColor: "border-slate-300",
+                cardBg: "bg-slate-50",
+                pillBg: "bg-slate-200 text-slate-800",
+                aiRole: "No AI is used at any point.",
+                studentRole: "Students create products without the use of AI.",
+                citation: "Not applicable",
+                exElem: "Students write a short story by hand using pencil and paper, drawing on personal imagination without technology.",
+                exMid: "Math students solve multi-step algebraic equations individually in workbooks to demonstrate baseline skill mastery.",
+                exHigh: "Students write an in-class, timed DBQ essay for AP History without internet or digital assistant access."
+            },
+            2: {
+                title: "Level 2: AI-Assisted Brainstorming",
+                badgeBg: "bg-green-700",
+                borderColor: "border-green-300",
+                cardBg: "bg-green-50/50",
+                pillBg: "bg-green-100 text-green-900",
+                aiRole: "AI generates ideas.",
+                studentRole: "Students use AI to brainstorm ideas.",
+                citation: "Applicable for formal research projects",
+                exElem: "Class uses AI to brainstorm descriptive adjectives for a group poem before writing.",
+                exMid: "History students prompt AI for 5 possible research question angles regarding local historical events.",
+                exHigh: "Engineering students ask AI for potential project topics surrounding renewable energy solutions."
+            },
+            3: {
+                title: "Level 3: AI-Assisted Research",
+                badgeBg: "bg-amber-600",
+                borderColor: "border-amber-300",
+                cardBg: "bg-amber-50/50",
+                pillBg: "bg-amber-100 text-amber-900",
+                aiRole: "AI provides information.",
+                studentRole: "Students paraphrase information provided by AI.",
+                citation: "AI usage must be cited and referenced",
+                exElem: "Students ask AI simple facts about animal habitats and rewrite the answers in their own words.",
+                exMid: "Eighth graders studying the Civil Rights Movement summarize primary sources and compare regional news coverage via AI.",
+                exHigh: "Biology students utilize AI to pull comparative data across scientific papers, paraphrasing findings."
+            },
+            4: {
+                title: "Level 4: AI-Assisted Edit and Revise",
+                badgeBg: "bg-orange-600",
+                borderColor: "border-orange-300",
+                cardBg: "bg-orange-50/50",
+                pillBg: "bg-orange-100 text-orange-900",
+                aiRole: "AI makes suggestions on a student-generated product.",
+                studentRole: "Students create a product and edit/revise it using AI suggestions.",
+                citation: "AI usage must be cited and referenced",
+                exElem: "Students paste draft paragraphs into AI to receive spelling and sentence flow suggestions to apply manually.",
+                exMid: "Spanish language students converse with an AI tutor to get actionable feedback on past-tense verb usage.",
+                exHigh: "English students submit original essay drafts into AI to receive feedback on thesis strength and structure."
+            },
+            5: {
+                title: "Level 5: AI Collaborative Creation",
+                badgeBg: "bg-purple-700",
+                borderColor: "border-purple-300",
+                cardBg: "bg-purple-50/50",
+                pillBg: "bg-purple-100 text-purple-900",
+                aiRole: "AI generates a product.",
+                studentRole: "Students evaluate, edit, and revise AI-generated products.",
+                citation: "AI usage must be cited and referenced",
+                exElem: "Students evaluate an AI-generated short poem, identifying factual inaccuracies or missing emotion to rewrite it.",
+                exMid: "Art students generate an AI image concept and then critique, modify, and manually redraw the output.",
+                exHigh: "Computer science students prompt AI for baseline code, then debug, optimize, and expand the software."
+            }
+        };
+
+        // Quiz Scenarios Dataset
+        const quizQuestions = [
+            {
+                subject: "High School English",
+                question: "Students write an original essay draft independently. Next, they run their draft through an AI feedback tool to receive suggestions on sentence structure and active voice, making final revisions based on those suggestions.",
+                correctLevel: 4,
+                explanation: "Level 4 (AI-Assisted Edit & Revise). AI made suggestions on a student-generated product, and the student edited/revised using those suggestions.",
+                citationNote: "Citation Requirement: AI usage must be cited and referenced."
+            },
+            {
+                subject: "Middle School History",
+                question: "Eighth graders studying local history ask AI to generate 5 unique research topic angles to help them break through writer's block before picking one topic to investigate.",
+                correctLevel: 2,
+                explanation: "Level 2 (AI-Assisted Brainstorming). AI generates ideas, and students use AI to brainstorm.",
+                citationNote: "Citation Requirement: Applicable for formal research projects."
+            },
+            {
+                subject: "Elementary Language Arts",
+                question: "Third-grade students write a personal narrative in their paper notebooks using pencils during class time without accessing any AI tools or digital software.",
+                correctLevel: 1,
+                explanation: "Level 1 (No AI Assistance). No AI is used at any point, and students create products without AI.",
+                citationNote: "Citation Requirement: Not applicable."
+            },
+            {
+                subject: "High School Graphic Design / CS",
+                question: "Students prompt an AI image generator to produce a baseline graphic. They then evaluate the artwork, identify flaw areas, edit the digital files, and manually revise the design into a final project.",
+                correctLevel: 5,
+                explanation: "Level 5 (AI Collaborative Creation). AI generates a product baseline, and students evaluate, edit, and revise the AI-generated product.",
+                citationNote: "Citation Requirement: AI usage must be cited and referenced."
+            },
+            {
+                subject: "Middle School Science",
+                question: "Students ask an AI tool to explain photosynthesis principles. They read the facts provided by AI, paraphrase the information in their own words, and include it in their lab report.",
+                correctLevel: 3,
+                explanation: "Level 3 (AI-Assisted Research). AI provides information, and students paraphrase information provided by AI.",
+                citationNote: "Citation Requirement: AI usage must be cited and referenced."
+            }
+        ];
+
+        let currentLevel = 1;
+        let quizIndex = 0;
+        let score = 0;
+        let answeredQuestions = new Array(quizQuestions.length).fill(false);
+
+        // Initialize App
+        window.onload = function() {
+            selectLevel(1);
+            loadQuizQuestion();
+            updateGeneratedLanguage();
+        };
+
+        // Navigation Switcher
+        function switchTab(tab) {
+            document.getElementById('section-explorer').classList.add('hidden');
+            document.getElementById('section-quiz').classList.add('hidden');
+            document.getElementById('section-builder').classList.add('hidden');
+
+            document.getElementById('tab-explorer').className = "py-3 px-4 sm:px-6 flex items-center gap-2 text-slate-400 hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap transition-colors";
+            document.getElementById('tab-quiz').className = "py-3 px-4 sm:px-6 flex items-center gap-2 text-slate-400 hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap transition-colors";
+            document.getElementById('tab-builder').className = "py-3 px-4 sm:px-6 flex items-center gap-2 text-slate-400 hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap transition-colors";
+
+            document.getElementById('section-' + tab).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tab);
+            activeBtn.className = "py-3 px-4 sm:px-6 flex items-center gap-2 text-blue-400 border-b-2 border-blue-500 font-semibold whitespace-nowrap transition-colors";
+        }
+
+        // Explorer Logic
+        function selectLevel(lvl) {
+            currentLevel = lvl;
+            document.getElementById('level-slider').value = lvl;
+            document.getElementById('slider-label').innerText = `Level ${lvl} of 5`;
+
+            // Reset buttons styling
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById(`lvl-btn-${i}`);
+                btn.classList.remove('ring-2', 'ring-indigo-600', 'bg-slate-100', 'shadow-md');
+                btn.classList.add('bg-white');
+            }
+
+            // Highlight selected button
+            const activeBtn = document.getElementById(`lvl-btn-${lvl}`);
+            activeBtn.classList.add('ring-2', 'ring-indigo-600', 'bg-slate-100', 'shadow-md');
+
+            // Populate Level Card
+            const data = continuumData[lvl];
+            const card = document.getElementById('level-card');
+            
+            card.className = `rounded-2xl border-2 p-5 sm:p-6 transition-all duration-300 shadow-sm ${data.cardBg} ${data.borderColor}`;
+            
+            const badge = document.getElementById('card-badge');
+            badge.innerText = `L${lvl}`;
+            badge.className = `px-3 py-1 text-sm font-extrabold rounded-lg text-white ${data.badgeBg}`;
+
+            document.getElementById('card-title').innerText = data.title;
+            document.getElementById('card-citation').innerText = data.citation;
+            document.getElementById('citation-pill').className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${data.pillBg}`;
+            
+            document.getElementById('card-ai-role').innerText = data.aiRole;
+            document.getElementById('card-student-role').innerText = data.studentRole;
+
+            document.getElementById('ex-elem').innerText = data.exElem;
+            document.getElementById('ex-mid').innerText = data.exMid;
+            document.getElementById('ex-high').innerText = data.exHigh;
+        }
+
+        // Grade Level Filter Logic
+        function filterGradeLevel(grade) {
+            const elemCard = document.getElementById('card-ex-elem');
+            const midCard = document.getElementById('card-ex-mid');
+            const highCard = document.getElementById('card-ex-high');
+
+            const btnAll = document.getElementById('grade-btn-all');
+            const btnElem = document.getElementById('grade-btn-elem');
+            const btnMid = document.getElementById('grade-btn-mid');
+            const btnHigh = document.getElementById('grade-btn-high');
+
+            // Reset button styles
+            [btnAll, btnElem, btnMid, btnHigh].forEach(b => {
+                b.className = "px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 font-medium";
+            });
+
+            if (grade === 'all') {
+                btnAll.className = "px-2.5 py-1 rounded-md bg-white text-slate-900 font-semibold shadow-xs";
+                elemCard.style.display = 'block';
+                midCard.style.display = 'block';
+                highCard.style.display = 'block';
+            } else if (grade === 'elem') {
+                btnElem.className = "px-2.5 py-1 rounded-md bg-white text-slate-900 font-semibold shadow-xs";
+                elemCard.style.display = 'block';
+                midCard.style.display = 'none';
+                highCard.style.display = 'none';
+            } else if (grade === 'mid') {
+                btnMid.className = "px-2.5 py-1 rounded-md bg-white text-slate-900 font-semibold shadow-xs";
+                elemCard.style.display = 'none';
+                midCard.style.display = 'block';
+                highCard.style.display = 'none';
+            } else if (grade === 'high') {
+                btnHigh.className = "px-2.5 py-1 rounded-md bg-white text-slate-900 font-semibold shadow-xs";
+                elemCard.style.display = 'none';
+                midCard.style.display = 'none';
+                highCard.style.display = 'block';
+            }
+        }
+
+        // Quiz Logic
+        function loadQuizQuestion() {
+            const q = quizQuestions[quizIndex];
+            document.getElementById('quiz-subject').innerText = `Subject: ${q.subject}`;
+            document.getElementById('quiz-counter').innerText = `Scenario ${quizIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('quiz-question').innerText = q.question;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            for (let i = 1; i <= 5; i++) {
+                const optBtn = document.createElement('button');
+                optBtn.className = "p-3 rounded-xl border border-slate-200 text-left hover:bg-slate-50 transition text-xs font-semibold flex items-center justify-between text-slate-800";
+                optBtn.innerHTML = `<span>Level ${i}: ${getLevelShortName(i)}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+                optBtn.onclick = () => checkAnswer(i, optBtn);
+                optionsContainer.appendChild(optBtn);
+            }
+        }
+
+        function getLevelShortName(lvl) {
+            const names = ["No AI Assistance", "Brainstorming", "Research", "Edit & Revise", "Collaborative Creation"];
+            return names[lvl - 1];
+        }
+
+        function checkAnswer(selectedLvl, btnElement) {
+            if (answeredQuestions[quizIndex]) return;
+
+            const q = quizQuestions[quizIndex];
+            const feedback = document.getElementById('quiz-feedback');
+            answeredQuestions[quizIndex] = true;
+
+            const buttons = document.getElementById('quiz-options').children;
+            for (let btn of buttons) {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            if (selectedLvl === q.correctLevel) {
+                score++;
+                btnElement.className = "p-3 rounded-xl border-2 border-green-500 bg-green-50 text-left text-xs font-bold flex items-center justify-between text-green-900";
+                btnElement.querySelector('i').className = "fa-solid fa-circle-check text-green-600";
+                
+                feedback.className = "p-4 rounded-xl text-xs leading-relaxed border bg-green-50 border-green-200 text-green-900 block space-y-1";
+                feedback.innerHTML = `<div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-green-600"></i> Correct!</div><div>${q.explanation}</div><div class="font-semibold text-slate-700 mt-1">${q.citationNote}</div>`;
+            } else {
+                btnElement.className = "p-3 rounded-xl border-2 border-red-500 bg-red-50 text-left text-xs font-bold flex items-center justify-between text-red-900";
+                btnElement.querySelector('i').className = "fa-solid fa-circle-xmark text-red-600";
+
+                // Highlight correct one
+                const correctBtn = buttons[q.correctLevel - 1];
+                correctBtn.className = "p-3 rounded-xl border-2 border-green-500 bg-green-50 text-left text-xs font-bold flex items-center justify-between text-green-900";
+
+                feedback.className = "p-4 rounded-xl text-xs leading-relaxed border bg-amber-50 border-amber-200 text-amber-900 block space-y-1";
+                feedback.innerHTML = `<div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-amber-600"></i> Incorrect.</div><div>${q.explanation}</div><div class="font-semibold text-slate-700 mt-1">${q.citationNote}</div>`;
+            }
+
+            document.getElementById('quiz-score').innerText = `${score} / ${quizQuestions.length}`;
+            
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.classList.add('flex');
+            
+            if (quizIndex === quizQuestions.length - 1) {
+                nextBtn.innerHTML = `Finish Challenge <i class="fa-solid fa-flag-checkered"></i>`;
+            }
+        }
+
+        function nextQuestion() {
+            if (quizIndex < quizQuestions.length - 1) {
+                quizIndex++;
+                loadQuizQuestion();
+            } else {
+                alert(`Challenge completed! You scored ${score} out of ${quizQuestions.length}.`);
+                resetQuiz();
+            }
+        }
+
+        function resetQuiz() {
+            quizIndex = 0;
+            score = 0;
+            answeredQuestions.fill(false);
+            document.getElementById('quiz-score').innerText = `0 / ${quizQuestions.length}`;
+            loadQuizQuestion();
+        }
+
+        // Assignment Language Builder Logic
+        function updateGeneratedLanguage() {
+            const lvl = document.getElementById('builder-level').value;
+            const title = document.getElementById('builder-title').value.trim() || "Assignment";
+            const userCitation = document.getElementById('builder-citation').value;
+            const notes = document.getElementById('builder-notes').value.trim();
+            const data = continuumData[lvl];
+
+            let citationText = data.citation;
+            if (userCitation !== "auto") {
+                citationText = userCitation;
+            }
+
+            // Live Text View
+            const previewContainer = document.getElementById('builder-preview');
+            previewContainer.innerHTML = `
+                <div class="font-bold text-sm text-indigo-300 border-b border-slate-700 pb-1 mb-2">${escapeHtml(title)} - AI Policy Guidelines</div>
+                <div class="mb-1.5"><strong>Continuum Expectations:</strong> Level ${lvl} (${data.title.split(': ')[1]})</div>
+                <div class="mb-1.5"><strong>AI Role:</strong> ${data.aiRole}</div>
+                <div class="mb-1.5"><strong>Student Role:</strong> ${data.studentRole}</div>
+                <div class="mb-1.5"><strong>Citation Rule:</strong> ${citationText}</div>
+                ${notes ? `<div class="mt-2 pt-2 border-t border-slate-700/60 text-slate-300"><strong>Additional Instructions:</strong> ${escapeHtml(notes)}</div>` : ''}
+            `;
+
+            // Plain Text Snippet
+            const plainText = `=== ${title.toUpperCase()} - AI POLICY GUIDELINES ===
+AI Usage Continuum Level: Level ${lvl} (${data.title.split(': ')[1]})
+- AI's Role: ${data.aiRole}
+- Student's Role: ${data.studentRole}
+- Citation Requirement: ${citationText}
+${notes ? `- Additional Instructions: ${notes}` : ''}`;
+
+            // HTML Formatted Snippet
+            const htmlText = `<div style="font-family: Arial, sans-serif; background-color: #f8fafc; border-left: 4px solid ${getHexColor(lvl)}; padding: 14px 18px; margin: 12px 0; border-radius: 6px;">
+  <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #0f172a;">${escapeHtml(title)}: AI Policy Guidelines (Level ${lvl})</h4>
+  <p style="margin: 0 0 4px 0; font-size: 12px; color: #334155;"><strong>AI Role:</strong> ${data.aiRole}</p>
+  <p style="margin: 0 0 4px 0; font-size: 12px; color: #334155;"><strong>Student Role:</strong> ${data.studentRole}</p>
+  <p style="margin: 0 0 4px 0; font-size: 12px; color: #334155;"><strong>Citation Requirement:</strong> ${citationText}</p>
+  ${notes ? `<p style="margin: 6px 0 0 0; font-size: 12px; color: #475569; font-style: italic;"><strong>Teacher Notes:</strong> ${escapeHtml(notes)}</p>` : ''}
+</div>`;
+
+            // Store code in element data attributes for easy copying
+            const codeOutput = document.getElementById('builder-output-code');
+            codeOutput.value = plainText;
+            codeOutput.dataset.html = htmlText;
+            codeOutput.dataset.plain = plainText;
+        }
+
+        function getHexColor(lvl) {
+            const colors = {
+                1: '#475569',
+                2: '#16a34a',
+                3: '#ca8a04',
+                4: '#ea580c',
+                5: '#9333ea'
+            };
+            return colors[lvl] || '#475569';
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function copyLanguage(type) {
+            const codeOutput = document.getElementById('builder-output-code');
+            const targetText = type === 'html' ? codeOutput.dataset.html : codeOutput.dataset.plain;
+            codeOutput.value = targetText;
+            codeOutput.select();
+            
+            try {
+                document.execCommand('copy');
+                const btn = type === 'html' ? document.getElementById('copy-html-btn') : document.getElementById('copy-plain-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
+                btn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-600');
+                }, 2000);
+            } catch (err) {
+                alert('Copy failed. Please manually select and copy the text.');
+            }
+        }
+    </script>
+</body>
+</html>
