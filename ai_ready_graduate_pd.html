@@ -3,679 +3,953 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diving into ISTE's Profile of an AI-Ready Graduate </title>
+    <title>ISTE AI-Ready Graduate: Applied Practice Activity</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        porcelain: '#fdfbf7',
-                        violetDeep: '#312e81',
-                        indigoRich: '#4f46e5',
-                        amberSunset: '#f59e0b',
-                        tealWarm: '#0d9488',
-                        roseSoft: '#f43f5e',
-                        emeraldSuccess: '#10b981'
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Alpine.js for lightweight, robust reactive UI -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fdfbf7;
+            background-color: #F8FAFC;
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f0eb; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #c7c5bd; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a8a69e; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        [x-cloak] { display: none !important; }
+        .gradient-header {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0D9488 100%);
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 32px 0 rgba(49, 46, 129, 0.04);
+        .card-hover {
+            transition: all 0.25s ease-in-out;
         }
-
-        .glass-card-interactive {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 16px 0 rgba(49, 46, 129, 0.03);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(13, 148, 136, 0.15);
         }
-
-        .glass-card-interactive:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px -4px rgba(79, 70, 229, 0.12), 0 0 0 1px rgba(79, 70, 229, 0.2);
-        }
-
-        .glow-indigo {
-            box-shadow: 0 0 20px rgba(79, 70, 229, 0.22), inset 0 0 0 2px #4f46e5;
-        }
-
-        .progress-bar-fill {
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; color: black; }
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col bg-porcelain">
+<body x-data="appData()" class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Header Section -->
-    <header class="bg-gradient-to-r from-violetDeep via-indigo-900 to-indigoRich text-white pt-8 pb-7 px-6 shadow-md relative overflow-hidden">
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="flex items-center space-x-3 mb-2">
-                <div class="p-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amberSunset" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                    </svg>
-                </div>
+    <!-- HEADER SECTION -->
+    <header class="gradient-header text-white shadow-lg no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
-                    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-200">ISTE / ASCD Professional Development | PCSD Teaching & Learning</span>
-                    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white">Profile of an AI-Ready Graduate</h1>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/20 border border-teal-400/30 rounded-full text-xs font-semibold text-teal-200 uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-graduation-cap"></i> ISTE / ASCD Framework Practice
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+                        ISTE AI-Ready Graduate: Applied Practice
+                    </h1>
+                    <p class="mt-2 text-slate-300 text-sm sm:text-base max-w-2xl font-normal">
+                        Shifting from AI Literacy to Augmenting Uniquely Human Skills: Creativity, Critical Thinking & Agency
+                    </p>
+                </div>
+                <!-- Self Reflection Quick Score summary -->
+                <div class="mt-6 md:mt-0 bg-slate-900/60 backdrop-blur border border-slate-700/60 p-4 rounded-xl text-center flex flex-col justify-center items-center min-w-[200px]">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Classroom Readiness Self-Rating</span>
+                    <div class="flex items-baseline gap-1 mt-1">
+                        <span class="text-3xl font-extrabold text-teal-400" x-text="avgReflectionScore()">0.0</span>
+                        <span class="text-xs text-slate-400">/ 5.0</span>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-1" x-text="completedReflections() + ' of 6 roles evaluated'"></span>
                 </div>
             </div>
-            <p class="text-indigo-100 max-w-3xl text-sm md:text-base leading-relaxed mt-1">
-                Helping teachers use AI to enhance (not replace) essential student skills like creativity, critical thinking, and agency.
-            </p>
+
+            <!-- STEP PROGRESS BAR NAVIGATION -->
+            <div class="mt-8 border-t border-slate-700/80 pt-6">
+                <div class="grid grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto">
+                    <!-- Step 1 Tab -->
+                    <button @click="activePart = 1" 
+                            :class="activePart === 1 ? 'bg-teal-600 text-white shadow-md ring-2 ring-teal-400/50' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'"
+                            class="flex flex-col sm:flex-row items-center justify-center gap-2 p-3 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200">
+                        <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">1</span>
+                        <span class="text-center sm:text-left truncate">1. Role Exploration</span>
+                    </button>
+                    <!-- Step 2 Tab -->
+                    <button @click="activePart = 2" 
+                            :class="activePart === 2 ? 'bg-teal-600 text-white shadow-md ring-2 ring-teal-400/50' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'"
+                            class="flex flex-col sm:flex-row items-center justify-center gap-2 p-3 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200">
+                        <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">2</span>
+                        <span class="text-center sm:text-left truncate">2. Augment vs. Replace</span>
+                    </button>
+                    <!-- Step 3 Tab -->
+                    <button @click="activePart = 3" 
+                            :class="activePart === 3 ? 'bg-teal-600 text-white shadow-md ring-2 ring-teal-400/50' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'"
+                            class="flex flex-col sm:flex-row items-center justify-center gap-2 p-3 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200">
+                        <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">3</span>
+                        <span class="text-center sm:text-left truncate">3. Activity Builder</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Navigation Pill Tabs -->
-    <nav class="bg-porcelain/90 backdrop-blur-md border-b border-indigo-900/10 sticky top-0 z-30 py-3 shadow-xs">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex p-1.5 space-x-2 bg-indigo-950/5 backdrop-blur-sm rounded-full overflow-x-auto border border-indigo-900/10" id="nav-tabs">
-                <button class="tab-btn active bg-indigoRich text-white font-semibold py-2.5 px-5 rounded-full text-xs md:text-sm whitespace-nowrap transition-all shadow-xs flex items-center gap-2" data-target="tab-guide">
-                    <span class="w-2 h-2 rounded-full bg-emeraldSuccess"></span>
-                    📖 How to Use This
-                </button>
-                <button class="tab-btn text-slate-600 hover:text-indigoRich font-medium py-2.5 px-5 rounded-full text-xs md:text-sm whitespace-nowrap transition-all flex items-center gap-2" data-target="tab-grid">
-                    <span class="w-2 h-2 rounded-full bg-amberSunset"></span>
-                    1. 6-Role Matrix
-                </button>
-                <button class="tab-btn text-slate-600 hover:text-indigoRich font-medium py-2.5 px-5 rounded-full text-xs md:text-sm whitespace-nowrap transition-all flex items-center gap-2" data-target="tab-sort">
-                    <span class="w-2 h-2 rounded-full bg-tealWarm"></span>
-                    2. Human vs. AI Card Sort
-                </button>
-                <button class="tab-btn text-slate-600 hover:text-indigoRich font-medium py-2.5 px-5 rounded-full text-xs md:text-sm whitespace-nowrap transition-all flex items-center gap-2" data-target="tab-scenario">
-                    <span class="w-2 h-2 rounded-full bg-roseSoft"></span>
-                    3. Scenario Matrix
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- PART 1: THE 6 ROLES EXPLORATION -->
+        <section x-show="activePart === 1" x-transition.opacity.duration.300ms>
+            <!-- Instruction Banner -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-xl shadow-sm mb-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 text-indigo-600">
+                        <i class="fa-solid fa-circle-info text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-base font-semibold text-indigo-900">Part 1: Explore the 6 Human-Centered AI Roles</h3>
+                        <p class="text-sm text-indigo-700 mt-1">
+                            The ISTE AI-Ready Graduate framework highlights six essential human roles. Toggle between 
+                            <strong>Uniquely Human Core</strong> and <strong>AI Catalyst Strategy</strong> for each card below. Click any card to open the detail reflector and self-assess your current classroom integration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perspective View Selector Toggle -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">The 6 AI-Ready Graduate Roles</h2>
+                    <p class="text-xs text-slate-500">Click any role card to reflect and rate your current practice</p>
+                </div>
+                <div class="inline-flex p-1 bg-slate-100 rounded-lg border border-slate-200 text-xs font-medium">
+                    <button @click="cardViewMode = 'all'" 
+                            :class="cardViewMode === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
+                            class="px-3 py-1.5 rounded-md transition-all">
+                        All Dual View
+                    </button>
+                    <button @click="cardViewMode = 'human'" 
+                            :class="cardViewMode === 'human' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
+                            class="px-3 py-1.5 rounded-md transition-all">
+                        <i class="fa-solid fa-user-gear mr-1"></i> Uniquely Human
+                    </button>
+                    <button @click="cardViewMode = 'ai'" 
+                            :class="cardViewMode === 'ai' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
+                            class="px-3 py-1.5 rounded-md transition-all">
+                        <i class="fa-solid fa-bolt mr-1"></i> AI Augmentation
+                    </button>
+                </div>
+            </div>
+
+            <!-- ROLES GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="role in roles" :key="role.id">
+                    <div @click="openRoleModal(role)" 
+                         class="bg-white rounded-2xl border border-slate-200 p-6 card-hover cursor-pointer flex flex-col justify-between relative overflow-hidden group">
+                        
+                        <!-- Top Header of Card -->
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div :class="role.bgColor" class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-sm">
+                                    <i :class="role.icon + ' ' + role.textColor"></i>
+                                </div>
+                                <!-- Score Badge if rated -->
+                                <span x-show="reflections[role.id]" 
+                                      class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full">
+                                    <i class="fa-solid fa-star text-amber-400"></i>
+                                    <span x-text="reflections[role.id] + '/5'"></span>
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-teal-600 transition-colors" x-text="role.name"></h3>
+                            <p class="text-xs text-slate-500 font-medium mt-1 mb-4" x-text="role.tagline"></p>
+                            <p class="text-sm text-slate-600 line-clamp-2 mb-4" x-text="role.definition"></p>
+                        </div>
+
+                        <!-- Card Body Content based on View Toggle -->
+                        <div class="space-y-3 pt-3 border-t border-slate-100">
+                            <!-- Human Skill Focus -->
+                            <div x-show="cardViewMode === 'all' || cardViewMode === 'human'" class="bg-indigo-50/60 p-3 rounded-lg">
+                                <span class="text-xs font-bold text-indigo-900 uppercase tracking-wide block mb-1">
+                                    <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Uniquely Human Skill
+                                </span>
+                                <p class="text-xs text-indigo-950 font-medium" x-text="role.humanFocus"></p>
+                            </div>
+
+                            <!-- AI Augmentation Strategy -->
+                            <div x-show="cardViewMode === 'all' || cardViewMode === 'ai'" class="bg-teal-50/60 p-3 rounded-lg">
+                                <span class="text-xs font-bold text-teal-900 uppercase tracking-wide block mb-1">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI Augmentation Strategy
+                                </span>
+                                <p class="text-xs text-teal-950 font-medium" x-text="role.aiStrategy"></p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-xs font-semibold text-teal-600 flex items-center justify-between group-hover:translate-x-1 transition-transform">
+                            <span>Reflect & Learn More</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Bottom CTA to Part 2 -->
+            <div class="mt-10 flex justify-end">
+                <button @click="activePart = 2" class="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl shadow-md transition-all flex items-center gap-2">
+                    <span>Proceed to Part 2: Augment vs. Replace Challenge</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <!-- Main Content -->
-    <main class="flex-grow p-6">
-        <div class="max-w-6xl mx-auto">
 
-            <!-- TAB 0: How to Use This / Instructions -->
-            <section id="tab-guide" class="tab-content active">
-                <div class="glass-card rounded-2xl p-6 md:p-8 mb-6 border-l-4 border-emeraldSuccess">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl font-bold text-lg">📖</div>
+        <!-- PART 2: AUGMENT VS. REPLACE CHALLENGE -->
+        <section x-show="activePart === 2" x-transition.opacity.duration.300ms>
+            <!-- Instruction Banner -->
+            <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl shadow-sm mb-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 text-emerald-600">
+                        <i class="fa-solid fa-scale-balanced text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-base font-semibold text-emerald-900">Part 2: Classroom Scenario Challenge</h3>
+                        <p class="text-sm text-emerald-800 mt-1">
+                            Analyze each classroom scenario. Determine whether the AI usage represents 
+                            <strong class="text-amber-800">⚠️ Replacement (Bypasses Cognition)</strong> or 
+                            <strong class="text-emerald-800">🚀 Augmentation (Deepens Skill & Agency)</strong>. 
+                            Review the pedagogical rationale grounded in the ISTE framework.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario Filter / Progress -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-bold text-slate-700">Filter Scenarios:</span>
+                    <div class="inline-flex p-1 bg-slate-100 rounded-lg text-xs font-medium">
+                        <button @click="quizFilter = 'all'" :class="quizFilter === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'" class="px-3 py-1 rounded-md">All (6)</button>
+                        <button @click="quizFilter = 'K-5'" :class="quizFilter === 'K-5' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'" class="px-3 py-1 rounded-md">K-5</button>
+                        <button @click="quizFilter = '6-8'" :class="quizFilter === '6-8' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'" class="px-3 py-1 rounded-md">6-8</button>
+                        <button @click="quizFilter = '9-12'" :class="quizFilter === '9-12' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'" class="px-3 py-1 rounded-md">9-12</button>
+                    </div>
+                </div>
+
+                <div class="text-xs font-semibold text-slate-600">
+                    Scenarios Completed: <span class="text-teal-600 font-bold" x-text="completedQuizCount()"></span> / 6
+                </div>
+            </div>
+
+            <!-- SCENARIO CARDS -->
+            <div class="space-y-6">
+                <template x-for="(sc, index) in filteredScenarios" :key="sc.id">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm overflow-hidden transition-all">
+                        
+                        <!-- Top Metadata -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-md" x-text="sc.grade"></span>
+                                <span class="px-2.5 py-1 bg-teal-50 text-teal-700 font-bold text-xs rounded-md flex items-center gap-1">
+                                    <i :class="getRoleIcon(sc.role)"></i>
+                                    <span x-text="sc.role"></span>
+                                </span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium" x-text="'Scenario ' + (sc.id)"></span>
+                        </div>
+
+                        <!-- Title & Scenario Description -->
+                        <h3 class="text-lg font-bold text-slate-900 mb-2" x-text="sc.title"></h3>
+                        <p class="text-sm text-slate-600 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100 italic" x-text="sc.description"></p>
+
+                        <!-- Quiz Choice Buttons -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                            <!-- Choice: Replace -->
+                            <button @click="submitQuizAnswer(sc.id, 'replace')" 
+                                    :disabled="sc.userAnswer !== null"
+                                    :class="getQuizBtnClass(sc, 'replace')"
+                                    class="p-4 rounded-xl border-2 text-left transition-all flex items-center justify-between group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">⚠️</span>
+                                    <div>
+                                        <div class="font-bold text-sm">Replacement</div>
+                                        <div class="text-xs text-slate-500 font-normal">Bypasses student thinking & effort</div>
+                                    </div>
+                                </div>
+                                <i x-show="sc.userAnswer === 'replace'" class="fa-solid fa-circle-check text-lg"></i>
+                            </button>
+
+                            <!-- Choice: Augment -->
+                            <button @click="submitQuizAnswer(sc.id, 'augment')" 
+                                    :disabled="sc.userAnswer !== null"
+                                    :class="getQuizBtnClass(sc, 'augment')"
+                                    class="p-4 rounded-xl border-2 text-left transition-all flex items-center justify-between group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">🚀</span>
+                                    <div>
+                                        <div class="font-bold text-sm">Augmentation</div>
+                                        <div class="text-xs text-slate-500 font-normal">Deepens cognitive skill & agency</div>
+                                    </div>
+                                </div>
+                                <i x-show="sc.userAnswer === 'augment'" class="fa-solid fa-circle-check text-lg"></i>
+                            </button>
+                        </div>
+
+                        <!-- Pedagogical Rationale Feedback Box -->
+                        <div x-show="sc.userAnswer !== null" x-transition.duration.300ms 
+                             :class="sc.userAnswer === sc.correctAnswer ? 'bg-emerald-50 border-emerald-200 text-emerald-950' : 'bg-amber-50 border-amber-200 text-amber-950'"
+                             class="p-5 rounded-xl border mt-4 text-sm">
+                            <div class="flex items-center gap-2 font-bold mb-2">
+                                <i :class="sc.userAnswer === sc.correctAnswer ? 'fa-solid fa-circle-check text-emerald-600' : 'fa-solid fa-triangle-exclamation text-amber-600'"></i>
+                                <span x-text="sc.userAnswer === sc.correctAnswer ? 'Correct Evaluation!' : 'Pedagogical Shift Needed'"></span>
+                            </div>
+                            <p class="leading-relaxed text-xs sm:text-sm" x-text="sc.rationale"></p>
+                            
+                            <div class="mt-3 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-600">
+                                <span><i class="fa-solid fa-user-check text-teal-600 mr-1"></i> Human-in-the-Loop Imperative:</span>
+                                <span class="italic" x-text="sc.humanCheckpoint"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="mt-10 flex justify-between items-center">
+                <button @click="activePart = 1" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl transition-all">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Part 1
+                </button>
+                <button @click="activePart = 3" class="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl shadow-md transition-all flex items-center gap-2">
+                    <span>Proceed to Part 3: Activity Strategy Builder</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- PART 3: CLASSROOM STRATEGY BUILDER -->
+        <section x-show="activePart === 3" x-transition.opacity.duration.300ms>
+            <!-- Instruction Banner -->
+            <div class="bg-cyan-50 border-l-4 border-cyan-600 p-4 rounded-r-xl shadow-sm mb-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 text-cyan-600">
+                        <i class="fa-solid fa-compass-drafting text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-base font-semibold text-cyan-900">Part 3: Design an AI-Ready Learning Activity Blueprint</h3>
+                        <p class="text-sm text-cyan-800 mt-1">
+                            Use this guided builder to design a classroom activity that uses AI to <strong>augment</strong> rather than replace student cognition. Choose target parameters below to auto-generate or customize an AI-Ready Activity Blueprint Card.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- FORM CONTROLS (Left 5 cols) -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="text-lg font-bold text-slate-900 border-b pb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-sliders text-teal-600 mr-2"></i> Activity Parameters</span>
+                        <button @click="resetForm()" class="text-xs text-slate-400 hover:text-slate-600 font-normal">Reset</button>
+                    </h3>
+
+                    <!-- Activity Title -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Activity / Project Title</label>
+                        <input type="text" x-model="builder.title" placeholder="e.g., Historical Avatar Interview Project" 
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm">
+                    </div>
+
+                    <!-- Step 1: Grade Band -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 1: Grade Band</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <template x-for="g in ['K-5', '6-8', '9-12']" :key="g">
+                                <button @click="builder.grade = g; updatePromptTemplate();" 
+                                        :class="builder.grade === g ? 'bg-teal-600 text-white font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
+                                        class="py-2 text-xs rounded-lg transition-all" x-text="g">
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Target AI-Ready Role -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 2: Target AI Role</label>
+                        <select x-model="builder.role" @change="updatePromptTemplate()" 
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm font-medium">
+                            <template x-for="r in roles" :key="r.name">
+                                <option :value="r.name" x-text="r.name + ' - ' + r.tagline"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <!-- Step 3: Key Human Skill Focus -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 3: Uniquely Human Skill Focus</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <template x-for="s in ['Creativity', 'Critical Thinking', 'Agency']" :key="s">
+                                <button @click="builder.skill = s" 
+                                        :class="builder.skill === s ? 'bg-indigo-600 text-white font-bold' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
+                                        class="py-2 text-xs rounded-lg transition-all" x-text="s">
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Human-in-the-Loop Checkpoint -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 4: Human-in-the-Loop Checkpoint</label>
+                        <p class="text-xs text-slate-500 mb-2">How will students evaluate, accept, adapt, or reject the AI output?</p>
+                        <textarea x-model="builder.checkpoint" rows="3" 
+                                  placeholder="Students must analyze the AI suggestion, identify 1 area of disagreement or weakness, and explain their manual revision..."
+                                  class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"></textarea>
+                    </div>
+
+                    <!-- Step 5: Student AI Prompt Template -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Step 5: Student AI Prompt</label>
+                            <button @click="updatePromptTemplate(true)" class="text-xs text-teal-600 hover:underline">Load Preset Prompt</button>
+                        </div>
+                        <textarea x-model="builder.prompt" rows="4" 
+                                  class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm font-mono bg-slate-50"></textarea>
+                    </div>
+                </div>
+
+                <!-- BLUEPRINT DISPLAY CARD (Right 7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div id="blueprint-card" class="bg-white rounded-2xl border-2 border-slate-900 p-6 sm:p-8 shadow-xl flex-grow flex flex-col justify-between relative overflow-hidden">
+                        
+                        <!-- Watermark Accent -->
+                        <div class="absolute -right-12 -bottom-12 text-slate-100 font-black text-9xl pointer-events-none select-none">
+                            AI
+                        </div>
+
                         <div>
-                            <h2 class="text-2xl font-bold text-violetDeep">Instructions & Facilitation Guide</h2>
-                            <p class="text-slate-600 text-sm">How to facilitate or navigate this interactive professional development activity.</p>
+                            <!-- Header of Blueprint -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4 mb-6">
+                                <div>
+                                    <span class="text-xs font-bold tracking-widest text-teal-600 uppercase">ISTE AI-Ready Activity Blueprint</span>
+                                    <h2 class="text-2xl font-extrabold text-slate-900 mt-0.5" x-text="builder.title || 'Untitled Classroom Activity'"></h2>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 bg-slate-900 text-white font-bold text-xs rounded-full" x-text="builder.grade"></span>
+                                    <span class="px-3 py-1 bg-teal-100 text-teal-800 font-bold text-xs rounded-full" x-text="builder.role"></span>
+                                </div>
+                            </div>
+
+                            <!-- Target Core Matrix -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                                    <span class="text-xs font-bold text-indigo-900 uppercase tracking-wide block mb-1">
+                                        <i class="fa-solid fa-user-check text-indigo-600 mr-1"></i> Human Focus
+                                    </span>
+                                    <div class="text-sm font-bold text-indigo-950" x-text="builder.skill"></div>
+                                    <p class="text-xs text-indigo-700/80 mt-1" x-text="getHumanSkillDesc(builder.skill)"></p>
+                                </div>
+
+                                <div class="bg-teal-50 p-4 rounded-xl border border-teal-100">
+                                    <span class="text-xs font-bold text-teal-900 uppercase tracking-wide block mb-1">
+                                        <i class="fa-solid fa-robot text-teal-600 mr-1"></i> AI Augmentation Role
+                                    </span>
+                                    <div class="text-sm font-bold text-teal-950" x-text="builder.role"></div>
+                                    <p class="text-xs text-teal-700/80 mt-1" x-text="getRoleSummary(builder.role)"></p>
+                                </div>
+                            </div>
+
+                            <!-- Student AI Prompt Box -->
+                            <div class="mb-6">
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                                    <i class="fa-solid fa-terminal text-slate-400 mr-1"></i> Student AI Prompt Template
+                                </span>
+                                <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed relative group">
+                                    <div x-text="builder.prompt"></div>
+                                </div>
+                            </div>
+
+                            <!-- Human-in-the-Loop Protocol -->
+                            <div class="mb-6 bg-amber-50/70 p-4 rounded-xl border border-amber-200">
+                                <span class="text-xs font-bold text-amber-900 uppercase tracking-wider block mb-1">
+                                    <i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> Human-in-the-Loop Checkpoint Protocol
+                                </span>
+                                <p class="text-xs sm:text-sm text-amber-950 font-medium" x-text="builder.checkpoint"></p>
+                                <div class="flex items-center gap-2 mt-3 text-xs text-amber-800 font-semibold">
+                                    <span class="px-2 py-0.5 bg-amber-200/60 rounded">1. Evaluate</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                    <span class="px-2 py-0.5 bg-amber-200/60 rounded">2. Accept / Adapt</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                    <span class="px-2 py-0.5 bg-amber-200/60 rounded">3. Reject & Revise</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Bar -->
+                        <div class="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 no-print">
+                            <div class="text-xs text-slate-400">
+                                Grounded in ISTE Profile of an AI-Ready Graduate
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button @click="copyBlueprint()" 
+                                        class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span x-text="copied ? 'Copied Strategy!' : 'Copy Strategy'"></span>
+                                </button>
+                                <button @click="window.print()" 
+                                        class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg shadow-sm transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-print"></i>
+                                    <span>Print / Export</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Navigation -->
+            <div class="mt-10 flex justify-start">
+                <button @click="activePart = 2" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl transition-all">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Part 2 Challenge
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ROLE DETAIL MODAL (PART 1) -->
+    <div x-show="selectedRoleModal !== null" 
+         x-cloak 
+         x-transition.opacity 
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm no-print">
+        
+        <div @click.away="selectedRoleModal = null" 
+             class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 p-6 sm:p-8 relative">
+            
+            <button @click="selectedRoleModal = null" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <template x-if="selectedRoleModal">
+                <div>
+                    <!-- Header -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <div :class="selectedRoleModal.bgColor" class="w-12 h-12 rounded-xl flex items-center justify-center text-xl">
+                            <i :class="selectedRoleModal.icon + ' ' + selectedRoleModal.textColor"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-teal-600">AI-Ready Graduate Role</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900" x-text="selectedRoleModal.name"></h2>
                         </div>
                     </div>
 
-                    <!-- Overview Cards Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                        <div class="bg-indigo-50/70 border border-indigo-100 p-5 rounded-xl">
-                            <span class="bg-indigoRich text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Module 1</span>
-                            <h3 class="font-bold text-violetDeep text-base mt-2 mb-1">6-Role Matrix</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Explore the 6 graduate roles (Learner, Researcher, Synthesizer, Problem-Solver, Connector, Storyteller) dynamically tailored by Grade Band.</p>
-                        </div>
-                        <div class="bg-teal-50/70 border border-teal-100 p-5 rounded-xl">
-                            <span class="bg-tealWarm text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Module 2</span>
-                            <h3 class="font-bold text-teal-950 text-base mt-2 mb-1">Human vs. AI Card Sort</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Sort educational tasks into <strong>Human Responsibility</strong> vs. <strong>AI Augmentation</strong> based on ISTE standards and student agency.</p>
-                        </div>
-                        <div class="bg-rose-50/70 border border-rose-100 p-5 rounded-xl">
-                            <span class="bg-roseSoft text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Module 3</span>
-                            <h3 class="font-bold text-slate-900 text-base mt-2 mb-1">Scenario Matrix</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Analyze practical classroom situations to identify which profile role is being fostered in real-world learning.</p>
-                        </div>
-                    </div>
+                    <p class="text-sm text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6" x-text="selectedRoleModal.definition"></p>
 
-                    <!-- Facilitation Pathways -->
-                    <div class="space-y-4 text-sm text-slate-700">
-                        <div class="p-4 bg-white/80 rounded-xl border border-slate-200 shadow-2xs">
-                            <h4 class="font-bold text-violetDeep flex items-center gap-2 mb-1">
-                                <span>🎯</span> Self-Paced Individual Exploration (15–20 Mins)
+                    <!-- Details Sections -->
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100">
+                            <h4 class="text-xs font-bold text-indigo-900 uppercase tracking-wide mb-1">
+                                <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Uniquely Human Core Skill
                             </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                Navigate through Sections 1 to 3 at your own pace. Complete the micro-scenarios and card sorting to reflect on how AI can be integrated into your subject area while protecting student agency.
-                            </p>
+                            <p class="text-xs sm:text-sm text-indigo-950" x-text="selectedRoleModal.humanCore"></p>
                         </div>
 
-                        <div class="p-4 bg-white/80 rounded-xl border border-slate-200 shadow-2xs">
-                            <h4 class="font-bold text-violetDeep flex items-center gap-2 mb-1">
-                                <span>👥</span> PLC & Department Workshop Facilitation (30–45 Mins)
+                        <div class="bg-teal-50/70 p-4 rounded-xl border border-teal-100">
+                            <h4 class="text-xs font-bold text-teal-900 uppercase tracking-wide mb-1">
+                                <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI Augmentation Strategy
                             </h4>
-                            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 mt-1 leading-relaxed">
-                                <li><strong>Section 1 (10 mins):</strong> Select your target grade level. Each teacher selects a role and shares how it aligns with current unit plans.</li>
-                                <li><strong>Section 2 (15 mins):</strong> Work in pairs to sort tasks. Debate gray areas (e.g., fact-checking vs. brainstorming).</li>
-                                <li><strong>Section 3 (10 mins):</strong> Classify classroom scenarios together and discuss changes you can make to upcoming projects.</li>
+                            <p class="text-xs sm:text-sm text-teal-950" x-text="selectedRoleModal.aiStrategy"></p>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Key Skills & Practices from Profile
+                            </h4>
+                            <ul class="list-disc list-inside text-xs sm:text-sm text-slate-600 space-y-1">
+                                <template x-for="practice in selectedRoleModal.practices" :key="practice">
+                                    <li x-text="practice"></li>
+                                </template>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Key Discussion Prompts -->
-                    <div class="mt-6 p-4 bg-amber-50/80 border border-amber-200/80 rounded-xl">
-                        <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wider mb-2">Reflective Questions for Educators:</h4>
-                        <ol class="list-decimal list-inside text-xs text-amber-950 space-y-1">
-                            <li>Which profile role do your current classroom tasks support most naturally? Which role needs more attention?</li>
-                            <li>How can we ensure students use AI to extend critical thinking rather than bypass it?</li>
-                        </ol>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 1: 6-Role Grid -->
-            <section id="tab-grid" class="tab-content">
-                <div class="glass-card rounded-2xl p-6 mb-6 border-l-4 border-indigoRich">
-                    <h2 class="text-xl font-bold text-violetDeep mb-2">Section 1: The 6-Profile Interactive Wheel & Classroom Matrix</h2>
-                    <div class="mb-3">
-                        <span class="font-bold text-indigoRich text-xs uppercase tracking-wider">Goal:</span>
-                        <p class="text-slate-700 text-sm inline"> Explore what the 6 profile roles look like in practice across Elementary, Middle, and High School.</p>
-                    </div>
-                    <div class="bg-indigo-50/60 rounded-xl p-3.5 border border-indigo-100/80">
-                        <span class="font-bold text-indigoRich text-xs uppercase tracking-wider block mb-1">Instructions:</span>
-                        <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1">
-                            <li>Select your target Grade Band from the dropdown selector.</li>
-                            <li>Click any of the 6 Profile Roles in the grid to view detailed descriptors and classroom examples.</li>
-                            <li>Complete the 1-question "Spot the Skill" micro-scenario at the bottom of each card.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6 glass-card p-4 rounded-xl">
-                    <div>
-                        <h3 class="text-base font-bold text-violetDeep">Select Grade Level Focus</h3>
-                        <p class="text-xs text-slate-500">Classroom examples will dynamically adjust to your selection.</p>
-                    </div>
-                    <div class="w-full md:w-64">
-                        <select id="grade-select" class="w-full bg-white/90 border border-indigo-200 text-slate-800 py-2.5 px-3.5 rounded-xl focus:ring-2 focus:ring-indigoRich focus:border-indigoRich font-medium text-sm shadow-xs outline-none">
-                            <option value="middle" selected>Middle School (6-8)</option>
-                            <option value="high">High School (9-12)</option>
-                            <option value="elementary">Elementary School (K-5)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-1 grid grid-cols-2 gap-3" id="role-grid">
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Learner">
-                            <div class="text-indigoRich font-bold text-xs uppercase tracking-wider mb-1">Self-Directed</div>
-                            <div class="font-bold text-violetDeep text-base">Learner</div>
-                        </button>
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Researcher">
-                            <div class="text-tealWarm font-bold text-xs uppercase tracking-wider mb-1">Critical</div>
-                            <div class="font-bold text-violetDeep text-base">Researcher</div>
-                        </button>
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Synthesizer">
-                            <div class="text-amberSunset font-bold text-xs uppercase tracking-wider mb-1">Integrative</div>
-                            <div class="font-bold text-violetDeep text-base">Synthesizer</div>
-                        </button>
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Problem-Solver">
-                            <div class="text-roseSoft font-bold text-xs uppercase tracking-wider mb-1">Adaptive</div>
-                            <div class="font-bold text-violetDeep text-base">Problem-Solver</div>
-                        </button>
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Connector">
-                            <div class="text-indigoRich font-bold text-xs uppercase tracking-wider mb-1">Empathetic</div>
-                            <div class="font-bold text-violetDeep text-base">Connector</div>
-                        </button>
-                        <button class="role-btn glass-card-interactive rounded-2xl p-4 text-center transition-all focus:outline-none" data-role="Storyteller">
-                            <div class="text-emeraldSuccess font-bold text-xs uppercase tracking-wider mb-1">Creative</div>
-                            <div class="font-bold text-violetDeep text-base">Storyteller</div>
-                        </button>
-                    </div>
-
-                    <div class="lg:col-span-2 glass-card rounded-2xl p-6 flex flex-col h-full" id="role-details-pane">
-                        <div class="text-center text-slate-400 py-16 flex-grow flex items-center justify-center flex-col">
-                            <div class="p-4 bg-indigo-50 rounded-2xl mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigoRich" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <p class="text-base font-medium text-slate-600 max-w-md">Select a role card to see classroom examples and quick scenarios.</p>
+                    <!-- Interactive Self Reflection Rating -->
+                    <div class="bg-slate-900 text-white p-5 rounded-xl">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                            Classroom Reflection: How actively do you foster this role in your students?
+                        </label>
+                        <div class="flex items-center justify-between gap-2 mt-3">
+                            <template x-for="star in [1, 2, 3, 4, 5]" :key="star">
+                                <button @click="setReflectionScore(selectedRoleModal.id, star)" 
+                                        :class="reflections[selectedRoleModal.id] >= star ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'"
+                                        class="flex-1 py-2 rounded-lg text-xs transition-all flex flex-col items-center justify-center gap-1">
+                                    <i class="fa-solid fa-star text-sm"></i>
+                                    <span x-text="star"></span>
+                                </button>
+                            </template>
                         </div>
+                        <p class="text-[11px] text-slate-400 mt-3 text-center">
+                            1 = Rarely Integrated &nbsp;|&nbsp; 3 = Occasional Practice &nbsp;|&nbsp; 5 = Core Daily Routine
+                        </p>
                     </div>
                 </div>
-            </section>
-
-            <!-- TAB 2: Card Sort -->
-            <section id="tab-sort" class="tab-content">
-                <div class="glass-card rounded-2xl p-6 mb-6 border-l-4 border-tealWarm">
-                    <h2 class="text-xl font-bold text-violetDeep mb-2">Section 2: Human Responsibility vs. AI Augmentation Card Sort</h2>
-                    <div class="mb-3">
-                        <span class="font-bold text-tealWarm text-xs uppercase tracking-wider">Goal:</span>
-                        <p class="text-slate-700 text-sm inline"> Distinguish tasks requiring uniquely human judgment and personal agency from tasks appropriate for AI augmentation based on ISTE standards.</p>
-                    </div>
-                    <div class="bg-teal-50/60 rounded-xl p-3.5 border border-teal-100/80">
-                        <span class="font-bold text-tealWarm text-xs uppercase tracking-wider block mb-1">Instructions:</span>
-                        <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1">
-                            <li>Review the unsorted task card in the left column.</li>
-                            <li>Click either <strong>"Move to Human"</strong> or <strong>"Move to AI"</strong> to categorize the task based on agency and capabilities.</li>
-                            <li>Observe real-time feedback referencing ISTE criteria and watch your progress bar advance as you sort all cards.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="glass-card p-4 rounded-xl mb-6">
-                    <div class="flex justify-between items-center mb-2 text-xs font-bold uppercase tracking-wider">
-                        <span class="text-violetDeep">Sorting Progress</span>
-                        <span id="sort-progress-text" class="text-tealWarm">0 / 7 Cards Sorted</span>
-                    </div>
-                    <div class="w-full bg-slate-200/80 rounded-full h-3 overflow-hidden p-0.5">
-                        <div id="sort-progress-bar" class="bg-gradient-to-r from-tealWarm to-emeraldSuccess h-full rounded-full progress-bar-fill w-0"></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="col-span-1 glass-card rounded-2xl p-4 min-h-[26rem] overflow-y-auto flex flex-col" id="unsorted-container">
-                        <h3 class="font-bold text-slate-700 mb-4 border-b border-indigo-100 pb-2 flex justify-between items-center text-xs uppercase tracking-wider">
-                            <span>Tasks to Sort</span>
-                            <span id="cards-remaining" class="bg-violetDeep text-white text-xs px-2.5 py-0.5 rounded-full font-bold">0</span>
-                        </h3>
-                        <div id="cards-list" class="space-y-3 flex-grow"></div>
-                    </div>
-
-                    <div class="col-span-1 md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-gradient-to-b from-indigo-50/60 to-white/80 rounded-2xl p-5 border-2 border-indigo-200/80 min-h-[26rem] overflow-y-auto flex flex-col shadow-xs">
-                            <h3 class="font-bold text-indigo-950 mb-3 border-b border-indigo-200 pb-2 text-xs uppercase tracking-wider flex items-center">
-                                <span class="bg-violetDeep text-white text-xs px-2 py-0.5 rounded-md mr-2 font-bold">[HUMAN]</span>
-                                Human Responsibility
-                            </h3>
-                            <div id="zone-human" class="flex-grow space-y-3 p-1"></div>
-                        </div>
-                        <div class="bg-gradient-to-b from-teal-50/60 to-white/80 rounded-2xl p-5 border-2 border-teal-200/80 min-h-[26rem] overflow-y-auto flex flex-col shadow-xs">
-                            <h3 class="font-bold text-teal-950 mb-3 border-b border-teal-200 pb-2 text-xs uppercase tracking-wider flex items-center">
-                                <span class="bg-tealWarm text-white text-xs px-2 py-0.5 rounded-md mr-2 font-bold">[AI]</span>
-                                AI Augmentation
-                            </h3>
-                            <div id="zone-ai" class="flex-grow space-y-3 p-1"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="sort-feedback" class="mt-4 p-4 rounded-xl hidden transition-all duration-300 border text-sm shadow-xs font-medium"></div>
-                
-                <div class="mt-4 flex justify-end">
-                    <button id="reset-sort-btn" class="text-slate-600 hover:text-slate-900 text-xs font-bold uppercase tracking-wider px-4 py-2.5 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 transition-colors shadow-xs">Reset Activity</button>
-                </div>
-            </section>
-
-            <!-- TAB 3: Scenario Matrix -->
-            <section id="tab-scenario" class="tab-content">
-                <div class="glass-card rounded-2xl p-6 mb-6 border-l-4 border-roseSoft">
-                    <h2 class="text-xl font-bold text-violetDeep mb-2">Section 3: Scenario Matrix (Identify the AI Graduate Role)</h2>
-                    <div class="mb-3">
-                        <span class="font-bold text-roseSoft text-xs uppercase tracking-wider">Goal:</span>
-                        <p class="text-slate-700 text-sm inline"> Recognize how AI-Ready Graduate skills apply in practical classroom situations across subject disciplines.</p>
-                    </div>
-                    <div class="bg-rose-50/60 rounded-xl p-3.5 border border-rose-100/80">
-                        <span class="font-bold text-roseSoft text-xs uppercase tracking-wider block mb-1">Instructions:</span>
-                        <ol class="list-decimal list-inside text-sm text-slate-700 space-y-1">
-                            <li>Read the real-world classroom scenario describing learning activities.</li>
-                            <li>Select the single Profile Role that best classifies the activity.</li>
-                            <li>Review detailed feedback with explicit ISTE Skills citations.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="glass-card p-4 rounded-xl mb-6">
-                    <div class="flex justify-between items-center mb-2 text-xs font-bold uppercase tracking-wider">
-                        <span class="text-violetDeep">Scenario Completion</span>
-                        <span id="scenario-progress-text" class="text-roseSoft">0 / 4 Completed</span>
-                    </div>
-                    <div class="w-full bg-slate-200/80 rounded-full h-3 overflow-hidden p-0.5">
-                        <div id="scenario-progress-bar" class="bg-gradient-to-r from-roseSoft to-amberSunset h-full rounded-full progress-bar-fill w-0"></div>
-                    </div>
-                </div>
-
-                <div class="space-y-6" id="scenarios-container"></div>
-            </section>
-
+            </template>
         </div>
-    </main>
+    </div>
 
-    <!-- JavaScript Logic -->
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
+            <p>Based on the <strong>ISTE / ASCD Profile of an AI-Ready Graduate</strong> framework.</p>
+            <p class="mt-2 sm:mt-0 text-slate-500">Designed for K-12 Educator Professional Development</p>
+        </div>
+    </footer>
+
+
+    <!-- ALPINE APP SCRIPT LOGIC -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- TAB SWITCHING ---
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
+        function appData() {
+            return {
+                activePart: 1,
+                cardViewMode: 'all',
+                selectedRoleModal: null,
+                copied: false,
+                reflections: {},
+                quizFilter: 'all',
 
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = btn.getAttribute('data-target');
-                    
-                    tabButtons.forEach(b => {
-                        b.classList.remove('active', 'bg-indigoRich', 'text-white', 'shadow-xs');
-                        b.classList.add('text-slate-600', 'hover:text-indigoRich');
-                    });
-                    
-                    btn.classList.add('active', 'bg-indigoRich', 'text-white', 'shadow-xs');
-                    btn.classList.remove('text-slate-600', 'hover:text-indigoRich');
+                // The 6 AI-Ready Graduate Roles
+                roles: [
+                    {
+                        id: 'learner',
+                        name: 'Learner',
+                        tagline: 'Self-Directed & Adaptive',
+                        bgColor: 'bg-blue-100',
+                        textColor: 'text-blue-700',
+                        icon: 'fa-solid fa-graduation-cap',
+                        definition: 'Students know how to use AI to set learning goals, create plans for learning new skills, identify strategies to get unstuck, and seek targeted feedback.',
+                        humanFocus: 'Self-awareness of confusion, agency in deciding learning pathways, metacognitive judgment.',
+                        humanCore: 'Students retain autonomy over their learning goals and critically evaluate whether AI feedback is accurate and actionable.',
+                        aiStrategy: 'Use AI to generate diagnostic questions, obtain simplified explanations of stuck points, and receive immediate structural feedback.',
+                        practices: [
+                            'Focus loosely defined goals into actionable pathways matching student interests.',
+                            'Use AI diagnostic questions to pinpoint exact areas of confusion.',
+                            'Seek targeted structural feedback to iteratively revise work.'
+                        ]
+                    },
+                    {
+                        id: 'researcher',
+                        name: 'Researcher',
+                        tagline: 'Systematic & Critical Investigator',
+                        bgColor: 'bg-emerald-100',
+                        textColor: 'text-emerald-700',
+                        icon: 'fa-solid fa-magnifying-glass',
+                        definition: 'Students know how to use AI to strategically investigate and analyze topics, evaluate claims, and compare sources of information.',
+                        humanFocus: 'Curiosity to frame meaningful questions, evaluating bias, validating source authority.',
+                        humanCore: 'Formulating original research questions, discerning underrepresented perspectives, and exercising critical evaluation.',
+                        aiStrategy: 'Use AI as a research assistant to map complex topics, summarize dense papers, and surface conflicting viewpoints.',
+                        practices: [
+                            'Shape interests into explorable questions worth researching.',
+                            'Locate diverse sources and identify underrepresented viewpoints.',
+                            'Investigate where experts agree or differ across complex topics.'
+                        ]
+                    },
+                    {
+                        id: 'synthesizer',
+                        name: 'Synthesizer',
+                        tagline: 'Pattern Finder & Content Adaptor',
+                        bgColor: 'bg-amber-100',
+                        textColor: 'text-amber-700',
+                        icon: 'fa-solid fa-filter',
+                        definition: 'Students know how to use AI to synthesize, remix, and refine information into formats and levels of complexity that match unique needs.',
+                        humanFocus: 'Contextual judgment, making real-world human connections, evaluating pattern validity.',
+                        humanCore: 'Discerning overarching themes, determining when to stretch cognitive effort, and applying insights to human challenges.',
+                        aiStrategy: 'Use AI to re-level text complexity, convert formats (text to diagram/audio), and surface cross-dataset patterns.',
+                        practices: [
+                            'Convert content across media formats to match learning needs.',
+                            'Adjust complexity of text to align with current reading level.',
+                            'Gather and test patterns discovered across wide data sets.'
+                        ]
+                    },
+                    {
+                        id: 'problem-solver',
+                        name: 'Problem-Solver',
+                        tagline: 'Generative Brainstormer & Evaluator',
+                        bgColor: 'bg-purple-100',
+                        textColor: 'text-purple-700',
+                        icon: 'fa-solid fa-lightbulb',
+                        definition: 'Students know how to use AI as a brainstorming partner to clarify challenges, generate new ideas, and evaluate potential solutions.',
+                        humanFocus: 'Framing real-world problems, ethical reasoning, making final solution choices.',
+                        humanCore: 'Defining authentic human problems, probing AI suggestions for real-world feasibility, and choosing ethical solutions.',
+                        aiStrategy: 'Use AI as a thought partner to break creative blocks, test options for hidden risks, and model scenarios.',
+                        practices: [
+                            'Analyze evidence to frame clear, solvable problems.',
+                            'Use AI to generate wide-ranging options before picking a path.',
+                            'Probe promising approaches for weaknesses, risks, and implementation challenges.'
+                        ]
+                    },
+                    {
+                        id: 'connector',
+                        name: 'Connector',
+                        tagline: 'Empathy & Human Collaboration',
+                        bgColor: 'bg-rose-100',
+                        textColor: 'text-rose-700',
+                        icon: 'fa-solid fa-handshake',
+                        definition: 'Students know how to use AI to increase human collaboration, overcome language barriers, and find common ground among divergent perspectives.',
+                        humanFocus: 'Interpersonal empathy, nuance in cultural communication, team trust.',
+                        humanCore: 'Building authentic human relationships, appreciating diverse lived experiences, and navigating interpersonal group dynamics.',
+                        aiStrategy: 'Use AI for nuance-preserving translation, simulating historical/expert stakeholder perspectives, and streamlining team roles.',
+                        practices: [
+                            'Collaborate across language barriers preserving emotional tone.',
+                            'Simulate divergent historical/cultural viewpoints to build empathy.',
+                            'Practice navigating difficult conversations before human interaction.'
+                        ]
+                    },
+                    {
+                        id: 'storyteller',
+                        name: 'Storyteller',
+                        tagline: 'Narrative & Visual Communicator',
+                        bgColor: 'bg-cyan-100',
+                        textColor: 'text-cyan-700',
+                        icon: 'fa-solid fa-comment-dots',
+                        definition: 'Students know how to use AI to craft compelling narratives and communicate complex ideas through text, image, audio, and video.',
+                        humanFocus: 'Emotional resonance, ethical call to action, audience connection.',
+                        humanCore: 'Defining the core message, connecting with human emotion, and taking moral ownership of communicated stories.',
+                        aiStrategy: 'Use AI to generate visual metaphors, refine tone for specific audiences, and anticipate viewer objections.',
+                        practices: [
+                            'Refine messaging and anticipate potential audience objections.',
+                            'Identify language, tone, case studies, and metaphors to persuade.',
+                            'Visualize abstract concepts through diagrams and interactive media.'
+                        ]
+                    }
+                ],
 
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === target) {
-                            content.classList.add('active');
-                        }
-                    });
-                });
-            });
+                // Part 2 Scenarios
+                scenarios: [
+                    {
+                        id: 1,
+                        grade: 'K-5',
+                        role: 'Storyteller',
+                        title: 'Grade 4 Habitat Narrative Writing',
+                        description: 'A 4th-grade teacher gives students an AI tool and prompts it to write a complete 3-paragraph fictional story about a desert biome for each student to turn in.',
+                        correctAnswer: 'replace',
+                        userAnswer: null,
+                        rationale: 'This scenario is a Replacement (Bypasses Cognition). The AI is generating the creative storytelling work for the student, skipping the child\'s narrative drafting, imaginative thinking, and language practice.',
+                        humanCheckpoint: 'Augmentation alternative: Students draft their own story, then use AI to brainstorm vivid adjectives or generate visual habitat illustrations to complement their writing.'
+                    },
+                    {
+                        id: 2,
+                        grade: '6-8',
+                        role: 'Synthesizer',
+                        title: 'Grade 8 Civil Rights Primary Source Analysis',
+                        description: 'Students studying the Civil Rights Movement use AI to summarize dense news articles from 1965. Then, students analyze the AI summaries to compare Northern vs. Southern press coverage and form their own conclusion.',
+                        correctAnswer: 'augment',
+                        userAnswer: null,
+                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). The AI acts as a synthesizer tool to re-level dense historical text, while students retain full cognitive ownership over comparing perspectives and reaching conclusions.',
+                        humanCheckpoint: 'Human in the loop: Students verify the AI summaries against original text snippets to ensure no historical nuances were lost.'
+                    },
+                    {
+                        id: 3,
+                        grade: '9-12',
+                        role: 'Learner',
+                        title: 'High School Spanish Composition Diagnostic',
+                        description: 'A student prompts an AI tool: "Write a 500-word essay in Spanish about my summer vacation using past subjunctive tense" and copies it directly into their submission.',
+                        correctAnswer: 'replace',
+                        userAnswer: null,
+                        rationale: 'This scenario is Replacement (Bypasses Cognition). It completely eliminates the student\'s active practice with foreign language verb conjugation and vocabulary acquisition.',
+                        humanCheckpoint: 'Augmentation alternative: The student writes their own Spanish draft and prompts AI to highlight past-tense conjugation errors with hints on how to fix them.'
+                    },
+                    {
+                        id: 4,
+                        grade: 'K-5',
+                        role: 'Problem-Solver',
+                        title: 'Grade 3 Campus Recycling Challenge',
+                        description: 'Third graders ask AI to generate 5 ideas for reducing cafeteria plastic waste. Student teams then evaluate all 5 ideas against their school\'s real budget and vote on which solution to prototype.',
+                        correctAnswer: 'augment',
+                        userAnswer: null,
+                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). AI acts as a creative brainstorming partner to break blocks, but the students exercise critical thinking and agency to evaluate feasibility.',
+                        humanCheckpoint: 'Human in the loop: Students apply real-world constraints (cost, space, human rules) to filter and modify the AI suggestions.'
+                    },
+                    {
+                        id: 5,
+                        grade: '6-8',
+                        role: 'Researcher',
+                        title: 'Grade 7 Science Lab Report Synthesis',
+                        description: 'During a water quality lab, students ask AI to auto-generate their entire hypothesis, procedure, and data conclusion section without performing the lab test.',
+                        correctAnswer: 'replace',
+                        userAnswer: null,
+                        rationale: 'This scenario is Replacement (Bypasses Cognition). It circumvents real scientific inquiry, hands-on empirical data collection, and inductive reasoning.',
+                        humanCheckpoint: 'Augmentation alternative: Students conduct the water test, collect data, and use AI to query alternative variables or locate real regional water datasets for comparison.'
+                    },
+                    {
+                        id: 6,
+                        grade: '9-12',
+                        role: 'Connector',
+                        title: 'High School Civics Debate Preparation',
+                        description: 'Civics students preparing for a policy debate use AI to simulate 3 distinct stakeholder personas (city manager, local business owner, resident). Students interview the AI personas to discover potential counter-arguments.',
+                        correctAnswer: 'augment',
+                        userAnswer: null,
+                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). The AI serves as a perspective simulator to build empathy and uncover divergent viewpoints, sharpening human debate strategies.',
+                        humanCheckpoint: 'Human in the loop: Students evaluate whether the simulated personas accurately reflect real-world human needs or reliance on stereotypes.'
+                    }
+                ],
 
-            // --- DATA FOR SECTION 1: ROLES MATRIX ---
-            const rolesData = {
-                'Learner': {
-                    title: 'Self-Directed Learner',
-                    color: 'indigoRich',
-                    descriptor: 'Uses AI to personalize learning, identify gaps, and foster metacognition while maintaining self-directed curiosity.',
-                    examples: {
-                        elementary: 'Students ask AI to explain a math concept using a superhero analogy, then re-explain it to a partner in their own words.',
-                        middle: 'Students use AI to generate practice vocabulary quizzes tailored to their interest topics, logging where they struggled.',
-                        high: 'Students prompt AI to act as a Socratic tutor to test their understanding of cellular respiration before a physics lab.'
+                // Part 3 Activity Builder State
+                builder: {
+                    title: 'Interactive Stakeholder Interview Activity',
+                    grade: '6-8',
+                    role: 'Connector',
+                    skill: 'Critical Thinking',
+                    checkpoint: 'Students must review the AI\'s simulated responses, highlight 2 points that sound overly biased or simplistic, and write a critical evaluation explaining their perspective.',
+                    prompt: 'Act as a small business owner in 1920s New York. I will ask you 3 questions about how new industrial laws affect your shop. Respond in character with realistic concerns of that era.'
+                },
+
+                // Preset AI Prompts by Role & Grade
+                presetPrompts: {
+                    'Learner': {
+                        'K-5': 'I am learning about [Topic]. Ask me 3 quick diagnostic questions one at a time to check what I know and where I might be confused.',
+                        '6-8': 'Review my paragraph about [Topic]. Point out 2 structural areas where my explanation is unclear, but do not re-write it for me.',
+                        '9-12': 'Act as a tutor. Ask me to explain [Concept] in my own words, then identify any logical flaws or missing evidence in my explanation.'
                     },
-                    microScenario: {
-                        question: 'A student uses AI to generate study flashcards, tests themselves, and highlights concepts they answered wrong.',
-                        options: ['Learner', 'Storyteller', 'Connector'],
-                        correct: 0,
-                        explanation: 'Correct! The student uses AI to support metacognition and active self-directed learning.'
+                    'Researcher': {
+                        'K-5': 'What are 3 interesting, age-appropriate inquiry questions I can ask to investigate [Topic]?',
+                        '6-8': 'Provide 3 distinct viewpoints on [Historical Event]. Explain where experts agree and where they hold conflicting opinions.',
+                        '9-12': 'Summarize the primary arguments surrounding [Complex Issue]. Surface underrepresented perspectives and potential source biases.'
+                    },
+                    'Synthesizer': {
+                        'K-5': 'Explain [Science Concept] using an analogy involving a playground game so it is easy to visualize.',
+                        '6-8': 'Re-level this text about [Topic] to a 6th-grade reading level and summarize 3 main patterns in bullet points.',
+                        '9-12': 'Synthesize these two contrasting articles on [Topic], highlighting recurring structural themes and underlying assumptions.'
+                    },
+                    'Problem-Solver': {
+                        'K-5': 'Give our team 4 creative brainstorming ideas to help solve [School Challenge]. Do not pick for us; we will evaluate them!',
+                        '6-8': 'Act as a critical reviewer. Here is our proposed solution for [Problem]. List 3 hidden risks or implementation roadblocks.',
+                        '9-12': 'We are designing a solution for [Community Issue]. Generate 5 alternative approaches across low-budget and high-tech constraints.'
+                    },
+                    'Connector': {
+                        'K-5': 'Help us translate this welcome message into [Language] while explaining the friendly cultural meaning of key words.',
+                        '6-8': 'Simulate a brief dialogue between [Historical Person A] and [Person B] about [Event], showing their different values.',
+                        '9-12': 'Act as a [Specific Stakeholder Role]. Provide feedback on our proposed community plan from your unique lived perspective.'
+                    },
+                    'Storyteller': {
+                        'K-5': 'Suggest 3 visual drawing metaphors that can represent the abstract idea of [Value, e.g. Resilience].',
+                        '6-8': 'Help me structure a 2-minute podcast script about [Topic]. Suggest a strong opening hook and audience call to action.',
+                        '9-12': 'Review my essay argument about [Issue]. Identify potential reader objections and suggest ways to sharpen my emotional resonance.'
                     }
                 },
-                'Researcher': {
-                    title: 'Critical Researcher',
-                    color: 'tealWarm',
-                    descriptor: 'Formulates deep questions, evaluates source credibility, cross-checks AI outputs against trusted primary sources, and detects hallucinations.',
-                    examples: {
-                        elementary: 'Students compare AI answers about local wildlife with illustrated books from the library to check for accuracy.',
-                        middle: 'Students evaluate AI summaries of historical events by comparing citations against primary source archives.',
-                        high: 'Students audit an AI-generated literature review, verifying DOIs and fact-checking statistical claims against peer-reviewed journals.'
-                    },
-                    microScenario: {
-                        question: 'A student cross-examines an AI summary of a scientific study by hunting down the original paper\'s methodology section.',
-                        options: ['Synthesizer', 'Researcher', 'Problem-Solver'],
-                        correct: 1,
-                        explanation: 'Spot on! Cross-checking AI responses against primary sources is key to being a Critical Researcher.'
+
+                // Computed / Filtered Scenarios
+                get filteredScenarios() {
+                    if (this.quizFilter === 'all') return this.scenarios;
+                    return this.scenarios.filter(s => s.grade === this.quizFilter);
+                },
+
+                // Helper Functions
+                openRoleModal(role) {
+                    this.selectedRoleModal = role;
+                },
+
+                setReflectionScore(roleId, score) {
+                    this.reflections[roleId] = score;
+                },
+
+                avgReflectionScore() {
+                    const keys = Object.keys(this.reflections);
+                    if (keys.length === 0) return '0.0';
+                    const sum = keys.reduce((acc, k) => acc + this.reflections[k], 0);
+                    return (sum / keys.length).toFixed(1);
+                },
+
+                completedReflections() {
+                    return Object.keys(this.reflections).length;
+                },
+
+                submitQuizAnswer(scenarioId, answer) {
+                    const sc = this.scenarios.find(s => s.id === scenarioId);
+                    if (sc) {
+                        sc.userAnswer = answer;
                     }
                 },
-                'Synthesizer': {
-                    title: 'Integrative Synthesizer',
-                    color: 'amberSunset',
-                    descriptor: 'Integrates insights across diverse disciplines, connects AI outputs with human lived experience, and distills complex ideas into actionable wisdom.',
-                    examples: {
-                        elementary: 'Students combine AI ideas about weather patterns with art projects showing seasonal changes in their hometown.',
-                        middle: 'Students merge historical data on migration with personal family interviews to create a thematic timeline.',
-                        high: 'Students synthesize AI demographic models with local zoning laws to write a comprehensive urban planning proposal.'
-                    },
-                    microScenario: {
-                        question: 'A student blends AI data on renewable energy with local community survey results to craft a hybrid policy proposal.',
-                        options: ['Learner', 'Synthesizer', 'Connector'],
-                        correct: 1,
-                        explanation: 'Precisely! Combining AI-generated insights with real-world human context is Integrative Synthesis.'
+
+                completedQuizCount() {
+                    return this.scenarios.filter(s => s.userAnswer !== null).length;
+                },
+
+                getQuizBtnClass(sc, btnType) {
+                    if (sc.userAnswer === null) {
+                        return 'border-slate-200 hover:border-teal-500 hover:bg-slate-50 text-slate-700';
+                    }
+                    if (btnType === sc.correctAnswer) {
+                        return 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-400/40';
+                    }
+                    if (sc.userAnswer === btnType && btnType !== sc.correctAnswer) {
+                        return 'border-rose-400 bg-rose-50 text-rose-900 opacity-80';
+                    }
+                    return 'border-slate-200 opacity-40 text-slate-400';
+                },
+
+                getRoleIcon(roleName) {
+                    const r = this.roles.find(item => item.name === roleName);
+                    return r ? r.icon : 'fa-solid fa-star';
+                },
+
+                updatePromptTemplate(forcePreset = false) {
+                    const r = this.builder.role;
+                    const g = this.builder.grade;
+                    if (this.presetPrompts[r] && this.presetPrompts[r][g]) {
+                        this.builder.prompt = this.presetPrompts[r][g];
                     }
                 },
-                'Problem-Solver': {
-                    title: 'Adaptive Problem-Solver',
-                    color: 'roseSoft',
-                    descriptor: 'Uses AI as an iterative brainstorming partner to tackle real-world challenges, prototype solutions, and analyze complex systems.',
-                    examples: {
-                        elementary: 'Students brainstorm ways to reduce playground waste with AI, then build physical sorting bins for recycled items.',
-                        middle: 'Students iterate with AI to design a low-cost water filtration blueprint, testing physical filter materials in science lab.',
-                        high: 'Students write Python code for a local food bank inventory app, using AI to debug edge cases and optimize database queries.'
-                    },
-                    microScenario: {
-                        question: 'Students use AI to generate 5 distinct engineering design concepts, then physically stress-test materials to pick the best model.',
-                        options: ['Problem-Solver', 'Storyteller', 'Researcher'],
-                        correct: 0,
-                        explanation: 'Exactly right! AI aids rapid ideation, but human testing and adaptive problem-solving deliver the result.'
-                    }
+
+                getRoleSummary(roleName) {
+                    const r = this.roles.find(item => item.name === roleName);
+                    return r ? r.tagline : 'AI Augmentation Role';
                 },
-                'Connector': {
-                    title: 'Empathetic Connector',
-                    color: 'indigoRich',
-                    descriptor: 'Leverages AI to bridge cultural, linguistic, and accessible barriers, fostering empathy, global collaboration, and inclusive dialogue.',
-                    examples: {
-                        elementary: 'Students use AI translation tools to exchange bilingual pen-pal letters with a partner school in Mexico.',
-                        middle: 'Students design accessible school infographics using AI to generate multi-language captions and high-contrast visual cues.',
-                        high: 'Students organize a virtual global climate summit, using AI translation and speech-to-text tools to collaborate with international peers.'
-                    },
-                    microScenario: {
-                        question: 'A student uses AI real-time translation tools to interview community members in their native languages for an oral history project.',
-                        options: ['Connector', 'Learner', 'Synthesizer'],
-                        correct: 0,
-                        explanation: 'Correct! AI acts as a bridge to deepen human empathy and cross-cultural connection.'
-                    }
+
+                getHumanSkillDesc(skill) {
+                    if (skill === 'Creativity') return 'Unlocking novel ideas, visual metaphors, and original expression.';
+                    if (skill === 'Critical Thinking') return 'Evaluating claims, surfacing biases, and analyzing evidence.';
+                    return 'Maintaining self-directed learning goals and decision-making control.';
                 },
-                'Storyteller': {
-                    title: 'Creative Storyteller',
-                    color: 'emeraldSuccess',
-                    descriptor: 'Combines human emotion, narrative voice, and ethical intent with AI multimedia tools to craft compelling, authentic human stories.',
-                    examples: {
-                        elementary: 'Students write an original story on paper, then use AI image generators to illustrate their handmade storybook.',
-                        middle: 'Students compose a podcast script on local historical heroes, using AI voice tools for background narration while recording main vocals themselves.',
-                        high: 'Students create an interactive digital story about digital ethics, using AI to generate branching narrative pathways.'
-                    },
-                    microScenario: {
-                        question: 'A student crafts a personal memoir script, using AI image generation to design visual metaphors while keeping the core narrative purely authentic.',
-                        options: ['Problem-Solver', 'Storyteller', 'Researcher'],
-                        correct: 1,
-                        explanation: 'Well done! Human narrative ownership combined with AI creative tools defines the Storyteller role.'
-                    }
+
+                resetForm() {
+                    this.builder = {
+                        title: 'My AI-Augmented Classroom Activity',
+                        grade: '6-8',
+                        role: 'Learner',
+                        skill: 'Agency',
+                        checkpoint: 'Students write a 2-sentence reflection detailing why they accepted or modified the AI suggestion.',
+                        prompt: 'Provide 3 targeted hints to help me solve this problem without giving away the direct answer.'
+                    };
+                },
+
+                copyBlueprint() {
+                    const textToCopy = `
+ISTE AI-READY GRADUATE BLUEPRINT
+Title: ${this.builder.title}
+Grade Band: ${this.builder.grade} | Target Role: ${this.builder.role}
+Uniquely Human Skill Focus: ${this.builder.skill}
+
+Student AI Prompt:
+"${this.builder.prompt}"
+
+Human-in-the-Loop Checkpoint Protocol:
+${this.builder.checkpoint}
+                    `.trim();
+
+                    // Copy using standard document command fallback for iframe compatibility
+                    const el = document.createElement('textarea');
+                    el.value = textToCopy;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+
+                    this.copied = true;
+                    setTimeout(() => { this.copied = false; }, 2500);
                 }
             };
+        }
+    </script>
 
-            let currentGrade = 'middle';
-            let selectedRoleKey = null;
-
-            const gradeSelect = document.getElementById('grade-select');
-            const roleButtons = document.querySelectorAll('.role-btn');
-            const roleDetailsPane = document.getElementById('role-details-pane');
-
-            gradeSelect.addEventListener('change', (e) => {
-                currentGrade = e.target.value;
-                if (selectedRoleKey) {
-                    renderRoleDetails(selectedRoleKey);
-                }
-            });
-
-            roleButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    roleButtons.forEach(b => b.classList.remove('glow-indigo', 'border-indigoRich'));
-                    btn.classList.add('glow-indigo');
-                    selectedRoleKey = btn.getAttribute('data-role');
-                    renderRoleDetails(selectedRoleKey);
-                });
-            });
-
-            function renderRoleDetails(roleKey) {
-                const role = rolesData[roleKey];
-                if (!role) return;
-
-                const exampleText = role.examples[currentGrade];
-                
-                roleDetailsPane.innerHTML = `
-                    <div class="border-b border-indigo-100 pb-4 mb-4">
-                        <span class="text-xs font-bold uppercase tracking-wider text-indigoRich bg-indigo-50 px-2.5 py-1 rounded-md">Role Profile</span>
-                        <h3 class="text-2xl font-bold text-violetDeep mt-2">${role.title}</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mt-1">${role.descriptor}</p>
-                    </div>
-
-                    <div class="mb-5 bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-                        <h4 class="text-xs font-bold text-indigoRich uppercase tracking-wider mb-1">
-                            Classroom Example (${currentGrade.toUpperCase()} SCHOOL):
-                        </h4>
-                        <p class="text-sm text-slate-800 leading-relaxed font-medium">${exampleText}</p>
-                    </div>
-
-                    <div class="mt-auto bg-indigo-50/70 p-4 rounded-xl border border-indigo-100">
-                        <h4 class="text-xs font-bold text-violetDeep uppercase tracking-wider mb-2">⚡ Spot the Skill Micro-Quiz:</h4>
-                        <p class="text-xs text-slate-700 font-medium mb-3">${role.microScenario.question}</p>
-                        <div class="flex flex-wrap gap-2 mb-2" id="micro-quiz-options">
-                            ${role.microScenario.options.map((opt, idx) => `
-                                <button class="micro-opt-btn bg-white hover:bg-indigo-100 text-indigo-950 text-xs font-semibold px-3 py-1.5 rounded-lg border border-indigo-200 transition-colors" data-idx="${idx}">
-                                    ${opt}
-                                </button>
-                            `).join('')}
-                        </div>
-                        <div id="micro-quiz-feedback" class="text-xs font-semibold hidden mt-2 p-2 rounded-lg"></div>
-                    </div>
-                `;
-
-                const optButtons = roleDetailsPane.querySelectorAll('.micro-opt-btn');
-                const feedbackDiv = roleDetailsPane.querySelector('#micro-quiz-feedback');
-
-                optButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const idx = parseInt(btn.getAttribute('data-idx'));
-                        if (idx === role.microScenario.correct) {
-                            feedbackDiv.className = 'text-xs font-semibold mt-2 p-2 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-200';
-                            feedbackDiv.textContent = '✓ ' + role.microScenario.explanation;
-                        } else {
-                            feedbackDiv.className = 'text-xs font-semibold mt-2 p-2 rounded-lg bg-rose-100 text-rose-900 border border-rose-200';
-                            feedbackDiv.textContent = '✗ Try again! Think about which profile best matches this action.';
-                        }
-                        feedbackDiv.classList.remove('hidden');
-                    });
-                });
-            }
-
-            // --- DATA FOR SECTION 2: CARD SORT ---
-            const initialSortCards = [
-                {
-                    id: 'c1',
-                    title: 'Determining Ethical Boundaries & Academic Integrity',
-                    desc: 'Establishing the moral guidelines, personal honesty, and citation standards for a project.',
-                    correct: 'human',
-                    explanation: 'Ethics, values, and academic responsibility require human conscience and accountability.'
-                },
-                {
-                    id: 'c2',
-                    title: 'Rapid Ideation of Project Angles',
-                    desc: 'Generating 10 diverse project topics or brainstorm variations to kickstart a design challenge.',
-                    correct: 'ai',
-                    explanation: 'AI excels at rapid ideation and expanding options, allowing students to select and refine.'
-                },
-                {
-                    id: 'c3',
-                    title: 'Fact-Checking & Primary Source Audit',
-                    desc: 'Verifying statistical claims, dates, and citations against primary source documents.',
-                    correct: 'human',
-                    explanation: 'AI can hallucinate plausible facts. Human verification ensures intellectual accuracy.'
-                },
-                {
-                    id: 'c4',
-                    title: 'Reformatting Raw Notes into Structured CSV/JSON',
-                    desc: 'Converting messy study bullet points into a clean data table.',
-                    correct: 'ai',
-                    explanation: 'Data transformation and syntax formatting are automated efficiency tasks ideal for AI.'
-                },
-                {
-                    id: 'c5',
-                    title: 'Expressing Authentic Lived Experience',
-                    desc: 'Sharing personal reflection rooted in culture, empathy, and personal identity.',
-                    correct: 'human',
-                    explanation: 'Lived experience and authentic human voice belong strictly to human agency.'
-                },
-                {
-                    id: 'c6',
-                    title: 'Generating Self-Quiz Practice Questions',
-                    desc: 'Creating 5 multiple-choice practice questions from lecture notes for self-review.',
-                    correct: 'ai',
-                    explanation: 'Using AI as a study partner for formative practice enhances active recall and metacognition.'
-                },
-                {
-                    id: 'c7',
-                    title: 'Evaluating Project Quality & Assigning Grades',
-                    desc: 'Making the final judgment call on project quality, nuanced effort, and credit.',
-                    correct: 'human',
-                    explanation: 'Evaluation and accountability require human empathy, contextual nuance, and responsibility.'
-                }
-            ];
-
-            let unsortedCards = [...initialSortCards];
-            let sortedHuman = [];
-            let sortedAI = [];
-
-            const cardsListContainer = document.getElementById('cards-list');
-            const zoneHuman = document.getElementById('zone-human');
-            const zoneAI = document.getElementById('zone-ai');
-            const cardsRemainingBadge = document.getElementById('cards-remaining');
-            const sortProgressBar = document.getElementById('sort-progress-bar');
-            const sortProgressText = document.getElementById('sort-progress-text');
-            const sortFeedback = document.getElementById('sort-feedback');
-            const resetSortBtn = document.getElementById('reset-sort-btn');
-
-            function renderCardSort() {
-                cardsListContainer.innerHTML = '';
-                zoneHuman.innerHTML = '';
-                zoneAI.innerHTML = '';
-
-                cardsRemainingBadge.textContent = unsortedCards.length;
-                const totalSorted = sortedHuman.length + sortedAI.length;
-                const pct = (totalSorted / initialSortCards.length) * 100;
-                sortProgressBar.style.width = `${pct}%`;
-                sortProgressText.textContent = `${totalSorted} /${initialSortCards.length} Cards Sorted`;
-
-                if (unsortedCards.length === 0) {
-                    cardsListContainer.innerHTML = `<div class="p-4 text-center text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-xl border border-emerald-200">🎉 All cards sorted! Review your placements.</div>`;
-                } else {
-                    unsortedCards.forEach(card => {
-                        const cardEl = document.createElement('div');
-                        cardEl.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs space-y-2';
-                        cardEl.innerHTML = `
-                            <h4 class="font-bold text-slate-800 text-xs">${card.title}</h4>
-                            <p class="text-xs text-slate-600 leading-tight">${card.desc}</p>
-                            <div class="flex gap-2 pt-1">
-                                <button class="btn-sort-human flex-1 bg-indigo-50 hover:bg-indigoRich hover:text-white text-indigoRich text-xs font-bold py-1.5 px-2 rounded-lg border border-indigo-200 transition-colors" data-id="${card.id}">
-                                    Move to Human
-                                </button>
-                                <button class="btn-sort-ai flex-1 bg-teal-50 hover:bg-tealWarm hover:text-white text-tealWarm text-xs font-bold py-1.5 px-2 rounded-lg border border-teal-200 transition-colors" data-id="${card.id}">
-                                    Move to AI
-                                </button>
-                            </div>
-                        `;
-                        cardsListContainer.appendChild(cardEl);
-                    });
-                }
-
-                // Render Sorted Human Zone
-                sortedHuman.forEach(card => {
-                    const isCorrect = card.correct === 'human';
-                    const item = document.createElement('div');
-                    item.className = `p-3 rounded-xl border text-xs font-medium ${isCorrect ? 'bg-emerald-50/80 border-emerald-200 text-emerald-950' : 'bg-rose-50/80 border-rose-200 text-rose-950'}`;
-                    item.innerHTML = `
-                        <div class="flex justify-between items-start mb-1">
-                            <span class="font-bold">${card.title}</span>
-                            <span class="font-bold">${isCorrect ? '✓ Correct' : '✗ Reconsider'}</span>
-                        </div>
-                        <p class="text-2xs opacity-90">${card.explanation}</p>
-                    `;
-                    zoneHuman.appendChild(item);
-                });
-
-                // Render Sorted AI Zone
-                sortedAI.forEach(card => {
-                    const isCorrect = card.correct === 'ai';
-                    const item = document.createElement('div');
-                    item.className = `p-3 rounded-xl border text-xs font-medium ${isCorrect ? 'bg-emerald-50/80 border-emerald-200 text-emerald-950' : 'bg-rose-50/80 border-rose-200 text-rose-950'
+</body>
+</html>
