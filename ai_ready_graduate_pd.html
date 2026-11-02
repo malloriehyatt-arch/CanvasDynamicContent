@@ -45,14 +45,15 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/20 border border-teal-400/30 rounded-full text-xs font-semibold text-teal-200 uppercase tracking-wider mb-3">
-                        <i class="fa-solid fa-graduation-cap"></i> ISTE / ASCD Framework Practice
+                        <i class="fa-solid fa-graduation-cap"></i> Pickens County Schools
                     </div>
                     <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
                         ISTE AI-Ready Graduate: Applied Practice
                     </h1>
                     <p class="mt-2 text-slate-300 text-sm sm:text-base max-w-2xl font-normal">
-                        Shifting from AI Literacy to Augmenting Uniquely Human Skills: Creativity, Critical Thinking & Agency
+                        AI Integration that Supports Human-Led Skills: Creativity, Critical Thinking & Agency
                     </p>
+                    <h2><p>This interactive activity is based on the concepts presented in the ISTE/ASCD article <i>Profile of an AI-Ready Graduate</i> © 2026 ISTE | iste-ascd.org/aiready. </h2></p>
                 </div>
                 <!-- Self Reflection Quick Score summary -->
                 <div class="mt-6 md:mt-0 bg-slate-900/60 backdrop-blur border border-slate-700/60 p-4 rounded-xl text-center flex flex-col justify-center items-center min-w-[200px]">
@@ -80,7 +81,7 @@
                             :class="activePart === 2 ? 'bg-teal-600 text-white shadow-md ring-2 ring-teal-400/50' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'"
                             class="flex flex-col sm:flex-row items-center justify-center gap-2 p-3 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200">
                         <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">2</span>
-                        <span class="text-center sm:text-left truncate">2. Augment vs. Replace</span>
+                        <span class="text-center sm:text-left truncate">2. Support vs. Replace</span>
                     </button>
                     <!-- Step 3 Tab -->
                     <button @click="activePart = 3" 
@@ -109,7 +110,7 @@
                         <h3 class="text-base font-semibold text-indigo-900">Part 1: Explore the 6 Human-Centered AI Roles</h3>
                         <p class="text-sm text-indigo-700 mt-1">
                             The ISTE AI-Ready Graduate framework highlights six essential human roles. Toggle between 
-                            <strong>Uniquely Human Core</strong> and <strong>AI Catalyst Strategy</strong> for each card below. Click any card to open the detail reflector and self-assess your current classroom integration.
+                            <strong>Human-Led</strong> and <strong>AI-Supported</strong> for each card below. Click any card to open the detail reflector and self-assess your current classroom integration.
                         </p>
                     </div>
                 </div>
@@ -130,12 +131,12 @@
                     <button @click="cardViewMode = 'human'" 
                             :class="cardViewMode === 'human' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
                             class="px-3 py-1.5 rounded-md transition-all">
-                        <i class="fa-solid fa-user-gear mr-1"></i> Uniquely Human
+                        <i class="fa-solid fa-user-gear mr-1"></i> Human-Led
                     </button>
                     <button @click="cardViewMode = 'ai'" 
                             :class="cardViewMode === 'ai' ? 'bg-teal-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'"
                             class="px-3 py-1.5 rounded-md transition-all">
-                        <i class="fa-solid fa-bolt mr-1"></i> AI Augmentation
+                        <i class="fa-solid fa-bolt mr-1"></i> AI-Supported
                     </button>
                 </div>
             </div>
@@ -170,15 +171,15 @@
                             <!-- Human Skill Focus -->
                             <div x-show="cardViewMode === 'all' || cardViewMode === 'human'" class="bg-indigo-50/60 p-3 rounded-lg">
                                 <span class="text-xs font-bold text-indigo-900 uppercase tracking-wide block mb-1">
-                                    <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Uniquely Human Skill
+                                    <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Human-Led Skill
                                 </span>
                                 <p class="text-xs text-indigo-950 font-medium" x-text="role.humanFocus"></p>
                             </div>
 
-                            <!-- AI Augmentation Strategy -->
+                            <!-- AI-Supported Strategy -->
                             <div x-show="cardViewMode === 'all' || cardViewMode === 'ai'" class="bg-teal-50/60 p-3 rounded-lg">
                                 <span class="text-xs font-bold text-teal-900 uppercase tracking-wide block mb-1">
-                                    <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI Augmentation Strategy
+                                    <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI-Supported Strategy
                                 </span>
                                 <p class="text-xs text-teal-950 font-medium" x-text="role.aiStrategy"></p>
                             </div>
@@ -195,14 +196,14 @@
             <!-- Bottom CTA to Part 2 -->
             <div class="mt-10 flex justify-end">
                 <button @click="activePart = 2" class="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl shadow-md transition-all flex items-center gap-2">
-                    <span>Proceed to Part 2: Augment vs. Replace Challenge</span>
+                    <span>Proceed to Part 2: Support vs. Replace Challenge</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </section>
 
 
-        <!-- PART 2: AUGMENT VS. REPLACE CHALLENGE -->
+        <!-- PART 2: Support VS. REPLACE CHALLENGE -->
         <section x-show="activePart === 2" x-transition.opacity.duration.300ms>
             <!-- Instruction Banner -->
             <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl shadow-sm mb-8">
@@ -215,7 +216,7 @@
                         <p class="text-sm text-emerald-800 mt-1">
                             Analyze each classroom scenario. Determine whether the AI usage represents 
                             <strong class="text-amber-800">⚠️ Replacement (Bypasses Cognition)</strong> or 
-                            <strong class="text-emerald-800">🚀 Augmentation (Deepens Skill & Agency)</strong>. 
+                            <strong class="text-emerald-800">🚀 AI-Supported (Deepens Skill & Agency)</strong>. 
                             Review the pedagogical rationale grounded in the ISTE framework.
                         </p>
                     </div>
@@ -277,19 +278,19 @@
                                 <i x-show="sc.userAnswer === 'replace'" class="fa-solid fa-circle-check text-lg"></i>
                             </button>
 
-                            <!-- Choice: Augment -->
-                            <button @click="submitQuizAnswer(sc.id, 'augment')" 
+                            <!-- Choice: Support -->
+                            <button @click="submitQuizAnswer(sc.id, 'Support')" 
                                     :disabled="sc.userAnswer !== null"
-                                    :class="getQuizBtnClass(sc, 'augment')"
+                                    :class="getQuizBtnClass(sc, 'Support')"
                                     class="p-4 rounded-xl border-2 text-left transition-all flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <span class="text-2xl">🚀</span>
                                     <div>
-                                        <div class="font-bold text-sm">Augmentation</div>
+                                        <div class="font-bold text-sm">AI-Supported</div>
                                         <div class="text-xs text-slate-500 font-normal">Deepens cognitive skill & agency</div>
                                     </div>
                                 </div>
-                                <i x-show="sc.userAnswer === 'augment'" class="fa-solid fa-circle-check text-lg"></i>
+                                <i x-show="sc.userAnswer === 'Support'" class="fa-solid fa-circle-check text-lg"></i>
                             </button>
                         </div>
 
@@ -337,7 +338,7 @@
                     <div class="ml-3">
                         <h3 class="text-base font-semibold text-cyan-900">Part 3: Design an AI-Ready Learning Activity Blueprint</h3>
                         <p class="text-sm text-cyan-800 mt-1">
-                            Use this guided builder to design a classroom activity that uses AI to <strong>augment</strong> rather than replace student cognition. Choose target parameters below to auto-generate or customize an AI-Ready Activity Blueprint Card.
+                            Use this guided builder to design a classroom activity that uses AI to <strong>Support</strong> rather than replace student cognition. Choose target parameters below to auto-generate or customize an AI-Ready Activity Blueprint Card.
                         </p>
                     </div>
                 </div>
@@ -384,7 +385,7 @@
 
                     <!-- Step 3: Key Human Skill Focus -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 3: Uniquely Human Skill Focus</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Step 3: Human-Led Skill Focus</label>
                         <div class="grid grid-cols-3 gap-2">
                             <template x-for="s in ['Creativity', 'Critical Thinking', 'Agency']" :key="s">
                                 <button @click="builder.skill = s" 
@@ -449,7 +450,7 @@
 
                                 <div class="bg-teal-50 p-4 rounded-xl border border-teal-100">
                                     <span class="text-xs font-bold text-teal-900 uppercase tracking-wide block mb-1">
-                                        <i class="fa-solid fa-robot text-teal-600 mr-1"></i> AI Augmentation Role
+                                        <i class="fa-solid fa-robot text-teal-600 mr-1"></i> AI-Supported Role
                                     </span>
                                     <div class="text-sm font-bold text-teal-950" x-text="builder.role"></div>
                                     <p class="text-xs text-teal-700/80 mt-1" x-text="getRoleSummary(builder.role)"></p>
@@ -548,14 +549,14 @@
                     <div class="space-y-4 mb-6">
                         <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100">
                             <h4 class="text-xs font-bold text-indigo-900 uppercase tracking-wide mb-1">
-                                <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Uniquely Human Core Skill
+                                <i class="fa-solid fa-brain text-indigo-600 mr-1"></i> Human-Led Core Skill
                             </h4>
                             <p class="text-xs sm:text-sm text-indigo-950" x-text="selectedRoleModal.humanCore"></p>
                         </div>
 
                         <div class="bg-teal-50/70 p-4 rounded-xl border border-teal-100">
                             <h4 class="text-xs font-bold text-teal-900 uppercase tracking-wide mb-1">
-                                <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI Augmentation Strategy
+                                <i class="fa-solid fa-wand-magic-sparkles text-teal-600 mr-1"></i> AI-Supported Strategy
                             </h4>
                             <p class="text-xs sm:text-sm text-teal-950" x-text="selectedRoleModal.aiStrategy"></p>
                         </div>
@@ -600,8 +601,8 @@
     <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs no-print">
         <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
-            <p>Based on the <strong>ISTE / ASCD Profile of an AI-Ready Graduate</strong> framework.</p>
-            <p class="mt-2 sm:mt-0 text-slate-500">Designed for K-12 Educator Professional Development</p>
+            <p>Based on the <strong>ISTE / ASCD Profile of an AI-Ready Graduate • PCSD Teaching & Learning • Mallorie Hyatt </strong> framework.</p>
+            <p class="mt-2 sm:mt-0 text-slate-500">Pickens County Schools</p>
         </div>
     </footer>
 
@@ -734,7 +735,7 @@
                         correctAnswer: 'replace',
                         userAnswer: null,
                         rationale: 'This scenario is a Replacement (Bypasses Cognition). The AI is generating the creative storytelling work for the student, skipping the child\'s narrative drafting, imaginative thinking, and language practice.',
-                        humanCheckpoint: 'Augmentation alternative: Students draft their own story, then use AI to brainstorm vivid adjectives or generate visual habitat illustrations to complement their writing.'
+                        humanCheckpoint: 'AI-Supported alternative: Students draft their own story, then use AI to brainstorm vivid adjectives or generate visual habitat illustrations to complement their writing.'
                     },
                     {
                         id: 2,
@@ -742,9 +743,9 @@
                         role: 'Synthesizer',
                         title: 'Grade 8 Civil Rights Primary Source Analysis',
                         description: 'Students studying the Civil Rights Movement use AI to summarize dense news articles from 1965. Then, students analyze the AI summaries to compare Northern vs. Southern press coverage and form their own conclusion.',
-                        correctAnswer: 'augment',
+                        correctAnswer: 'Support',
                         userAnswer: null,
-                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). The AI acts as a synthesizer tool to re-level dense historical text, while students retain full cognitive ownership over comparing perspectives and reaching conclusions.',
+                        rationale: 'This scenario is AI-Supported (Deepens Skill & Agency). The AI acts as a synthesizer tool to re-level dense historical text, while students retain full cognitive ownership over comparing perspectives and reaching conclusions.',
                         humanCheckpoint: 'Human in the loop: Students verify the AI summaries against original text snippets to ensure no historical nuances were lost.'
                     },
                     {
@@ -756,7 +757,7 @@
                         correctAnswer: 'replace',
                         userAnswer: null,
                         rationale: 'This scenario is Replacement (Bypasses Cognition). It completely eliminates the student\'s active practice with foreign language verb conjugation and vocabulary acquisition.',
-                        humanCheckpoint: 'Augmentation alternative: The student writes their own Spanish draft and prompts AI to highlight past-tense conjugation errors with hints on how to fix them.'
+                        humanCheckpoint: 'AI-Supported alternative: The student writes their own Spanish draft and prompts AI to highlight past-tense conjugation errors with hints on how to fix them.'
                     },
                     {
                         id: 4,
@@ -764,9 +765,9 @@
                         role: 'Problem-Solver',
                         title: 'Grade 3 Campus Recycling Challenge',
                         description: 'Third graders ask AI to generate 5 ideas for reducing cafeteria plastic waste. Student teams then evaluate all 5 ideas against their school\'s real budget and vote on which solution to prototype.',
-                        correctAnswer: 'augment',
+                        correctAnswer: 'Support',
                         userAnswer: null,
-                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). AI acts as a creative brainstorming partner to break blocks, but the students exercise critical thinking and agency to evaluate feasibility.',
+                        rationale: 'This scenario is AI-Supported (Deepens Skill & Agency). AI acts as a creative brainstorming partner to break blocks, but the students exercise critical thinking and agency to evaluate feasibility.',
                         humanCheckpoint: 'Human in the loop: Students apply real-world constraints (cost, space, human rules) to filter and modify the AI suggestions.'
                     },
                     {
@@ -778,7 +779,7 @@
                         correctAnswer: 'replace',
                         userAnswer: null,
                         rationale: 'This scenario is Replacement (Bypasses Cognition). It circumvents real scientific inquiry, hands-on empirical data collection, and inductive reasoning.',
-                        humanCheckpoint: 'Augmentation alternative: Students conduct the water test, collect data, and use AI to query alternative variables or locate real regional water datasets for comparison.'
+                        humanCheckpoint: 'AI-Supported alternative: Students conduct the water test, collect data, and use AI to query alternative variables or locate real regional water datasets for comparison.'
                     },
                     {
                         id: 6,
@@ -786,9 +787,9 @@
                         role: 'Connector',
                         title: 'High School Civics Debate Preparation',
                         description: 'Civics students preparing for a policy debate use AI to simulate 3 distinct stakeholder personas (city manager, local business owner, resident). Students interview the AI personas to discover potential counter-arguments.',
-                        correctAnswer: 'augment',
+                        correctAnswer: 'Support',
                         userAnswer: null,
-                        rationale: 'This scenario is Augmentation (Deepens Skill & Agency). The AI serves as a perspective simulator to build empathy and uncover divergent viewpoints, sharpening human debate strategies.',
+                        rationale: 'This scenario is AI-Supported (Deepens Skill & Agency). The AI serves as a perspective simulator to build empathy and uncover divergent viewpoints, sharpening human debate strategies.',
                         humanCheckpoint: 'Human in the loop: Students evaluate whether the simulated personas accurately reflect real-world human needs or reliance on stereotypes.'
                     }
                 ],
@@ -902,7 +903,7 @@
 
                 getRoleSummary(roleName) {
                     const r = this.roles.find(item => item.name === roleName);
-                    return r ? r.tagline : 'AI Augmentation Role';
+                    return r ? r.tagline : 'AI Supported Role';
                 },
 
                 getHumanSkillDesc(skill) {
@@ -913,7 +914,7 @@
 
                 resetForm() {
                     this.builder = {
-                        title: 'My AI-Augmented Classroom Activity',
+                        title: 'My AI-Supported Classroom Activity',
                         grade: '6-8',
                         role: 'Learner',
                         skill: 'Agency',
@@ -927,7 +928,7 @@
 ISTE AI-READY GRADUATE BLUEPRINT
 Title: ${this.builder.title}
 Grade Band: ${this.builder.grade} | Target Role: ${this.builder.role}
-Uniquely Human Skill Focus: ${this.builder.skill}
+Human-Led Skill Focus: ${this.builder.skill}
 
 Student AI Prompt:
 "${this.builder.prompt}"
